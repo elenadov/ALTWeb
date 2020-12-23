@@ -16,4 +16,5 @@ target/site
 *.iws
 .allure
 allure-results
+*.properties
 
