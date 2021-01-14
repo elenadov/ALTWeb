@@ -26,6 +26,12 @@ public class PositiveAuthorizationTest extends AbstractParentTest {
         loginForm.enterSmsCodeIntoField(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
         loginForm.clickSmsCodeInputConfirmation();
 
-        checkExpectedResult("Page is not loaded", lotteries.isPageLoaded());
+        checkExpectedResult("Page hasn't loaded yet",lotteries.isNewOSAnnouncementDisplayed());
+        lotteries.clickContinueNewOSButton();
+
+        checkExpectedResult("Page hasn't loaded yet",lotteries.isJackpotAnnouncementDisplayed());
+        lotteries.clickContinueJackpotButton();
+
+        checkExpectedResult("Page hasn't loaded yet",lotteries.isLotteriesListDisplayed());
             }
 }

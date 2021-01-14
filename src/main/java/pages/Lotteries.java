@@ -1,13 +1,11 @@
 package pages;
 
 import io.qameta.allure.Step;
-import libs.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import parentPage.ParentPage;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextBlock;
-import ru.yandex.qatools.htmlelements.element.TextInput;
 
 public class Lotteries extends ParentPage {
 
@@ -39,36 +37,59 @@ public class Lotteries extends ParentPage {
     private Button continueWorkAfterRegistrationSuccess;
 
     public boolean isPageLoaded(){
-        if (actionWithWebElements.isElementDisplayed(newOSAnnouncment)){
-            actionWithWebElements.clickOnElement(continueNewOSButton);
-            if(actionWithWebElements.isElementDisplayed(jackpot)){
-                actionWithWebElements.clickOnElement(continueJackpotButton);
-                actionWithWebElements.isElementDisplayed(lotteriesList);
+        if (isNewOSAnnouncementDisplayed()){
+            clickContinueNewOSButton();
+            if(isJackpotAnnouncementDisplayed()){
+                clickContinueJackpotButton();
+                isLotteriesListDisplayed();
                 checkCurrentUrl();
             }
-            else if(actionWithWebElements.isElementDisplayed(lotteriesList)){
+            else if(isLotteriesListDisplayed()){
                 checkCurrentUrl();
             }
             return true;
         }
-        else if(actionWithWebElements.isElementDisplayed(jackpot)){
-            actionWithWebElements.clickOnElement(continueJackpotButton);
-            actionWithWebElements.isElementDisplayed(lotteriesList);
+        else if(isJackpotAnnouncementDisplayed()){
+            clickContinueJackpotButton();
+            isLotteriesListDisplayed();
             checkCurrentUrl();
             return true;
         }
-        else if(actionWithWebElements.isElementDisplayed(lotteriesList)){
+        else if(isLotteriesListDisplayed()){
             checkCurrentUrl();
             return true;
         }
         return false;
     }
 
-
+    @Step
+    public boolean isNewOSAnnouncementDisplayed(){
+        return actionWithWebElements.isElementDisplayed(newOSAnnouncment);
+    }
 
     @Step
-    public void isRegistrationSuccesfulPopUpVisible(){
-        actionWithWebElements.isElementDisplayed(registrationIsSuccessfulPopUp);
+    public boolean isJackpotAnnouncementDisplayed(){
+        return actionWithWebElements.isElementDisplayed(jackpot);
+    }
+
+    @Step
+    public boolean isLotteriesListDisplayed(){
+        return actionWithWebElements.isElementDisplayed(lotteriesList);
+    }
+
+    @Step
+    public boolean isRegistrationSuccesfulPopUpVisible(){
+        return actionWithWebElements.isElementDisplayed(registrationIsSuccessfulPopUp);
+    }
+
+    @Step
+    public void clickContinueNewOSButton(){
+        actionWithWebElements.clickOnElement(continueNewOSButton);
+    }
+
+    @Step
+    public void clickContinueJackpotButton(){
+        actionWithWebElements.clickOnElement(continueJackpotButton);
     }
 
     @Step

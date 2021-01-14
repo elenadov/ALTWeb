@@ -24,7 +24,14 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
         loginForm.enterSmsCodeIntoField(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
         loginForm.clickSmsCodeInputConfirmation();
 
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isPageLoaded());
+//        checkExpectedResult("Page hasn't loaded yet",lotteries.isPageLoaded());
+        checkExpectedResult("Page hasn't loaded yet",lotteries.isNewOSAnnouncementDisplayed());
+        lotteries.clickContinueNewOSButton();
+
+        checkExpectedResult("Page hasn't loaded yet",lotteries.isJackpotAnnouncementDisplayed());
+        lotteries.clickContinueJackpotButton();
+
+        checkExpectedResult("Page hasn't loaded yet",lotteries.isLotteriesListDisplayed());
 
         oracleSQLDBConnect();
         emlPurchaseMenuPage.chooseEMLPurchaseMenu();
@@ -43,7 +50,7 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
         lotteries.isRegistrationSuccesfulPopUpVisible();
         lotteries.clickContinueWorkAfterRegistrationSuccess();
 
-        checkExpectedResult("Page has not loaded after the registration", lotteries.isPageLoaded());
+        checkExpectedResult("Page has not loaded after the registration", lotteries.isLotteriesListDisplayed());
 
     }
 }
