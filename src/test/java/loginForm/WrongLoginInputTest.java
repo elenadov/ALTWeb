@@ -52,8 +52,5 @@ public class WrongLoginInputTest extends AbstractParentTest {
 
         loginForm.clickContinueButton();
         loginForm.checkCurrentUrl();
-
-
-
     }
 }

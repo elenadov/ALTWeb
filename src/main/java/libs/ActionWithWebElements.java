@@ -14,12 +14,13 @@ import ru.yandex.qatools.htmlelements.element.TypifiedElement;
 public class ActionWithWebElements {
     WebDriver webDriver;
     Logger logger = Logger.getLogger(getClass());
-    WebDriverWait webDriverWait_10, webDriverWait_20, webDriverWait_30;
+    WebDriverWait webDriverWait_05, webDriverWait_10, webDriverWait_20, webDriverWait_30;
     Actions actions;
-    int triesCount = 2;
+    int triesCount = 1;
 
     public ActionWithWebElements(WebDriver webDriver) {
         this.webDriver = webDriver;
+        webDriverWait_05 = new WebDriverWait(webDriver, 5);
         webDriverWait_10 = new WebDriverWait(webDriver, 10);
         webDriverWait_20 = new WebDriverWait(webDriver, 20);
         webDriverWait_30 = new WebDriverWait(webDriver, 30);
