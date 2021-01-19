@@ -7,9 +7,9 @@ import parentPage.ParentPage;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextBlock;
 
-public class Lotteries extends ParentPage {
+public class LotteriesPage extends ParentPage {
 
-    public Lotteries(WebDriver webDriver) {
+    public LotteriesPage(WebDriver webDriver) {
         super(webDriver, "/lotteries");
     }
 
