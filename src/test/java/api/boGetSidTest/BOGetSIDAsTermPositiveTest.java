@@ -6,7 +6,7 @@ import io.restassured.response.ResponseBody;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import static endpoints.EndPoints.TEST_AS_TERM;
+import static endpoints.EndPoints.TEST_AS_ALT_WEB;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -14,14 +14,13 @@ import static org.hamcrest.core.IsNull.notNullValue;
 public class BOGetSIDAsTermPositiveTest extends ApiParentTest {
     @Test
     public void boGetSID() {
-        try{
-
         JSONObject requestParams = new JSONObject();
 
+        try{
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetSID");
         requestParams.put("CHANNEL_TYPE", "web_alt");
-        requestParams.put("CLIENT_TRANS_ID", boGetSID.time);
+        requestParams.put("CLIENT_TRANS_ID", paramsForRequests.time);
         requestParams.put("LANG", "ua");
         requestParams.put("LOGIN", "7600005");
         requestParams.put("PASSWD", "7600005");
@@ -36,7 +35,7 @@ public class BOGetSIDAsTermPositiveTest extends ApiParentTest {
                         .accept(ContentType.HTML)
 
                         .when()
-                        .post(TEST_AS_TERM)
+                        .post(TEST_AS_ALT_WEB)
 
                         .then()
                         .statusCode(200)
@@ -61,9 +60,9 @@ public class BOGetSIDAsTermPositiveTest extends ApiParentTest {
 
     @Test
     public void boGetSIDJustRequiredParameters() {
-        try{
         JSONObject requestParams = new JSONObject();
 
+        try{
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetSID");
         requestParams.put("LOGIN", "7600005");
@@ -78,7 +77,7 @@ public class BOGetSIDAsTermPositiveTest extends ApiParentTest {
                         .accept(ContentType.HTML)
 
                         .when()
-                        .post(TEST_AS_TERM)
+                        .post(TEST_AS_ALT_WEB)
 
                         .then()
                         .statusCode(200)
@@ -104,9 +103,9 @@ public class BOGetSIDAsTermPositiveTest extends ApiParentTest {
 
     @Test
     public void boGetSIDAllParametersDescribedInProtocol() {
-        try{
         JSONObject requestParams = new JSONObject();
 
+        try{
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetSID");
         requestParams.put("LANG", "ua");
@@ -123,7 +122,7 @@ public class BOGetSIDAsTermPositiveTest extends ApiParentTest {
                         .accept(ContentType.HTML)
 
                         .when()
-                        .post(TEST_AS_TERM)
+                        .post(TEST_AS_ALT_WEB)
 
                         .then()
                         .statusCode(200)
