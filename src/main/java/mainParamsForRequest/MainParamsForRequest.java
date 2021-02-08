@@ -1,11 +1,23 @@
 package mainParamsForRequest;
 
+import io.qameta.allure.Step;
+import libs.ConfigProperties;
+import libs.Database;
+import libs.MySQL_Database;
+import libs.Oracle_SQL_Database;
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
+import org.junit.Before;
 
+import java.sql.SQLException;
 import java.time.Instant;
 
 public class MainParamsForRequest{
     protected Logger logger = Logger.getLogger(getClass());
+    protected Database database;
+
+    protected static ConfigProperties configProperties =
+            ConfigFactory.create(ConfigProperties.class);
 
     public long curTime = Instant.now().getEpochSecond();
     public String time = curTime + "12345";
@@ -63,6 +75,15 @@ public class MainParamsForRequest{
 
     public void setMaccode(String maccode) {
         this.maccode = maccode;
+    }
 
+    @Step
+    public void mySQLDBConnect() throws SQLException, ClassNotFoundException {
+        database = MySQL_Database.getDataBase();
+    }
+
+    @Step
+    public void oracleSQLDBConnect() throws SQLException, ClassNotFoundException {
+        database = Oracle_SQL_Database.getOracleDataBase();
     }
 }

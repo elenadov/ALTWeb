@@ -1,9 +1,12 @@
 package paramsForRequests;
 
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.ResponseBody;
 import mainParamsForRequest.MainParamsForRequest;
 import org.json.JSONObject;
+
+import java.sql.SQLException;
 
 import static endpoints.EndPoints.TEST_AS_ALT_WEB;
 import static endpoints.EndPoints.TEST_GS_ALT_WEB;
@@ -12,68 +15,70 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 public class ParamsForRequests extends MainParamsForRequest {
+
+    @Step
     public void boGetSID() {
 
-        String obtainedSid;
-        String obtainedClient_id;
-        String obtainedClient_trans_id;
-        String obtainedUser_id;
         JSONObject requestParams = new JSONObject();
 
-        requestParams.put("PROTO_VER", "3");
-        requestParams.put("ACTION", "BOGetSID");
-        requestParams.put("CHANNEL_TYPE", "web_alt");
-        requestParams.put("CLIENT_TRANS_ID", time);
-        requestParams.put("LANG", "ua");
-        requestParams.put("LOGIN", "7600005");
-        requestParams.put("PASSWD", "7600005");
-        requestParams.put("PROTO_TYPE", "keyvalue-json");
+        try {
+            requestParams.put("PROTO_VER", "3");
+            requestParams.put("ACTION", "BOGetSID");
+            requestParams.put("CHANNEL_TYPE", "web_alt");
+            requestParams.put("CLIENT_TRANS_ID", time);
+            requestParams.put("LANG", "ua");
+            requestParams.put("LOGIN", "7600005");
+            requestParams.put("PASSWD", "7600005");
+            requestParams.put("PROTO_TYPE", "keyvalue-json");
 
-        logger.info(requestParams.toString());
+            logger.info(requestParams.toString());
 
-        ResponseBody response =
-                given()
-                        .params(requestParams.toMap())
-                        .contentType(ContentType.HTML)
-                        .accept(ContentType.HTML)
+            ResponseBody response =
+                    given()
+                            .params(requestParams.toMap())
+                            .contentType(ContentType.HTML)
+                            .accept(ContentType.HTML)
 
-                        .when()
-                        .post(TEST_GS_ALT_WEB)
+                            .when()
+                            .post(TEST_GS_ALT_WEB)
 
-                        .then()
-                        .statusCode(200)
-                        .body(containsString("\"err_code\":0"))
-                        .body("err_code", notNullValue())
+                            .then()
+                            .statusCode(200)
+                            .body(containsString("\"err_code\":0"))
+                            .body("err_code", notNullValue())
 
-                        .body(containsString("user_id"))
-                        .body("user_id", notNullValue())
+                            .body(containsString("user_id"))
+                            .body("user_id", notNullValue())
 
-                        .body(containsString("client_id"))
-                        .body("client_id", notNullValue())
+                            .body(containsString("client_id"))
+                            .body("client_id", notNullValue())
 
-                        .body(containsString("sid"))
-                        .body("sid", notNullValue())
+                            .body(containsString("sid"))
+                            .body("sid", notNullValue())
 
-                        .body(containsString("client_trans_id"))
-                        .body("client_trans_id", notNullValue())
+                            .body(containsString("client_trans_id"))
+                            .body("client_trans_id", notNullValue())
 
-                        .log().all()
-                        .extract()
-                        .response();
+                            .log().all()
+                            .extract()
+                            .response();
 
-        setSid(response.jsonPath().get("respond.sid").toString());
-        setUser_id(response.jsonPath().get("respond.user_id").toString());
-        setClient_id(response.jsonPath().get("respond.pos_list.pos.client_id").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
-        logger.info(response.asString());
+            setSid(response.jsonPath().get("respond.sid").toString());
+            setUser_id(response.jsonPath().get("respond.user_id").toString());
+            setClient_id(response.jsonPath().get("respond.pos_list.pos.client_id").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
+
+            logger.info(response.asString());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
+    @Step
     public void boGetClientList() {
 
         JSONObject requestParams = new JSONObject();
 
-        logger.info(sid);
-        logger.info(user_id);
-        logger.info(client_id);
+        try{
 
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetClientList");
@@ -135,52 +140,138 @@ public class ParamsForRequests extends MainParamsForRequest {
         setClient_id(client_id = response.jsonPath().get("respond.client_list.client_id[1]").toString().replaceAll("\\[", "").replaceAll("\\]",""));
 
         logger.info(response.asString());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
+    @Step
     public void resendAuth2() {
 
         JSONObject requestParams = new JSONObject();
 
-        requestParams.put("PROTO_VER", "3");
-        requestParams.put("ACTION", "ResendAuth2");
-        requestParams.put("CHANNEL_TYPE", "web_alt");
-        requestParams.put("CLIENT_TRANS_ID", time);
-        requestParams.put("LANG", "ua");
-        requestParams.put("SID", getSid());
-        requestParams.put("USER_ID", getUser_id());
-        requestParams.put("PROTO_TYPE", "keyvalue-json");
-        requestParams.put("CLIENT_ID", getClient_id());
+        try {
+            requestParams.put("PROTO_VER", "3");
+            requestParams.put("ACTION", "ResendAuth2");
+            requestParams.put("CHANNEL_TYPE", "web_alt");
+            requestParams.put("CLIENT_TRANS_ID", time);
+            requestParams.put("LANG", "ua");
+            requestParams.put("SID", getSid());
+            requestParams.put("USER_ID", getUser_id());
+            requestParams.put("PROTO_TYPE", "keyvalue-json");
+            requestParams.put("CLIENT_ID", getClient_id());
 
-        logger.info(requestParams.toString());
+            logger.info(requestParams.toString());
 
-        ResponseBody response =
-                given()
-                        .params(requestParams.toMap())
-                        .contentType(ContentType.HTML)
-                        .accept(ContentType.HTML)
+            ResponseBody response =
+                    given()
+                            .params(requestParams.toMap())
+                            .contentType(ContentType.HTML)
+                            .accept(ContentType.HTML)
 
-                        .when()
-                        .post(TEST_AS_ALT_WEB)
+                            .when()
+                            .post(TEST_AS_ALT_WEB)
 
-                        .then()
-                        .statusCode(200)
-                        .body(containsString("\"err_code\":0"))
-                        .body("err_code", notNullValue())
+                            .then()
+                            .statusCode(200)
+                            .body(containsString("\"err_code\":0"))
+                            .body("err_code", notNullValue())
 
-                        .body(containsString("client_id"))
-                        .body("client_id", notNullValue())
+//                            .body(containsString("client_id"))
+//                            .body("client_id", notNullValue())
 
-                        .body(containsString("client_trans_id"))
-                        .body("client_trans_id", notNullValue())
+                            .body(containsString("client_trans_id"))
+                            .body("client_trans_id", notNullValue())
 
-                        .body(containsString("err_descr"))
-                        .body("err_descr", notNullValue())
+                            .body(containsString("err_descr"))
+                            .body("err_descr", notNullValue())
 
-                        .log().all()
-                        .extract()
-                        .response();
+                            .log().all()
+                            .extract()
+                            .response();
 
-        logger.info(response.asString());
+            logger.info(response.asString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void boAuth2(String code){
+
+        JSONObject requestParams = new JSONObject();
+
+        try {
+            requestParams.put("PROTO_VER", "3");
+            requestParams.put("ACTION", "BOAuth2");
+            requestParams.put("CHANNEL_TYPE", "web_alt");
+            requestParams.put("CLIENT_TRANS_ID", time);
+            requestParams.put("LANG", "ua");
+            requestParams.put("SID", getSid());
+            requestParams.put("USER_ID", getUser_id());
+            requestParams.put("PROTO_TYPE", "keyvalue-json");
+            requestParams.put("CLIENT_ID", getClient_id());
+            requestParams.put("AUTH2_SECRET", code);
+
+            logger.info(requestParams.toString());
+
+            ResponseBody response =
+                    given()
+                            .params(requestParams.toMap())
+                            .contentType(ContentType.HTML)
+                            .accept(ContentType.HTML)
+
+                            .when()
+                            .post(TEST_GS_ALT_WEB)
+
+                            .then()
+                            .statusCode(200)
+                            .body(containsString("\"err_code\":0"))
+                            .body("err_code", notNullValue())
+
+                            .body(containsString("client_id"))
+                            .body("client_id", notNullValue())
+
+                            .body(containsString("client_trans_id"))
+                            .body("client_trans_id", notNullValue())
+
+                            .body(containsString("err_descr"))
+                            .body("err_descr", notNullValue())
+
+//                            .body(containsString("sid"))
+//                            .body("sid", notNullValue())
+//
+//                            .body(containsString("user_id"))
+//                            .body("user_id", notNullValue())
+
+                            .body(containsString("pos_list"))
+                            .body("pos_list", notNullValue())
+
+//                            .body(containsString("client_id".))
+//                            .body("client_id", notNullValue())
+
+                            .body(containsString("access_level"))
+                            .body("access_level", notNullValue())
+
+                            .body(containsString("pos_code"))
+                            .body("pos_code", notNullValue())
+
+                            .body(containsString("pos_name"))
+                            .body("pos_name", notNullValue())
+
+                            .body(containsString("pos_addr"))
+                            .body("pos_addr", notNullValue())
+
+                            .log().all()
+                            .extract()
+                            .response();
+            setTerm_code(term_code = response.jsonPath().get("respond.pos_list.pos.client_id").toString().replaceAll("\\[", "").replaceAll("\\]",""));
+
+            logger.info(response.asString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

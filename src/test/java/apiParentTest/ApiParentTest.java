@@ -1,7 +1,9 @@
 package apiParentTest;
 
+import io.qameta.allure.Step;
 import libs.ConfigProperties;
 import libs.Database;
+import libs.MySQL_Database;
 import libs.Oracle_SQL_Database;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
@@ -23,6 +25,11 @@ public class ApiParentTest {
     public String timestamp = currentTime + "12345";
 
     @Before
+    public void mySQLDBConnect() throws SQLException, ClassNotFoundException {
+        database = MySQL_Database.getDataBase();
+    }
+
+    @Step
     public void oracleSQLDBConnect() throws SQLException, ClassNotFoundException {
         database = Oracle_SQL_Database.getOracleDataBase();
     }

@@ -16,16 +16,22 @@ import static org.hamcrest.core.IsNull.notNullValue;
 public class ZabavaRegBetTest extends ApiParentTest {
     @Test
     public void ZabavaRegBet() throws SQLException, ClassNotFoundException {
-        oracleSQLDBConnect();
+        mySQLDBConnect();
 
         paramsForRequests.boGetSID();
+        paramsForRequests.boGetClientList();
+        paramsForRequests.resendAuth2();
+        paramsForRequests.boAuth2(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
+
+        oracleSQLDBConnect();
+
         JSONObject requestParams = new JSONObject();
-        try {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "ZabavaRegBet");
             requestParams.put("CHANNEL_TYPE", "web_alt");
             requestParams.put("CLIENT_TRANS_ID", paramsForRequests.time);
             requestParams.put("LANG", "ua");
+            requestParams.put("TERM_CODE", paramsForRequests.term_code);
             requestParams.put("BETS_COUNT", "1");
             requestParams.put("BETS_DATA", "{\"tickets\":[{\"t\":1,\"f\":0,\"e\":[{\"c\":1,\"n\":1},{\"c\":2,\"n\":0}]}]}");
             requestParams.put("PROTO_TYPE", "keyvalue-json");
@@ -96,9 +102,5 @@ public class ZabavaRegBetTest extends ApiParentTest {
                             .response();
 
             logger.info(response.asString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

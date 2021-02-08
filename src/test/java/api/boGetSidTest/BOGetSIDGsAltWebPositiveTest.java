@@ -17,7 +17,6 @@ public class BOGetSIDGsAltWebPositiveTest extends ApiParentTest {
 
         JSONObject requestParams = new JSONObject();
 
-        try {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOGetSID");
             requestParams.put("CHANNEL_TYPE", "web_alt");
@@ -66,9 +65,5 @@ public class BOGetSIDGsAltWebPositiveTest extends ApiParentTest {
                             .response();
 
             logger.info(response.asString());
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
     }
 }

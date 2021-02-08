@@ -16,7 +16,6 @@ public class BOGetSIDAsTermPositiveTest extends ApiParentTest {
     public void boGetSID() {
         JSONObject requestParams = new JSONObject();
 
-        try{
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetSID");
         requestParams.put("CHANNEL_TYPE", "web_alt");
@@ -52,17 +51,13 @@ public class BOGetSIDAsTermPositiveTest extends ApiParentTest {
                         .extract()
                         .response();
 
-        logger.info(response.asString());}
-        catch(Exception e){
-            e.printStackTrace();
-        }
+        logger.info(response.asString());
     }
 
     @Test
     public void boGetSIDJustRequiredParameters() {
         JSONObject requestParams = new JSONObject();
 
-        try{
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetSID");
         requestParams.put("LOGIN", "7600005");
@@ -95,17 +90,12 @@ public class BOGetSIDAsTermPositiveTest extends ApiParentTest {
                         .response();
 
         logger.info(response.asString());
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
     }
 
     @Test
     public void boGetSIDAllParametersDescribedInProtocol() {
         JSONObject requestParams = new JSONObject();
 
-        try{
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetSID");
         requestParams.put("LANG", "ua");
@@ -140,9 +130,5 @@ public class BOGetSIDAsTermPositiveTest extends ApiParentTest {
                         .response();
 
         logger.info(response.asString());
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
     }
 }
