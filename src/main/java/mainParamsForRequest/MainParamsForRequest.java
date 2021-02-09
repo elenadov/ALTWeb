@@ -5,12 +5,14 @@ import libs.ConfigProperties;
 import libs.Database;
 import libs.MySQL_Database;
 import libs.Oracle_SQL_Database;
+import net.bytebuddy.utility.RandomString;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 
 import java.sql.SQLException;
 import java.time.Instant;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MainParamsForRequest{
     protected Logger logger = Logger.getLogger(getClass());
@@ -49,6 +51,14 @@ public class MainParamsForRequest{
         this.term_code = term_code;
     }
 
+    public void setMaccode(String maccode) {
+        this.maccode = maccode;
+    }
+
+    public String genClientTransId(){
+        return String.valueOf(curTime) + String.valueOf((int)Math.random()*432432);
+    }
+
     public String getSid() {
         return sid;
     }
@@ -71,19 +81,5 @@ public class MainParamsForRequest{
 
     public String getMaccode() {
         return maccode;
-    }
-
-    public void setMaccode(String maccode) {
-        this.maccode = maccode;
-    }
-
-    @Step
-    public void mySQLDBConnect() throws SQLException, ClassNotFoundException {
-        database = MySQL_Database.getDataBase();
-    }
-
-    @Step
-    public void oracleSQLDBConnect() throws SQLException, ClassNotFoundException {
-        database = Oracle_SQL_Database.getOracleDataBase();
     }
 }

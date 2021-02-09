@@ -6,9 +6,8 @@ import io.restassured.response.ResponseBody;
 import mainParamsForRequest.MainParamsForRequest;
 import org.json.JSONObject;
 
-import java.sql.SQLException;
-
 import static endpoints.EndPoints.TEST_AS_ALT_WEB;
+import static endpoints.EndPoints.TEST_BRS_MOB;
 import static endpoints.EndPoints.TEST_GS_ALT_WEB;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -25,7 +24,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOGetSID");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", time);
+            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "100001");
             requestParams.put("LANG", "ua");
             requestParams.put("LOGIN", "7600005");
             requestParams.put("PASSWD", "7600005");
@@ -83,7 +82,7 @@ public class ParamsForRequests extends MainParamsForRequest {
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetClientList");
         requestParams.put("CHANNEL_TYPE", "web_alt");
-        requestParams.put("CLIENT_TRANS_ID", time);
+        requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "100002");
         requestParams.put("LANG", "ua");
         requestParams.put("SID", getSid());
         requestParams.put("USER_ID", getUser_id());
@@ -154,7 +153,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "ResendAuth2");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", time);
+            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "100003");
             requestParams.put("LANG", "ua");
             requestParams.put("SID", getSid());
             requestParams.put("USER_ID", getUser_id());
@@ -205,7 +204,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOAuth2");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", time);
+            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "10004");
             requestParams.put("LANG", "ua");
             requestParams.put("SID", getSid());
             requestParams.put("USER_ID", getUser_id());
@@ -268,7 +267,58 @@ public class ParamsForRequests extends MainParamsForRequest {
             setTerm_code(term_code = response.jsonPath().get("respond.pos_list.pos.client_id").toString().replaceAll("\\[", "").replaceAll("\\]",""));
 
             logger.info(response.asString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Step
+    public void sendAuthCode(String playerPhone){
+        JSONObject requestParams = new JSONObject();
+
+        try {
+            requestParams.put("PROTO_VER", "3");
+            requestParams.put("ACTION", "SendAuthCode");
+            requestParams.put("CHANNEL_TYPE", "web_alt");
+            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "100005");
+            requestParams.put("LANG", "ua");
+            requestParams.put("SID", getSid());
+            requestParams.put("USER_ID", getUser_id());
+            requestParams.put("PROTO_TYPE", "keyvalue-json");
+            requestParams.put("CLIENT_ID", getUser_id());
+            requestParams.put("PLAYER_PHONE", playerPhone);
+            requestParams.put("TERM_CODE", getTerm_code());
+
+            logger.info(requestParams.toString());
+
+            ResponseBody response =
+                    given()
+                            .params(requestParams.toMap())
+                            .contentType(ContentType.HTML)
+                            .accept(ContentType.HTML)
+
+                            .when()
+                            .post(TEST_BRS_MOB)
+
+                            .then()
+                            .statusCode(200)
+                            .body(containsString("\"err_code\":0"))
+                            .body("err_code", notNullValue())
+
+//                            .body(containsString("client_id"))
+//                            .body("client_id", notNullValue())
+
+                            .body(containsString("client_trans_id"))
+                            .body("client_trans_id", notNullValue())
+
+                            .body(containsString("err_descr"))
+                            .body("err_descr", notNullValue())
+
+                            .log().all()
+                            .extract()
+                            .response();
+
+            logger.info(response.asString());
         } catch (Exception e) {
             e.printStackTrace();
         }

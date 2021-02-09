@@ -23,7 +23,7 @@ public class ResendAuth2Test extends ApiParentTest {
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "ResendAuth2");
         requestParams.put("CHANNEL_TYPE", "web_alt");
-        requestParams.put("CLIENT_TRANS_ID", paramsForRequests.time);
+        requestParams.put("CLIENT_TRANS_ID", timestamp);
         requestParams.put("LANG", "ua");
         requestParams.put("SID", paramsForRequests.getSid());
         requestParams.put("USER_ID", paramsForRequests.getUser_id());

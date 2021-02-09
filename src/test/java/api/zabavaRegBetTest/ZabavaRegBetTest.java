@@ -14,14 +14,18 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 public class ZabavaRegBetTest extends ApiParentTest {
+
     @Test
     public void ZabavaRegBet() throws SQLException, ClassNotFoundException {
         mySQLDBConnect();
+
+        String playerPhone = "098456454";
 
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
         paramsForRequests.boAuth2(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
+        paramsForRequests.sendAuthCode(playerPhone);
 
         oracleSQLDBConnect();
 
@@ -29,23 +33,23 @@ public class ZabavaRegBetTest extends ApiParentTest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "ZabavaRegBet");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", paramsForRequests.time);
+            requestParams.put("CLIENT_TRANS_ID", timestamp);
             requestParams.put("LANG", "ua");
-            requestParams.put("TERM_CODE", paramsForRequests.term_code);
+            requestParams.put("TERM_CODE", paramsForRequests.getTerm_code());
             requestParams.put("BETS_COUNT", "1");
             requestParams.put("BETS_DATA", "{\"tickets\":[{\"t\":1,\"f\":0,\"e\":[{\"c\":1,\"n\":1},{\"c\":2,\"n\":0}]}]}");
             requestParams.put("PROTO_TYPE", "keyvalue-json");
             requestParams.put("BET_SUM", "2500");
-            requestParams.put("CLIENT_ID", paramsForRequests.client_id);
+            requestParams.put("CLIENT_ID", paramsForRequests.getClient_id());
             requestParams.put("DRAW_COUNT", "1");
             requestParams.put("DRAW_NUM", "1772");
             requestParams.put("GAME_CODE", "3");
             requestParams.put("PLAYER_AUTH_CODE", database.selectValue(configProperties.GET_SMS_CODE_FOR_SELL()));
-            requestParams.put("PLAYER_PHONE", "856756868");
+            requestParams.put("PLAYER_PHONE", playerPhone);
             requestParams.put("SALE_TYPE", "1");
-            requestParams.put("SID", paramsForRequests.sid);
+            requestParams.put("SID", paramsForRequests.getSid());
             requestParams.put("TICKET_FORMAT", "PNG_504");
-            requestParams.put("USER_ID", paramsForRequests.user_id);
+            requestParams.put("USER_ID", paramsForRequests.getUser_id());
 
             logger.info(requestParams.toString());
 
