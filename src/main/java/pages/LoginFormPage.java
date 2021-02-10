@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import libs.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import parentPage.ParentPage;
 import ru.yandex.qatools.htmlelements.element.Button;
@@ -109,8 +108,7 @@ public class LoginFormPage extends ParentPage {
     }
 
     @Step
-    public void enterSmsCodeIntoField(String code) throws SQLException {
-
+    public void enterSmsCodeIntoField(String code){
         actionWithWebElements.enterTextIntoInput1(smsCodeInput, code);
     }
 

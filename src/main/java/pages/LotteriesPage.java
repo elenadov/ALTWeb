@@ -7,11 +7,15 @@ import parentPage.ParentPage;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextBlock;
 
-public class Lotteries extends ParentPage {
+import java.util.ArrayList;
 
-    public Lotteries(WebDriver webDriver) {
+public class LotteriesPage extends ParentPage {
+
+    public LotteriesPage(WebDriver webDriver) {
         super(webDriver, "/lotteries");
     }
+
+    public ArrayList<String> sumOfBoughtTickets;
 
     @FindBy(xpath = "//div[@class='change-log-container change-log-container_only-latest']")
     private TextBlock newOSAnnouncment;
@@ -28,83 +32,77 @@ public class Lotteries extends ParentPage {
     @FindBy(xpath = "/html/body/app-root/div[2]/section/app-lotteries/app-game-list/div")
     private TextBlock lotteriesList;
 
-
-
     @FindBy(xpath = "//app-one-button-error//div[@class='modal-dialog-container']")
     private TextBlock registrationIsSuccessfulPopUp;
 
     @FindBy(xpath = "//button[@class='button button_theme_green modal-button']")
     private Button continueWorkAfterRegistrationSuccess;
 
-    public boolean isPageLoaded(){
-        if (isNewOSAnnouncementDisplayed()){
-            clickContinueNewOSButton();
-            if(isJackpotAnnouncementDisplayed()){
-                clickContinueJackpotButton();
-                isLotteriesListDisplayed();
-                checkCurrentUrl();
-            }
-            else if(isLotteriesListDisplayed()){
-                checkCurrentUrl();
-            }
-            return true;
-        }
-        else if(isJackpotAnnouncementDisplayed()){
-            clickContinueJackpotButton();
-            isLotteriesListDisplayed();
-            checkCurrentUrl();
-            return true;
-        }
-        else if(isLotteriesListDisplayed()){
-            checkCurrentUrl();
-            return true;
-        }
-        return false;
-    }
+    @FindBy(xpath = "/html/body/app-root/div[2]/section/app-lotteries/app-total-check-info-panel/div/div[2]/div/span")
+    private TextBlock allTransactionsSum;
+
+    @FindBy(xpath = "//div[@class='tcc-list__cell tcc-list__cell_col_amount align-positive tcc-list__cell_action_register']")
+    private TextBlock firstTransactionSum;
 
     @Step
-    public boolean isNewOSAnnouncementDisplayed(){
+    public boolean isNewOSAnnouncementDisplayed() {
         return actionWithWebElements.isElementDisplayed(newOSAnnouncment);
     }
 
     @Step
-    public boolean isJackpotAnnouncementDisplayed(){
+    public boolean isJackpotAnnouncementDisplayed() {
         return actionWithWebElements.isElementDisplayed(jackpot);
     }
 
     @Step
-    public boolean isLotteriesListDisplayed(){
+    public boolean isLotteriesListDisplayed() {
         return actionWithWebElements.isElementDisplayed(lotteriesList);
     }
 
     @Step
-    public boolean isRegistrationSuccesfulPopUpVisible(){
+    public boolean isRegistrationSuccesfulPopUpVisible() {
         return actionWithWebElements.isElementDisplayed(registrationIsSuccessfulPopUp);
     }
 
     @Step
-    public void clickContinueNewOSButton(){
+    public void clickContinueNewOSButton() {
         actionWithWebElements.clickOnElement(continueNewOSButton);
     }
 
     @Step
-    public void clickContinueJackpotButton(){
+    public void clickContinueJackpotButton() {
         actionWithWebElements.clickOnElement(continueJackpotButton);
     }
 
     @Step
-    public void clickContinueWorkAfterRegistrationSuccess(){
+    public void clickContinueWorkAfterRegistrationSuccess() {
         actionWithWebElements.clickOnElement(continueWorkAfterRegistrationSuccess);
     }
-//    @Step
-//    public double autoLotoCheckSum(int ticketCount){
-//        double autoLotoTicketSum = 100;
-//        double sum = ticketCount * autoLotoTicketSum;
-//        return sum;
-//    }
-//
-//    @Step
-//    public void isAutoLotoCheckSumIsCorrect(){
-//        checkExpectedResult("Sum is not correct", );
-//    }
+
+    @Step
+    public String autoLotoCheckSum(int ticketCount) {
+        int autoLotoTicketSum = 100;
+        int sum = ticketCount * autoLotoTicketSum;
+        return String.valueOf(sum);
+    }
+
+    @Step
+    public String getFirstTransactionSum() {
+        return actionWithWebElements.getTextFromElement(firstTransactionSum);
+    }
+
+    @Step
+    public String getAllTransactionsSum() {
+        return actionWithWebElements.getTextFromElement(allTransactionsSum);
+    }
+
+    @Step
+    public void isAutoLotoCheckSumIsCorrect(int ticketCount) {
+        checkExpectedText("Sum is not correct", autoLotoCheckSum(ticketCount) + ".00 грн ", getFirstTransactionSum());
+    }
+
+    @Step
+    public void isAllTransactionsSumIsCorrect(int ticketCount) {
+        checkExpectedText("Sum is not correct", autoLotoCheckSum(ticketCount) + ".00 ГРН", getAllTransactionsSum());
+    }
 }

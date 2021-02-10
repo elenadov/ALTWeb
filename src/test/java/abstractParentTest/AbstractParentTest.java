@@ -27,7 +27,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.EMLPurchaseMenuPage;
 import pages.EMLPurchaseRegistrationPage;
 import pages.LoginFormPage;
-import pages.Lotteries;
+import pages.LotteriesPage;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 public class AbstractParentTest {
     WebDriver webDriver;
     protected LoginFormPage loginForm;
-    protected Lotteries lotteries;
+    protected LotteriesPage lotteries;
     protected EMLPurchaseMenuPage emlPurchaseMenuPage;
     protected EMLPurchaseRegistrationPage emlPurchaseRegistrationPage;
 
@@ -62,7 +62,7 @@ public class AbstractParentTest {
         webDriver.manage().window().maximize();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         loginForm = new LoginFormPage(webDriver);
-        lotteries = new Lotteries(webDriver);
+        lotteries = new LotteriesPage(webDriver);
         emlPurchaseMenuPage = new EMLPurchaseMenuPage(webDriver);
         emlPurchaseRegistrationPage = new EMLPurchaseRegistrationPage(webDriver);}
 
