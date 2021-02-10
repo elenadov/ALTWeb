@@ -54,6 +54,11 @@ public class ParentPage { protected WebDriver webDriver;
     }
 
     @Step
+    protected void checkExpectedText(String message, String expectedResult, String actualResult) {
+        Assert.assertEquals(message, expectedResult, actualResult);
+    }
+
+    @Step
     protected void checkExpectedCheckSum(String message, double expectedCheckSum){
 
     }

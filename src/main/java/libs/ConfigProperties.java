@@ -27,4 +27,5 @@ public interface ConfigProperties extends Config {
 
 	String GET_SMS_CODE_FOR_AUTH();
 	String GET_SMS_CODE_FOR_SELL();
+	String GET_CURRENT_LZ_DRAW();
 }

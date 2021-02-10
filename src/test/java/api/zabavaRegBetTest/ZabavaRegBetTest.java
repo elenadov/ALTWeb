@@ -1,26 +1,66 @@
 package api.zabavaRegBetTest;
 
 import apiParentTest.ApiParentTest;
+import io.qameta.allure.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.ResponseBody;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collection;
 
 import static endpoints.EndPoints.TEST_BRS_MOB;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNull.notNullValue;
 
+/**
+ * Created by Lena Dovhaliuk on 01/02/20.
+ */
+
+@Epic("Loto Zabava")
+@Feature("ZabavaRegBet")
+@RunWith(Parameterized.class)
+
 public class ZabavaRegBetTest extends ApiParentTest {
+    private String playerPhone = "098456454";
+    private int ticketCount, parochkaCount;
+
+    public ZabavaRegBetTest (int ticketCountToBuy, int parochkaCountToBuy) {
+        this.ticketCount = ticketCountToBuy;
+        this.parochkaCount = parochkaCountToBuy;
+    }
+
+    @Parameterized.Parameters(name = "Parameters are {0}, {1}")
+    public static Collection testData(){
+        return Arrays.asList(new Object[][] {
+                        {1, 0},
+                        {2, 1},
+                        {3, 2},
+                        {4, 3},
+                        {5, 4},
+                        {6, 5},
+                        {7, 0},
+                        {8, 1},
+                        {9, 2},
+                        {10, 3}
+                }
+        );
+    }
+
+    @Description("ZabavaRegBet API test")
+    @Story("ZabavaRegBet API test")
+    @Link("")
+    @Link(name = "allure", type = "mylink")
+    @Issue("")
+    @Severity(SeverityLevel.CRITICAL)
 
     @Test
     public void ZabavaRegBet() throws SQLException, ClassNotFoundException {
-        mySQLDBConnect();
-
-        String playerPhone = "098456454";
-
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
@@ -37,12 +77,12 @@ public class ZabavaRegBetTest extends ApiParentTest {
             requestParams.put("LANG", "ua");
             requestParams.put("TERM_CODE", paramsForRequests.getTerm_code());
             requestParams.put("BETS_COUNT", "1");
-            requestParams.put("BETS_DATA", "{\"tickets\":[{\"t\":1,\"f\":0,\"e\":[{\"c\":1,\"n\":1},{\"c\":2,\"n\":0}]}]}");
+            requestParams.put("BETS_DATA", paramsForRequests.getLZTicketForSale(ticketCount, parochkaCount));
             requestParams.put("PROTO_TYPE", "keyvalue-json");
-            requestParams.put("BET_SUM", "2500");
+            requestParams.put("BET_SUM", paramsForRequests.calculateCheckSum(ticketCount, parochkaCount));
             requestParams.put("CLIENT_ID", paramsForRequests.getClient_id());
             requestParams.put("DRAW_COUNT", "1");
-            requestParams.put("DRAW_NUM", "1772");
+            requestParams.put("DRAW_NUM", database.selectValue(configProperties.GET_CURRENT_LZ_DRAW()));
             requestParams.put("GAME_CODE", "3");
             requestParams.put("PLAYER_AUTH_CODE", database.selectValue(configProperties.GET_SMS_CODE_FOR_SELL()));
             requestParams.put("PLAYER_PHONE", playerPhone);

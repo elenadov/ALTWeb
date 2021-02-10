@@ -24,7 +24,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOGetSID");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "100001");
+            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "0001");
             requestParams.put("LANG", "ua");
             requestParams.put("LOGIN", "7600005");
             requestParams.put("PASSWD", "7600005");
@@ -82,7 +82,7 @@ public class ParamsForRequests extends MainParamsForRequest {
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetClientList");
         requestParams.put("CHANNEL_TYPE", "web_alt");
-        requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "100002");
+        requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "0002");
         requestParams.put("LANG", "ua");
         requestParams.put("SID", getSid());
         requestParams.put("USER_ID", getUser_id());
@@ -153,7 +153,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "ResendAuth2");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "100003");
+            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "0003");
             requestParams.put("LANG", "ua");
             requestParams.put("SID", getSid());
             requestParams.put("USER_ID", getUser_id());
@@ -204,7 +204,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOAuth2");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "10004");
+            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "0004");
             requestParams.put("LANG", "ua");
             requestParams.put("SID", getSid());
             requestParams.put("USER_ID", getUser_id());
@@ -280,7 +280,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "SendAuthCode");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "100005");
+            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "0005");
             requestParams.put("LANG", "ua");
             requestParams.put("SID", getSid());
             requestParams.put("USER_ID", getUser_id());
@@ -322,6 +322,31 @@ public class ParamsForRequests extends MainParamsForRequest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Step
+    public String getLZTicketForSale(int ticketCount, int parochkaCount){
+        String ticketPart1 = "{\"tickets\":[{\"t\":";
+        String ticketPart2 = ",\"f\":0,\"e\":[{\"c\":1,\"n\":";
+        String ticketPart3 = "},{\"c\":2,\"n\":0}]}]}";
+        String requiredTicketForSale = ticketPart1 + ticketCount + ticketPart2 + parochkaCount + ticketPart3;
+        return  requiredTicketForSale;
+    }
+
+    @Step
+    private String calculateOneBetSum(int ticketCount, int parochkaCount){
+        int mainTicketSum = 20;
+        int parochkaSum = (ticketCount * parochkaCount * 5) / ticketCount;
+        int sumOfOneTicket = mainTicketSum + parochkaSum;
+        return String.valueOf(sumOfOneTicket);
+    }
+
+    @Step
+    public String calculateCheckSum(int ticketCount, int parochkaCount){
+        int oneBetSum = Integer.parseInt(calculateOneBetSum(ticketCount, parochkaCount));
+        int result = oneBetSum * ticketCount;
+        String res = result + "00";
+        return res;
     }
 }
 
