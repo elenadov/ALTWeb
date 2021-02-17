@@ -9,8 +9,8 @@ import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextBlock;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
-public class EMLPurchaseRegistrationPage extends ParentPage {
-    public EMLPurchaseRegistrationPage(WebDriver webDriver) {
+public class PurchaseRegistrationPage extends ParentPage {
+    public PurchaseRegistrationPage(WebDriver webDriver) {
         super(webDriver, "/lotteries/instant-lotteries/registry");
     }
 
@@ -32,6 +32,9 @@ public class EMLPurchaseRegistrationPage extends ParentPage {
 
     @FindBy(xpath = "//div[@class='ci-data-value ci-data-value_other ci-text-red ng-star-inserted']")
     private TextBlock checkSum;
+
+    @FindBy(xpath = "//div[@class='ci-data-value ci-data-value_other ci-text-red ng-star-inserted']")
+    private TextBlock betSum;
 
     @Step
     public void enterPhoneNumberForPurchase(String number){
@@ -71,6 +74,11 @@ public class EMLPurchaseRegistrationPage extends ParentPage {
     public String getCheckSum(){
         String sum = actionWithWebElements.getTextFromElement(checkSum);
          return sum;
+    }
+
+    @Step
+    public String getBetSum(){
+        return actionWithWebElements.getTextFromElement(betSum);
     }
 
 

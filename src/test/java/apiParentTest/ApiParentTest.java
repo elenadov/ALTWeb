@@ -7,11 +7,13 @@ import libs.MySQL_Database;
 import libs.Oracle_SQL_Database;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Before;
 import paramsForRequests.ParamsForRequests;
 
 import java.sql.SQLException;
 import java.time.Instant;
+import java.util.ArrayList;
 
 public class ApiParentTest {
     protected Database database;
@@ -32,6 +34,21 @@ public class ApiParentTest {
     @Step
     public void oracleSQLDBConnect() throws SQLException, ClassNotFoundException {
         database = Oracle_SQL_Database.getOracleDataBase();
+    }
+
+    @Step
+    protected void checkExpectedResult(String message, boolean actualResult) {
+        Assert.assertEquals(message, true, actualResult);
+    }
+
+    @Step
+    protected void checkExpectedText(String message, String expectedResult, String actualResult) {
+        Assert.assertEquals(message, expectedResult, actualResult);
+    }
+
+    @Step
+    protected void checkExpectedText(String message, ArrayList<String> expectedResult, ArrayList<String> actualResult){
+        Assert.assertEquals(message,expectedResult,actualResult);
     }
 
 }

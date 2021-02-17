@@ -24,10 +24,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import pages.EMLPurchaseMenuPage;
-import pages.EMLPurchaseRegistrationPage;
-import pages.LoginFormPage;
-import pages.LotteriesPage;
+import pages.*;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -39,7 +36,8 @@ public class AbstractParentTest {
     protected LoginFormPage loginForm;
     protected LotteriesPage lotteries;
     protected EMLPurchaseMenuPage emlPurchaseMenuPage;
-    protected EMLPurchaseRegistrationPage emlPurchaseRegistrationPage;
+    protected PurchaseRegistrationPage purchaseRegistrationPage;
+    protected LotoZabavaPurchaseMenuPage lotoZabavaPurchaseMenuPage;
 
     protected static ConfigProperties configProperties =
             ConfigFactory.create(ConfigProperties.class);
@@ -64,7 +62,8 @@ public class AbstractParentTest {
         loginForm = new LoginFormPage(webDriver);
         lotteries = new LotteriesPage(webDriver);
         emlPurchaseMenuPage = new EMLPurchaseMenuPage(webDriver);
-        emlPurchaseRegistrationPage = new EMLPurchaseRegistrationPage(webDriver);}
+        purchaseRegistrationPage = new PurchaseRegistrationPage(webDriver);
+        lotoZabavaPurchaseMenuPage = new LotoZabavaPurchaseMenuPage(webDriver);}
 
     @Parameterized.Parameters
     private WebDriver driverInit() throws Exception {
