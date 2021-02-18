@@ -16,25 +16,28 @@ import java.util.Collection;
 
 public class AutoLotoTicketBuyTest extends AbstractParentTest {
     private int ticketCount;
+    private int drawNumCount;
     private String playerPhone = "684353443";
+    private String betSum;
 
-    public AutoLotoTicketBuyTest (int ticketCountToBuy) {
+    public AutoLotoTicketBuyTest (int ticketCountToBuy, int drawNumCount) {
         this.ticketCount = ticketCountToBuy;
+        this.drawNumCount = drawNumCount;
     }
 
-    @Parameterized.Parameters(name = "Parameters are {0}")
+    @Parameterized.Parameters(name = "Parameters are {0}, {1}")
     public static Collection testData(){
         return Arrays.asList(new Object[][] {
-                        {1},
-                        {2},
-                        {3},
-                        {4},
-                        {5},
-                        {6},
-                        {7},
-                        {8},
-                        {9},
-                        {10}
+                        {1, 1}
+                        , {2, 2}
+                        , {3, 1}
+                        , {4, 2}
+                        , {5, 1}
+                        , {6, 2}
+                        , {7, 1}
+                        , {8, 2}
+                        , {9, 1}
+                        , {10, 2}
                 }
         );
     }
@@ -64,11 +67,19 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
         oracleSQLDBConnect();
         emlPurchaseMenuPage.chooseEMLPurchaseMenu();
         emlPurchaseMenuPage.chooseAutoLotoPurchaseMenu();
-        emlPurchaseMenuPage.selectOneTicketAutoLotoPurchase();
+        emlPurchaseMenuPage.chooseEMLTicketCount(ticketCount);
+        emlPurchaseMenuPage.chooseDrawFromTheList(drawNumCount);
+        betSum = emlPurchaseMenuPage.betSumCount(emlPurchaseMenuPage.getSerieCost(drawNumCount), ticketCount);
+
+        checkExpectedText("The sum of Auto Loto check is incorrect!"
+                , betSum
+                , emlPurchaseMenuPage.getBetSum());
+
         emlPurchaseMenuPage.confirmPurchase();
 
-        checkExpectedText("The sum of Auto Loto check is incorrect!",purchaseRegistrationPage.autoLotocheckSum(ticketCount),
-                purchaseRegistrationPage.getCheckSum());
+        checkExpectedText("The sum of Auto Loto check is incorrect!"
+                , betSum
+                , purchaseRegistrationPage.getBetSum());
 
         purchaseRegistrationPage.enterPhoneNumberForPurchase(playerPhone);
         purchaseRegistrationPage.clickSendSMSButton();
@@ -79,7 +90,10 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
         lotteries.clickContinueWorkAfterRegistrationSuccess();
 
         checkExpectedResult("Page has not loaded after the registration", lotteries.isLotteriesListDisplayed());
-//        lotteries.isAutoLotoCheckSumIsCorrect(ticketCount);
-        lotteries.isAllTransactionsSumIsCorrect(ticketCount);
+
+        checkExpectedText("Total bets sum is not correct"
+                , betSum
+                , lotteries.getTotalBetsSum());
+
     }
 }

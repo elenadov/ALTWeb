@@ -44,6 +44,9 @@ public class LotteriesPage extends ParentPage {
     @FindBy(xpath = "//div[@class='tcc-list__cell tcc-list__cell_col_amount align-positive tcc-list__cell_action_register']")
     private TextBlock firstTransactionSum;
 
+    @FindBy(xpath = "//div[@class='tc-amount']/span")
+    private TextBlock totalBetsSum;
+
     @Step
     public boolean isNewOSAnnouncementDisplayed() {
         return actionWithWebElements.isElementDisplayed(newOSAnnouncment);
@@ -87,22 +90,7 @@ public class LotteriesPage extends ParentPage {
     }
 
     @Step
-    public String getFirstTransactionSum() {
-        return actionWithWebElements.getTextFromElement(firstTransactionSum);
-    }
-
-    @Step
-    public String getAllTransactionsSum() {
-        return actionWithWebElements.getTextFromElement(allTransactionsSum);
-    }
-
-    @Step
-    public void isAutoLotoCheckSumIsCorrect(int ticketCount) {
-        checkExpectedText("Sum is not correct", autoLotoCheckSum(ticketCount) + ".00 грн ", getFirstTransactionSum());
-    }
-
-    @Step
-    public void isAllTransactionsSumIsCorrect(int ticketCount) {
-        checkExpectedText("Sum is not correct", autoLotoCheckSum(ticketCount) + ".00 ГРН", getAllTransactionsSum());
+    public String getTotalBetsSum(){
+        return actionWithWebElements.getTextFromElementSum(totalBetsSum);
     }
 }

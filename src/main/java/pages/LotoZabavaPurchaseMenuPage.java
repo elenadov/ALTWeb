@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import parentPage.ParentPage;
 import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextBlock;
+
+import java.util.Locale;
 
 public class LotoZabavaPurchaseMenuPage extends ParentPage {
 
@@ -20,10 +23,6 @@ public class LotoZabavaPurchaseMenuPage extends ParentPage {
     @FindBy(xpath = "//button[@class='button dbc-draw dbc-draw_gold ng-star-inserted']")
     private Button lotoZabavaSecondDrawInRegistrationButton;
 
-//html/body/app-root/div[2]/section/ng-component/app-zabava-lottery-init/div/div/div[4]/div/div/app-buttons-group/div/div[2]/button[1]
-    //app-zabava-lottery-init/div/div/div[4]/div/div/app-buttons-group/div/div[2]/button[1]
-//app-buttons-group[@class='zc-bg-tickets']//button[@bg-index='1']
-    //app-zabava-lottery-init//div[4]/div/div/app-buttons-group//button[1]
     @FindBy(xpath = "//app-buttons-group[@class='zc-bg-tickets']//button[@bg-index='0']")
     private Button oneLotoZabavaTicketToBuy;
 
@@ -75,68 +74,105 @@ public class LotoZabavaPurchaseMenuPage extends ParentPage {
     @FindBy(xpath = "//button[@class='button']")
     private Button buyLotoZabavaButton;
 
+    @FindBy(xpath = "//button[1]//div[@class='dbc-number']")
+    private TextBlock firstLZDraw;
+
+    @FindBy(xpath = "//button[2]//div[@class='dbc-number']")
+    private TextBlock secondLZDraw;
+
+    @FindBy(xpath = "//app-check-information//div[10]")
+    private TextBlock betSum;
+
     @Step
     public void chooseLZFromTheListOfLotteries(){
         actionWithWebElements.clickOnElement(lotoZabavaPurchaseButton);
     }
 
     @Step
-    public void chooseFirstLZDrawInRegistration(){
+    private void chooseFirstLZDrawInRegistration(){
         actionWithWebElements.clickOnElement(lotoZabavaFirstDrawInRegistrationButton);
     }
 
     @Step
-    public void chooseSecondLZDrawInRegistration(){
+    private void chooseSecondLZDrawInRegistration(){
         actionWithWebElements.clickOnElement(lotoZabavaSecondDrawInRegistrationButton);
     }
 
     @Step
-    public void chooseOneTicketToBuy(){
+    public String getFirstDrawNum(){
+        return actionWithWebElements.getTextFromElementNumInt(firstLZDraw);
+    }
+
+    @Step
+    public String getSecondDrawNum(){
+        return actionWithWebElements.getTextFromElementNumInt(secondLZDraw);
+    }
+
+    @Step
+    public void chooseDrawFromList(int draw){
+        String drawNum = "0";
+        if (draw >0 && draw <3) {
+            if (draw == 1) {
+                chooseFirstLZDrawInRegistration();
+                drawNum = getFirstDrawNum();
+            } else if (draw == 2) {
+                chooseSecondLZDrawInRegistration();
+                drawNum = getSecondDrawNum();
+            }
+            logger.info("You have chosen " + drawNum + " draw");
+        } else {
+            logger.error("You have not chosen any draw");
+        }
+    }
+
+
+    @Step
+    private void chooseOneTicketToBuy(){
         actionWithWebElements.clickOnElement(oneLotoZabavaTicketToBuy);
     }
 
     @Step
-    public void chooseTwoTicketToBuy(){
+    private void chooseTwoTicketToBuy(){
         actionWithWebElements.clickOnElement(twoLotoZabavaTicketToBuy);
     }
 
     @Step
-    public void chooseThreeTicketToBuy(){
+    private void chooseThreeTicketToBuy(){
         actionWithWebElements.clickOnElement(threeLotoZabavaTicketToBuy);
     }
 
     @Step
-    public void chooseFourTicketToBuy(){
+    private void chooseFourTicketToBuy(){
         actionWithWebElements.clickOnElement(fourLotoZabavaTicketToBuy);
     }
 
     @Step
-    public void chooseFiveTicketToBuy(){
+    private void chooseFiveTicketToBuy(){
         actionWithWebElements.clickOnElement(fiveLotoZabavaTicketToBuy);
     }
 
     @Step
-    public void chooseSixTicketToBuy(){
+    private void chooseSixTicketToBuy(){
         actionWithWebElements.clickOnElement(sixLotoZabavaTicketToBuy);
     }
 
     @Step
-    public void chooseEightTicketToBuy(){
+    private void chooseEightTicketToBuy(){
         actionWithWebElements.clickOnElement(eightLotoZabavaTicketToBuy);
     }
 
     @Step
-    public void chooseSevenTicketToBuy(){
+    private void chooseSevenTicketToBuy(){
         actionWithWebElements.clickOnElement(sevenLotoZabavaTicketToBuy);
     }
 
     @Step
-    public void chooseNineTicketToBuy(){
+    private void chooseNineTicketToBuy(){
         actionWithWebElements.clickOnElement(nineLotoZabavaTicketToBuy);
     }
 
     @Step
-    public void chooseTenTicketToBuy(){
+    private void chooseTenTicketToBuy(){
         actionWithWebElements.clickOnElement(tenLotoZabavaTicketToBuy);
     }
 
@@ -251,7 +287,7 @@ public class LotoZabavaPurchaseMenuPage extends ParentPage {
 
     @Step
     public String getLZCheckSum(){
-        return actionWithWebElements.getTextFromElement(buyLotoZabavaButton);
+        return actionWithWebElements.getTextFromElementSum(buyLotoZabavaButton);
     }
 
     @Step
@@ -267,7 +303,12 @@ public class LotoZabavaPurchaseMenuPage extends ParentPage {
             }
         int mainTicketSum = ticketCount * 20;
         int parochkaSum = ticketCount * parochkaCount * 5;
-        int betSum = mainTicketSum + parochkaSum + (richAndPopular * ticketCount);
-        return String.valueOf(betSum);
+        float betSum = mainTicketSum + parochkaSum + (richAndPopular * ticketCount);
+        return String.format(Locale.ROOT,"%.2f", betSum);
+    }
+
+    @Step
+    public String getLZBetSum(){
+        return actionWithWebElements.getTextFromElementSum(betSum);
     }
 }

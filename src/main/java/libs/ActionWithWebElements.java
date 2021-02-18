@@ -11,6 +11,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.htmlelements.element.TypifiedElement;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ActionWithWebElements {
     WebDriver webDriver;
     Logger logger = Logger.getLogger(getClass());
@@ -86,10 +89,6 @@ public class ActionWithWebElements {
         Assert.fail("Can't work with element ");
     }
 
-    /*It’s not clear why, but the method works the other way around, so the crossover is deliberately allowed in the lines
-    * boolean isStateCheck = state.toLowerCase().equals("uncheck");
-        boolean isStateUncheck = state.toLowerCase().equals("check");*/
-
     public void setStateToCheckBox(WebElement checkBox, String state) {
         boolean isStateCheck = state.toLowerCase().equals("uncheck");
         boolean isStateUncheck = state.toLowerCase().equals("check");
@@ -153,6 +152,16 @@ public class ActionWithWebElements {
         return text;
     }
 
+    public String getTextFromElementNumInt(WebElement webElement) {
+        String text = webElement.getText().trim();
+        return text.replaceAll("[^0-9]", "");
+    }
+
+    public String getTextFromElementSum(WebElement webElement) {
+        String text = webElement.getText().trim();
+        return text.replaceAll("[^\\d.]", "");
+    }
+
     public void mouseOver(WebElement webElement) {
         actions.moveToElement(webElement).build().perform();
     }
@@ -165,5 +174,21 @@ public class ActionWithWebElements {
         }catch (Exception e){
             stopTestAndPrintMessage();
         }
+    }
+
+    public double roundDouble1(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    public double roundDouble(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(places, BigDecimal.ROUND_HALF_UP);
+        return bd.doubleValue();
     }
 }

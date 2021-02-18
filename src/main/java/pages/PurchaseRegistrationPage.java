@@ -30,10 +30,7 @@ public class PurchaseRegistrationPage extends ParentPage {
     @FindBy(xpath = "//button[@class='button button_theme_green ci-button ci-button_reg ng-star-inserted']")
     private Button registrationButton;
 
-    @FindBy(xpath = "//div[@class='ci-data-value ci-data-value_other ci-text-red ng-star-inserted']")
-    private TextBlock checkSum;
-
-    @FindBy(xpath = "//div[@class='ci-data-value ci-data-value_other ci-text-red ng-star-inserted']")
+    @FindBy(xpath = "//app-check-information//div[8]")
     private TextBlock betSum;
 
     @Step
@@ -64,22 +61,8 @@ public class PurchaseRegistrationPage extends ParentPage {
     }
 
     @Step
-    public String autoLotocheckSum(int ticketCount){
-        int sum = ticketCount * 100;
-        String checkSum = (String.valueOf(sum)) + ".00 грн";
-        return checkSum;
-    }
-
-    @Step
-    public String getCheckSum(){
-        String sum = actionWithWebElements.getTextFromElement(checkSum);
-         return sum;
-    }
-
-    @Step
     public String getBetSum(){
-        return actionWithWebElements.getTextFromElement(betSum);
+        return actionWithWebElements.getTextFromElementSum(betSum);
     }
-
 
 }

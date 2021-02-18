@@ -19,6 +19,8 @@ public class LotoZabavaTicketBuyTest extends AbstractParentTest {
     private int parochkaCount;
     private String richAndFamousContest;
     private String playerPhone = "684353443";
+    int draw = 1;
+    String betSum;
 
     public LotoZabavaTicketBuyTest (int ticketCountToBuy, int parochkaCount, String richAndFamousContest) {
         this.ticketCount = ticketCountToBuy;
@@ -29,16 +31,16 @@ public class LotoZabavaTicketBuyTest extends AbstractParentTest {
     @Parameterized.Parameters(name = "Parameters are {0}, {1}, {2}")
     public static Collection testData(){
         return Arrays.asList(new Object[][] {
-                {1, 1, "check"},
-                {2, 2, "uncheck"},
-                {3, 3, "check"},
-                {4, 4, "uncheck"},
-                {5, 5, "check"},
-                {6, 0, "uncheck"},
-                {7, 1, "check"},
-                {8, 2, "uncheck"},
-                {9, 3, "check"},
-                {10, 4, "uncheck"}
+                {1, 1, "check"}
+                , {2, 2, "uncheck"}
+                , {3, 3, "check"}
+                , {4, 4, "uncheck"}
+                , {5, 5, "check"}
+                , {6, 0, "uncheck"}
+                , {7, 1, "check"}
+                , {8, 2, "uncheck"}
+                , {9, 3, "check"}
+                , {10, 4, "uncheck"}
                 }
         );
     }
@@ -67,18 +69,19 @@ public class LotoZabavaTicketBuyTest extends AbstractParentTest {
         checkExpectedResult("Page hasn't loaded yet",lotteries.isLotteriesListDisplayed());
 
         lotoZabavaPurchaseMenuPage.chooseLZFromTheListOfLotteries();
-        lotoZabavaPurchaseMenuPage.chooseFirstLZDrawInRegistration();
+        lotoZabavaPurchaseMenuPage.chooseDrawFromList(draw);
         lotoZabavaPurchaseMenuPage.chooseLZTicketCount(ticketCount);
         lotoZabavaPurchaseMenuPage.chooseParochkaCount(parochkaCount);
         lotoZabavaPurchaseMenuPage.selectRichAndFamousContest(richAndFamousContest);
+        betSum = lotoZabavaPurchaseMenuPage.calculateLZBetSum(ticketCount, parochkaCount, richAndFamousContest);
 
-        checkExpectedText("Bet sum is not correct", "ДО СПЛАТИ: " + (lotoZabavaPurchaseMenuPage.calculateLZBetSum(ticketCount, parochkaCount, richAndFamousContest)) + ".00 ГРН"
-        , lotoZabavaPurchaseMenuPage.getLZCheckSum());
+        checkExpectedText("Bet sum is not correct", betSum
+                , lotoZabavaPurchaseMenuPage.getLZCheckSum());
 
         lotoZabavaPurchaseMenuPage.clickBuyLZButton();
 
-        checkExpectedText("Bet sum is not correct", (lotoZabavaPurchaseMenuPage.calculateLZBetSum(ticketCount, parochkaCount, richAndFamousContest)) + ".00 грн"
-        , purchaseRegistrationPage.getBetSum());
+        checkExpectedText("Bet sum is not correct", betSum
+                , lotoZabavaPurchaseMenuPage.getLZBetSum());
 
         purchaseRegistrationPage.enterPhoneNumberForPurchase(playerPhone);
         purchaseRegistrationPage.clickSendSMSButton();
@@ -89,5 +92,9 @@ public class LotoZabavaTicketBuyTest extends AbstractParentTest {
         lotteries.clickContinueWorkAfterRegistrationSuccess();
 
         checkExpectedResult("Page has not loaded after the registration", lotteries.isLotteriesListDisplayed());
+
+        checkExpectedText("Total bets sum is not correct"
+                , betSum
+                , lotteries.getTotalBetsSum());
     }
 }
