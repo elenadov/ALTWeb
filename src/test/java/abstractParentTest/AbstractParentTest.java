@@ -38,6 +38,8 @@ public class AbstractParentTest {
     protected EMLPurchaseMenuPage emlPurchaseMenuPage;
     protected PurchaseRegistrationPage purchaseRegistrationPage;
     protected LotoZabavaPurchaseMenuPage lotoZabavaPurchaseMenuPage;
+    protected WinCheckPage winCheckPage;
+    protected WinPayPage winPayPage;
 
     protected static ConfigProperties configProperties =
             ConfigFactory.create(ConfigProperties.class);
@@ -63,7 +65,10 @@ public class AbstractParentTest {
         lotteries = new LotteriesPage(webDriver);
         emlPurchaseMenuPage = new EMLPurchaseMenuPage(webDriver);
         purchaseRegistrationPage = new PurchaseRegistrationPage(webDriver);
-        lotoZabavaPurchaseMenuPage = new LotoZabavaPurchaseMenuPage(webDriver);}
+        lotoZabavaPurchaseMenuPage = new LotoZabavaPurchaseMenuPage(webDriver);
+        winCheckPage = new WinCheckPage(webDriver);
+        winPayPage = new WinPayPage(webDriver);
+    }
 
     @Parameterized.Parameters
     private WebDriver driverInit() throws Exception {

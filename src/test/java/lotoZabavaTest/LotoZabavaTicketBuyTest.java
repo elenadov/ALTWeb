@@ -45,8 +45,8 @@ public class LotoZabavaTicketBuyTest extends AbstractParentTest {
         );
     }
 
-    @Description("Authorization")
-    @Story("Authorization")
+    @Description("LotoZabava")
+    @Story("LotoZabava")
     @Link("")
     @Link(name = "allure", type = "mylink")
     @Severity(SeverityLevel.CRITICAL)

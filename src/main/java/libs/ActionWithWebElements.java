@@ -19,7 +19,7 @@ public class ActionWithWebElements {
     Logger logger = Logger.getLogger(getClass());
     WebDriverWait webDriverWait_05, webDriverWait_10, webDriverWait_20, webDriverWait_30;
     Actions actions;
-    int triesCount = 1;
+    private int triesCount = 1;
 
     public ActionWithWebElements(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -41,16 +41,16 @@ public class ActionWithWebElements {
         }
     }
 
-    public void enterTextIntoInput1(WebElement webElement, String text) {
-        try {
-//            webDriverWait_10.until(ExpectedConditions.visibilityOf(webElement));
-//            webElement.clear();
-            webElement.sendKeys(text);
-            logger.info("'" + text + "'" + " was inputed into input");
-        } catch (Exception e) {
-            stopTestAndPrintMessage();
-        }
-    }
+//    public void enterTextIntoInput1(WebElement webElement, String text) {
+//        try {
+////            webDriverWait_10.until(ExpectedConditions.visibilityOf(webElement));
+////            webElement.clear();
+//            webElement.sendKeys(text);
+//            logger.info("'" + text + "'" + " was inputed into input");
+//        } catch (Exception e) {
+//            stopTestAndPrintMessage();
+//        }
+//    }
 
     private String getElementName(WebElement webElement) {
         String elementName = "";

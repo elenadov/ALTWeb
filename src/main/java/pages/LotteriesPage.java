@@ -47,6 +47,12 @@ public class LotteriesPage extends ParentPage {
     @FindBy(xpath = "//div[@class='tc-amount']/span")
     private TextBlock totalBetsSum;
 
+    @FindBy(xpath = "//ul[@class='central-menu']/li[2]")
+    private Button winPaymentMenuButton;
+
+    @FindBy(xpath = "//ul[@class='central-menu']/li[1]")
+    private Button lotteryRegistrationMenuButton;
+
     @Step
     public boolean isNewOSAnnouncementDisplayed() {
         return actionWithWebElements.isElementDisplayed(newOSAnnouncment);
@@ -83,14 +89,17 @@ public class LotteriesPage extends ParentPage {
     }
 
     @Step
-    public String autoLotoCheckSum(int ticketCount) {
-        int autoLotoTicketSum = 100;
-        int sum = ticketCount * autoLotoTicketSum;
-        return String.valueOf(sum);
+    public String getTotalBetsSum(){
+        return actionWithWebElements.getTextFromElementSum(totalBetsSum);
     }
 
     @Step
-    public String getTotalBetsSum(){
-        return actionWithWebElements.getTextFromElementSum(totalBetsSum);
+    public void clickWinPaymentMenuButton(){
+        actionWithWebElements.clickOnElement(winPaymentMenuButton);
+    }
+
+    @Step
+    public void clickLotteryRegistrationMenuButton(){
+        actionWithWebElements.clickOnElement(lotteryRegistrationMenuButton);
     }
 }

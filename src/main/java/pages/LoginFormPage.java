@@ -109,7 +109,7 @@ public class LoginFormPage extends ParentPage {
 
     @Step
     public void enterSmsCodeIntoField(String code){
-        actionWithWebElements.enterTextIntoInput1(smsCodeInput, code);
+        actionWithWebElements.enterTextIntoInput(smsCodeInput, code);
     }
 
     @Step

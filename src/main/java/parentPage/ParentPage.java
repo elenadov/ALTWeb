@@ -11,6 +11,8 @@ import org.openqa.selenium.support.PageFactory;
 import pages.pageElements.WebDriverAwareDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
+import java.util.Locale;
+
 public class ParentPage { protected WebDriver webDriver;
     protected Logger logger = Logger.getLogger(getClass());
 //    public WebDriverWait webDriverWait_10, webDriverWait_20, webDriverWait_30;
@@ -60,6 +62,5 @@ public class ParentPage { protected WebDriver webDriver;
 
     @Step
     protected void checkExpectedCheckSum(String message, double expectedCheckSum){
-
     }
 }
