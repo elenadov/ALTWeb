@@ -6,12 +6,18 @@ import io.restassured.response.ResponseBody;
 import mainParamsForRequest.MainParamsForRequest;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 import static endpoints.EndPoints.TEST_AS_ALT_WEB;
 import static endpoints.EndPoints.TEST_BRS_MOB;
 import static endpoints.EndPoints.TEST_GS_ALT_WEB;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNull.notNullValue;
+
+/**
+ * Created by Elena Dovhaliuk
+ */
 
 public class ParamsForRequests extends MainParamsForRequest {
 
@@ -24,7 +30,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOGetSID");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "0001");
+            requestParams.put("CLIENT_TRANS_ID", time + "0001");
             requestParams.put("LANG", "ua");
             requestParams.put("LOGIN", "7600005");
             requestParams.put("PASSWD", "7600005");
@@ -82,7 +88,7 @@ public class ParamsForRequests extends MainParamsForRequest {
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetClientList");
         requestParams.put("CHANNEL_TYPE", "web_alt");
-        requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "0002");
+        requestParams.put("CLIENT_TRANS_ID", time + "0002");
         requestParams.put("LANG", "ua");
         requestParams.put("SID", getSid());
         requestParams.put("USER_ID", getUser_id());
@@ -153,7 +159,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "ResendAuth2");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "0003");
+            requestParams.put("CLIENT_TRANS_ID", time + "0003");
             requestParams.put("LANG", "ua");
             requestParams.put("SID", getSid());
             requestParams.put("USER_ID", getUser_id());
@@ -204,7 +210,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOAuth2");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "0004");
+            requestParams.put("CLIENT_TRANS_ID", time + "0004");
             requestParams.put("LANG", "ua");
             requestParams.put("SID", getSid());
             requestParams.put("USER_ID", getUser_id());
@@ -280,7 +286,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "SendAuthCode");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", genClientTransId() + "0005");
+            requestParams.put("CLIENT_TRANS_ID", time + "0005");
             requestParams.put("LANG", "ua");
             requestParams.put("SID", getSid());
             requestParams.put("USER_ID", getUser_id());
@@ -325,28 +331,88 @@ public class ParamsForRequests extends MainParamsForRequest {
     }
 
     @Step
-    public String getLZTicketForSale(int ticketCount, int parochkaCount){
+    public String getLZTicketForSale(int ticketCount, int parochkaCount, String bTV){
         String ticketPart1 = "{\"tickets\":[{\"t\":";
         String ticketPart2 = ",\"f\":0,\"e\":[{\"c\":1,\"n\":";
-        String ticketPart3 = "},{\"c\":2,\"n\":0}]}]}";
-        String requiredTicketForSale = ticketPart1 + ticketCount + ticketPart2 + parochkaCount + ticketPart3;
-        return  requiredTicketForSale;
+        String ticketPart3 = "},{\"c\":2,\"n\":";
+        String ticketPart4 = "}]}]}";
+        String richAndPopular;
+        boolean isStateCheck = bTV.toLowerCase().equals("check");
+        boolean isStateUncheck = bTV.toLowerCase().equals("uncheck");
+        if (isStateCheck) {
+            richAndPopular = "1";
+        }
+        else if (isStateUncheck) {
+            richAndPopular = "0";
+        }
+        else{
+            richAndPopular = "0";
+        }
+        return  ticketPart1 + ticketCount + ticketPart2 + parochkaCount
+                + ticketPart3 + richAndPopular + ticketPart4;
     }
 
+    //"{\"tickets\":[{\"t\":1,\"f\":0,\"e\":[{\"c\":1,\"n\":";
+    //        String ticketPart3 = "},{\"c\":2,\"n\":0}]}]}";
+
     @Step
-    private String calculateOneBetSum(int ticketCount, int parochkaCount){
+    private String calculateOneBetSum(int ticketCount, int parochkaCount, String bTV){
+        int richAndPopular;
+        boolean isStateCheck = bTV.toLowerCase().equals("check");
+        boolean isStateUncheck = bTV.toLowerCase().equals("uncheck");
+        if (isStateCheck) {
+            richAndPopular = 2;
+        }
+        else if (isStateUncheck) {
+            richAndPopular = 0;
+        }
+        else{
+            richAndPopular = 0;
+        }
         int mainTicketSum = 20;
         int parochkaSum = (ticketCount * parochkaCount * 5) / ticketCount;
-        int sumOfOneTicket = mainTicketSum + parochkaSum;
+        int sumOfOneTicket = mainTicketSum + parochkaSum + richAndPopular;
         return String.valueOf(sumOfOneTicket);
     }
 
+//    @Step
+//    public String calculateCheckSum(int ticketCount, int parochkaCount, int bTV){
+//        int oneBetSum = Integer.parseInt(calculateOneBetSum(ticketCount, parochkaCount, bTV));
+//        int result = oneBetSum * ticketCount;
+//        return result + "00";
+//    }
+
     @Step
-    public String calculateCheckSum(int ticketCount, int parochkaCount){
-        int oneBetSum = Integer.parseInt(calculateOneBetSum(ticketCount, parochkaCount));
-        int result = oneBetSum * ticketCount;
-        String res = result + "00";
-        return res;
+    public String calculateLZCheckSumHrn(int ticketCount, int parochkaCount, String bTV){
+        int richAndPopular = 0;
+        boolean isStateCheck = bTV.toLowerCase().equals("check");
+        boolean isStateUncheck = bTV.toLowerCase().equals("uncheck");
+        if (isStateCheck) {
+            richAndPopular = 2;
+        }
+        else if (isStateUncheck) {
+            richAndPopular = 0;
+        }
+        int mainTicketSum = ticketCount * 20;
+        int parochkaSum = ticketCount * parochkaCount * 5;
+        float betSum = mainTicketSum + parochkaSum + (richAndPopular * ticketCount);
+        return String.format(Locale.ROOT,"%.2f", betSum);
+    }
+
+    @Step
+    public String calculateLZCheckSumMonets(int ticketCount, int parochkaCount, String bTV){
+        int richAndPopular = 0;
+        boolean isStateCheck = bTV.toLowerCase().equals("check");
+        boolean isStateUncheck = bTV.toLowerCase().equals("uncheck");
+        if (isStateCheck) {
+            richAndPopular = 2;
+        }
+        else if (isStateUncheck) {
+            richAndPopular = 0;
+        }
+        int mainTicketSum = ticketCount * 20;
+        int parochkaSum = ticketCount * parochkaCount * 5;
+        return String.valueOf(mainTicketSum + parochkaSum + (richAndPopular * ticketCount)) + "00";
     }
 }
 

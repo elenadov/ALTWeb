@@ -13,14 +13,16 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
 
 import java.util.Locale;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 public class ParentPage { protected WebDriver webDriver;
     protected Logger logger = Logger.getLogger(getClass());
-//    public WebDriverWait webDriverWait_10, webDriverWait_20, webDriverWait_30;
     protected ActionWithWebElements actionWithWebElements;
     public ConfigProperties configProperties = ConfigFactory.create(ConfigProperties.class);
     protected String baseUrl;
     String expectedUrl;
-//    protected Database database;
 
     public ParentPage(WebDriver webDriver, String partUrl){
         baseUrl = configProperties.base_url();
@@ -48,19 +50,5 @@ public class ParentPage { protected WebDriver webDriver;
             logger.error("Can't get url " + e);
             Assert.fail("Can't get url " + e);
         }
-    }
-
-    @Step
-    protected void checkExpectedResult(String message, boolean actualResult) {
-        Assert.assertEquals(message, true, actualResult);
-    }
-
-    @Step
-    protected void checkExpectedText(String message, String expectedResult, String actualResult) {
-        Assert.assertEquals(message, expectedResult, actualResult);
-    }
-
-    @Step
-    protected void checkExpectedCheckSum(String message, double expectedCheckSum){
     }
 }

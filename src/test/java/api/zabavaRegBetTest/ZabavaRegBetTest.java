@@ -16,6 +16,8 @@ import java.util.Collection;
 import static endpoints.EndPoints.TEST_BRS_MOB;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 /**
@@ -29,25 +31,27 @@ import static org.hamcrest.core.IsNull.notNullValue;
 public class ZabavaRegBetTest extends ApiParentTest {
     private String playerPhone = "098456454";
     private int ticketCount, parochkaCount;
+    String bTv;
 
-    public ZabavaRegBetTest (int ticketCountToBuy, int parochkaCountToBuy) {
+    public ZabavaRegBetTest (int ticketCountToBuy, int parochkaCountToBuy, String bTVCountToBuy){
         this.ticketCount = ticketCountToBuy;
         this.parochkaCount = parochkaCountToBuy;
+        this.bTv = bTVCountToBuy;
     }
 
-    @Parameterized.Parameters(name = "Parameters are {0}, {1}")
+    @Parameterized.Parameters(name = "Parameters are {0}, {1}, {2}")
     public static Collection testData(){
         return Arrays.asList(new Object[][] {
-                        {1, 0},
-                        {2, 1},
-                        {3, 2},
-                        {4, 3},
-                        {5, 4},
-                        {6, 5},
-                        {7, 0},
-                        {8, 1},
-                        {9, 2},
-                        {10, 3}
+                        {1, 0, "check"},
+                        {2, 1, "uncheck"},
+                        {3, 2, "check"},
+                        {4, 3, "uncheck"},
+                        {5, 4, "check"},
+                        {6, 5, "uncheck"},
+                        {7, 0, "check"},
+                        {8, 1, "uncheck"},
+                        {9, 2, "check"},
+                        {10, 3, "uncheck"}
                 }
         );
     }
@@ -77,9 +81,9 @@ public class ZabavaRegBetTest extends ApiParentTest {
             requestParams.put("LANG", "ua");
             requestParams.put("TERM_CODE", paramsForRequests.getTerm_code());
             requestParams.put("BETS_COUNT", "1");
-            requestParams.put("BETS_DATA", paramsForRequests.getLZTicketForSale(ticketCount, parochkaCount));
+            requestParams.put("BETS_DATA", paramsForRequests.getLZTicketForSale(ticketCount, parochkaCount, bTv));
             requestParams.put("PROTO_TYPE", "keyvalue-json");
-            requestParams.put("BET_SUM", paramsForRequests.calculateCheckSum(ticketCount, parochkaCount));
+            requestParams.put("BET_SUM", paramsForRequests.calculateLZCheckSumMonets(ticketCount, parochkaCount, bTv));
             requestParams.put("CLIENT_ID", paramsForRequests.getClient_id());
             requestParams.put("DRAW_COUNT", "1");
             requestParams.put("DRAW_NUM", database.selectValue(configProperties.GET_CURRENT_LZ_DRAW()));
@@ -124,6 +128,8 @@ public class ZabavaRegBetTest extends ApiParentTest {
                             .body("description", notNullValue())
                             .body(containsString("bet_sum"))
                             .body("bet_sum", notNullValue())
+                            .body(containsString("\"bet_sum\":" + "\""
+                            + paramsForRequests.calculateLZCheckSumHrn(ticketCount, parochkaCount, bTv) + "\""))
                             .body(containsString("ticket_num"))
                             .body("ticket_num", notNullValue())
                             .body(containsString("ticket_snum"))

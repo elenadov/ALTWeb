@@ -5,8 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import parentPage.ParentPage;
 import ru.yandex.qatools.htmlelements.element.Button;
-import ru.yandex.qatools.htmlelements.element.TextBlock;
 import ru.yandex.qatools.htmlelements.element.TextInput;
+
+/**
+ * Created by Elena Dovhaliuk
+ */
 
 public class WinCheckPage extends ParentPage {
     public WinCheckPage(WebDriver webDriver) {

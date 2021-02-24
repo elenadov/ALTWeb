@@ -47,7 +47,7 @@ public class WrongLoginInputTest extends AbstractParentTest {
         loginForm.enterValidPassword();
         loginForm.clickVhidToSignIn();
 
-        checkExpectedResult("!!! Login is suitable for such negative case",
+        checkExpectedResult("!!! Login isn't suitable for such negative case",
                 loginForm.isLoginOrPasswordIsInvalidPopUpVisible());
 
         loginForm.clickContinueButton();

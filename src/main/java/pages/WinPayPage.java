@@ -9,6 +9,10 @@ import ru.yandex.qatools.htmlelements.element.TextBlock;
 
 import java.util.Locale;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 public class WinPayPage extends ParentPage {
     public WinPayPage(WebDriver webDriver) {
         super(webDriver, "/tickets/payment");

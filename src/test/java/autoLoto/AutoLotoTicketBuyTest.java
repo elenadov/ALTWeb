@@ -49,10 +49,11 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
     @Severity(SeverityLevel.CRITICAL)
 
     @Test()
-    public void autoLoto1TicketPurchase() throws SQLException, ClassNotFoundException {
+    public void autoLotoTicketPurchase() throws SQLException, ClassNotFoundException {
 
         loginForm.openPage();
         loginForm.signIn();
+        loginForm.isSmsCodeInputFieldDisplayed();
         loginForm.enterSmsCodeIntoField(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
         loginForm.clickSmsCodeInputConfirmation();
 
@@ -69,7 +70,7 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
         emlPurchaseMenuPage.chooseAutoLotoPurchaseMenu();
         emlPurchaseMenuPage.chooseEMLTicketCount(ticketCount);
         emlPurchaseMenuPage.chooseDrawFromTheList(drawNumCount);
-        betSum = emlPurchaseMenuPage.betSumCount(emlPurchaseMenuPage.getSerieCost(drawNumCount), ticketCount);
+        betSum = emlPurchaseMenuPage.betSumCount(emlPurchaseMenuPage.getSeriesCost(drawNumCount), ticketCount);
 
         checkExpectedText("The sum of Auto Loto check is incorrect!"
                 , betSum

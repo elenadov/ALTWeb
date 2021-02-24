@@ -9,6 +9,10 @@ import ru.yandex.qatools.htmlelements.element.TextBlock;
 
 import java.util.Locale;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 public class LotoZabavaPurchaseMenuPage extends ParentPage {
 
     public LotoZabavaPurchaseMenuPage(WebDriver webDriver) {
@@ -83,31 +87,58 @@ public class LotoZabavaPurchaseMenuPage extends ParentPage {
     @FindBy(xpath = "//app-check-information//div[10]")
     private TextBlock betSum;
 
+    /**
+     * Created by Elena Dovhaliuk
+     * Such method clicks Loto Zabava purchase button form the main menu
+     */
     @Step
     public void chooseLZFromTheListOfLotteries(){
         actionWithWebElements.clickOnElement(lotoZabavaPurchaseButton);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * Such private method chooses first draw in the list
+     */
     @Step
     private void chooseFirstLZDrawInRegistration(){
         actionWithWebElements.clickOnElement(lotoZabavaFirstDrawInRegistrationButton);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method chooses second draw in the list
+     */
     @Step
     private void chooseSecondLZDrawInRegistration(){
         actionWithWebElements.clickOnElement(lotoZabavaSecondDrawInRegistrationButton);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * Such method returns first draw number
+     * @return
+     */
     @Step
-    public String getFirstDrawNum(){
+    private String getFirstDrawNum(){
         return actionWithWebElements.getTextFromElementNumInt(firstLZDraw);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * Such method returns second draw number
+     * @return
+     */
     @Step
-    public String getSecondDrawNum(){
+    private String getSecondDrawNum(){
         return actionWithWebElements.getTextFromElementNumInt(secondLZDraw);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method chooses draw from the list and prints selected draw number
+     * @param draw
+     */
     @Step
     public void chooseDrawFromList(int draw){
         String drawNum = "0";
@@ -125,57 +156,101 @@ public class LotoZabavaPurchaseMenuPage extends ParentPage {
         }
     }
 
-
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects one ticket for purchase
+     */
     @Step
     private void chooseOneTicketToBuy(){
         actionWithWebElements.clickOnElement(oneLotoZabavaTicketToBuy);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects two tickets for purchase
+     */
     @Step
     private void chooseTwoTicketToBuy(){
         actionWithWebElements.clickOnElement(twoLotoZabavaTicketToBuy);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects three tickets for purchase
+     */
     @Step
     private void chooseThreeTicketToBuy(){
         actionWithWebElements.clickOnElement(threeLotoZabavaTicketToBuy);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects four tickets for purchase
+     */
     @Step
     private void chooseFourTicketToBuy(){
         actionWithWebElements.clickOnElement(fourLotoZabavaTicketToBuy);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects five tickets for purchase
+     */
     @Step
     private void chooseFiveTicketToBuy(){
         actionWithWebElements.clickOnElement(fiveLotoZabavaTicketToBuy);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects six tickets for purchase
+     */
     @Step
     private void chooseSixTicketToBuy(){
         actionWithWebElements.clickOnElement(sixLotoZabavaTicketToBuy);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects seven tickets for purchase
+     */
     @Step
     private void chooseEightTicketToBuy(){
         actionWithWebElements.clickOnElement(eightLotoZabavaTicketToBuy);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects eight tickets for purchase
+     */
     @Step
     private void chooseSevenTicketToBuy(){
         actionWithWebElements.clickOnElement(sevenLotoZabavaTicketToBuy);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects nine tickets for purchase
+     */
     @Step
     private void chooseNineTicketToBuy(){
         actionWithWebElements.clickOnElement(nineLotoZabavaTicketToBuy);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects ten tickets for purchase
+     */
     @Step
     private void chooseTenTicketToBuy(){
         actionWithWebElements.clickOnElement(tenLotoZabavaTicketToBuy);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method selects ticket/s for purchase
+     * @param ticketCount
+     */
     @Step
     public void chooseLZTicketCount(int ticketCount){
         if(ticketCount >0 && ticketCount <11){
@@ -216,31 +291,56 @@ public class LotoZabavaPurchaseMenuPage extends ParentPage {
         }
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects one parochka combination for purchase
+     */
     @Step
     public void chooseOneParochkaCombination(){
         actionWithWebElements.clickOnElement(oneParochkaCount);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects two parochka combinations for purchase
+     */
     @Step
     public void chooseTwoParochkaCombinations(){
         actionWithWebElements.clickOnElement(twoParochkaCount);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects three parochka combinations for purchase
+     */
     @Step
     public void chooseThreeParochkaCombinations(){
         actionWithWebElements.clickOnElement(threeParochkaCount);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects four parochka combinations for purchase
+     */
     @Step
     public void chooseFourParochkaCombinations(){
         actionWithWebElements.clickOnElement(fourParochkaCount);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects five parochka combinations for purchase
+     */
     @Step
     public void chooseFiveParochkaCombinations(){
         actionWithWebElements.clickOnElement(fiveParochkaCount);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method selects parochka combination/s for purchase
+     * @param parochkaCount
+     */
     @Step
     public void chooseParochkaCount(int parochkaCount) {
         if (parochkaCount >0 && parochkaCount <6) {
@@ -261,11 +361,20 @@ public class LotoZabavaPurchaseMenuPage extends ParentPage {
         }
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method selects rich and famous combination for purchase
+     */
     @Step
     public void chooseBahatyTaVidomyContest(){
         actionWithWebElements.clickOnElement(bahatyTaVidomyContest);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method selects rich and famous combination for purchase
+     * @param state
+     */
     @Step
     public void selectRichAndFamousContest(String state){
         boolean isStateCheck = state.toLowerCase().equals("check");
@@ -280,16 +389,33 @@ public class LotoZabavaPurchaseMenuPage extends ParentPage {
         }
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method clicks continue button to purchase Loto Zabava
+     */
     @Step
     public void clickBuyLZButton(){
         actionWithWebElements.clickOnElement(buyLotoZabavaButton);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method returns formed sum of Loto Zabava check (from the purchase menu) to be compared with
+     * @return
+     */
     @Step
     public String getLZCheckSum(){
         return actionWithWebElements.getTextFromElementSum(buyLotoZabavaButton);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * Such method calculates and returns correct sum of Loto Zabava check to be compared with
+     * @param ticketCount
+     * @param parochkaCount
+     * @param bTV
+     * @return
+     */
     @Step
     public String calculateLZBetSum(int ticketCount, int parochkaCount, String bTV){
         int richAndPopular = 0;
@@ -307,6 +433,11 @@ public class LotoZabavaPurchaseMenuPage extends ParentPage {
         return String.format(Locale.ROOT,"%.2f", betSum);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method returns formed sum of Loto Zabava check (from the registration check menu) to be compared with
+     * @return
+     */
     @Step
     public String getLZBetSum(){
         return actionWithWebElements.getTextFromElementSum(betSum);

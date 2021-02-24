@@ -55,6 +55,7 @@ public class LotoZabavaTicketBuyTest extends AbstractParentTest {
     public void lotoZabavaBuyOneTicket() throws SQLException, ClassNotFoundException {
         loginForm.openPage();
         loginForm.signIn();
+        loginForm.isSmsCodeInputFieldDisplayed();
         loginForm.enterSmsCodeIntoField(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
         loginForm.clickSmsCodeInputConfirmation();
 

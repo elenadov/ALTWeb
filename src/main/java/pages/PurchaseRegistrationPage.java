@@ -9,6 +9,10 @@ import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextBlock;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 public class PurchaseRegistrationPage extends ParentPage {
     public PurchaseRegistrationPage(WebDriver webDriver) {
         super(webDriver, "/lotteries/instant-lotteries/registry");
@@ -21,7 +25,6 @@ public class PurchaseRegistrationPage extends ParentPage {
     private Button sendSMSButton;
 
     @FindBy(xpath = "//ng-component/app-check-information//app-msl-input-pin//input")
-    //(xpath = "//input[@class='pin__input ng-pristine ng-valid ng-touched']")
     private TextInput confirmationSmsCodeInput;
 
     @FindBy(xpath = "//div[@class='pin-title ng-star-inserted']")
@@ -33,6 +36,10 @@ public class PurchaseRegistrationPage extends ParentPage {
     @FindBy(xpath = "//app-check-information//div[8]")
     private TextBlock betSum;
 
+    /**
+     *
+     * @param number
+     */
     @Step
     public void enterPhoneNumberForPurchase(String number){
         actionWithWebElements.enterTextIntoInput(phoneNumberInput, number);
