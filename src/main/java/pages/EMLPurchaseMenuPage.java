@@ -237,7 +237,7 @@ public class EMLPurchaseMenuPage extends ParentPage {
      */
     @Step
     private void selectSixTicketsToBuy(){
-        actionWithWebElements.clickOnElement(oneTicketToBeBought);
+        actionWithWebElements.clickOnElement(sixTicketsToBeBought);
     }
 
     /**

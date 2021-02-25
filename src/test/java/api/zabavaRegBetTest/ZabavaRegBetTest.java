@@ -21,7 +21,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 /**
- * Created by Lena Dovhaliuk on 01/02/20.
+ * Created by Elena Dovhaliuk
  */
 
 @Epic("Loto Zabava")
@@ -73,6 +73,8 @@ public class ZabavaRegBetTest extends ApiParentTest {
 
         oracleSQLDBConnect();
 
+        String drawNum = database.selectValue(configProperties.GET_CURRENT_LZ_DRAW());
+
         JSONObject requestParams = new JSONObject();
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "ZabavaRegBet");
@@ -81,12 +83,12 @@ public class ZabavaRegBetTest extends ApiParentTest {
             requestParams.put("LANG", "ua");
             requestParams.put("TERM_CODE", paramsForRequests.getTerm_code());
             requestParams.put("BETS_COUNT", "1");
-            requestParams.put("BETS_DATA", paramsForRequests.getLZTicketForSale(ticketCount, parochkaCount, bTv));
+            requestParams.put("BETS_DATA", zabavaRegBet.getLZTicketForSale(ticketCount, parochkaCount, bTv));
             requestParams.put("PROTO_TYPE", "keyvalue-json");
-            requestParams.put("BET_SUM", paramsForRequests.calculateLZCheckSumMonets(ticketCount, parochkaCount, bTv));
+            requestParams.put("BET_SUM", zabavaRegBet.calculateLZCheckSumMonets(ticketCount, parochkaCount, bTv));
             requestParams.put("CLIENT_ID", paramsForRequests.getClient_id());
             requestParams.put("DRAW_COUNT", "1");
-            requestParams.put("DRAW_NUM", database.selectValue(configProperties.GET_CURRENT_LZ_DRAW()));
+            requestParams.put("DRAW_NUM", drawNum);
             requestParams.put("GAME_CODE", "3");
             requestParams.put("PLAYER_AUTH_CODE", database.selectValue(configProperties.GET_SMS_CODE_FOR_SELL()));
             requestParams.put("PLAYER_PHONE", playerPhone);
@@ -129,13 +131,14 @@ public class ZabavaRegBetTest extends ApiParentTest {
                             .body(containsString("bet_sum"))
                             .body("bet_sum", notNullValue())
                             .body(containsString("\"bet_sum\":" + "\""
-                            + paramsForRequests.calculateLZCheckSumHrn(ticketCount, parochkaCount, bTv) + "\""))
+                            + zabavaRegBet.calculateOneBetSumHrn(ticketCount, parochkaCount, bTv) + "\""))
                             .body(containsString("ticket_num"))
                             .body("ticket_num", notNullValue())
                             .body(containsString("ticket_snum"))
                             .body("ticket_snum", notNullValue())
                             .body(containsString("draw_num"))
                             .body("draw_num", notNullValue())
+                            .body(containsString("\"draw_num\":" + drawNum))
                             .body(containsString("regdate"))
                             .body("regdate", notNullValue())
                             .body(containsString("mac_code"))

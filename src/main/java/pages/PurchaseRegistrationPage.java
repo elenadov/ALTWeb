@@ -37,7 +37,8 @@ public class PurchaseRegistrationPage extends ParentPage {
     private TextBlock betSum;
 
     /**
-     *
+     * Created by Elena Dovhaliuk
+     * This method enters phone number into input
      * @param number
      */
     @Step
@@ -45,11 +46,19 @@ public class PurchaseRegistrationPage extends ParentPage {
         actionWithWebElements.enterTextIntoInput(phoneNumberInput, number);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * Such method clicks send SMS button
+     */
     @Step
     public void clickSendSMSButton(){
         actionWithWebElements.clickOnElement(sendSMSButton);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method waits a bit till sms code is received
+     */
     @Step
     public void waitUntilSmsCodeWillBeSent(){
         Utils.waitABit(3);
@@ -57,16 +66,30 @@ public class PurchaseRegistrationPage extends ParentPage {
         actionWithWebElements.waitVisibilityOfElement(confirmationSmsCodeInput);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method enters received sms code into input
+     * @param smsCode
+     */
     @Step
     public void enterSmsIntoInput(String smsCode){
         actionWithWebElements.enterTextIntoInput(confirmationSmsCodeInput, smsCode);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method clicks registration button to continue the process of purchase
+     */
     @Step
     public void clickRegistrationButton(){
         actionWithWebElements.clickOnElement(registrationButton);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * Such method returns sum of the check (at the end of the purchase)
+     * @return
+     */
     @Step
     public String getBetSum(){
         return actionWithWebElements.getTextFromElementSum(betSum);

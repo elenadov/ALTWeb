@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import paramsForRequests.ParamsForRequests;
+import paramsForRequests.ZabavaRegBet;
 
 import java.sql.SQLException;
 import java.time.Instant;
@@ -19,6 +20,7 @@ public class ApiParentTest {
     protected Database database;
     protected Logger logger = Logger.getLogger(getClass());
     protected ParamsForRequests paramsForRequests = new ParamsForRequests();
+    protected ZabavaRegBet zabavaRegBet = new ZabavaRegBet();
 
     protected static ConfigProperties configProperties =
             ConfigFactory.create(ConfigProperties.class);
@@ -34,21 +36,6 @@ public class ApiParentTest {
     @Step
     public void oracleSQLDBConnect() throws SQLException, ClassNotFoundException {
         database = Oracle_SQL_Database.getOracleDataBase();
-    }
-
-    @Step
-    protected void checkExpectedResult(String message, boolean actualResult) {
-        Assert.assertEquals(message, true, actualResult);
-    }
-
-    @Step
-    protected void checkExpectedText(String message, String expectedResult, String actualResult) {
-        Assert.assertEquals(message, expectedResult, actualResult);
-    }
-
-    @Step
-    protected void checkExpectedText(String message, ArrayList<String> expectedResult, ArrayList<String> actualResult){
-        Assert.assertEquals(message,expectedResult,actualResult);
     }
 
 }
