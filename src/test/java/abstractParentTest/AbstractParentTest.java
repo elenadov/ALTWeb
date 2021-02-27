@@ -72,7 +72,7 @@ public class AbstractParentTest {
 
     @Parameterized.Parameters
     private WebDriver driverInit() throws Exception {
-        String hub = "https://d.popelnukh:E2H9elZQaQ2xrWoIsvTCl6RSUMHpw5aSCnmnskeQNGzneyd1qZ@hub.lambdatest.com/wd/hub";
+        String hub = System.getProperty("tunnelHub");
         String browser = System.getProperty("browser");
         if ((browser == null) || ("chrome".equalsIgnoreCase(browser))) {
             WebDriverManager.chromedriver().setup();
@@ -85,12 +85,12 @@ public class AbstractParentTest {
             return new InternetExplorerDriver();
         } else if ("remote".equals(browser)){
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("build", "5.15");
-            capabilities.setCapability("name", "beda");
+            capabilities.setCapability("build", "NewTunnel");
+            capabilities.setCapability("name", "05/01/2021");
             capabilities.setCapability("platform", "Windows 10");
-            capabilities.setCapability("browserName", "Chrome");
-            capabilities.setCapability("version","83.0");
-            capabilities.setCapability("resolution","1280x1024");
+            capabilities.setCapability("browserName", "Firefox");
+            capabilities.setCapability("version","84.0");
+            capabilities.setCapability("resolution","2560x1440");
             capabilities.setCapability("tunnel",true);
             return webDriver = new RemoteWebDriver(new URL(hub), capabilities);
         }else {

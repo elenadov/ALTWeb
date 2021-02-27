@@ -21,6 +21,10 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 public class ParamsForRequests extends MainParamsForRequest {
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method executes BOGetSID action to obtain actual values of sid, user_id, client_id
+     */
     @Step
     public void boGetSID() {
 
@@ -78,6 +82,10 @@ public class ParamsForRequests extends MainParamsForRequest {
         }
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method executes BOGetClientList action to obtain actual values of sid, user_id, client_id
+     */
     @Step
     public void boGetClientList() {
 
@@ -150,6 +158,10 @@ public class ParamsForRequests extends MainParamsForRequest {
         }
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method executes ResendAuth2 action to send sms code for the further authentication
+     */
     @Step
     public void resendAuth2() {
 
@@ -201,6 +213,12 @@ public class ParamsForRequests extends MainParamsForRequest {
         }
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method executes BOAuth2 action to confirm obtained sms code and get actual
+     * value of term_code
+     * @param code
+     */
     @Step
     public void boAuth2(String code){
 
@@ -278,6 +296,11 @@ public class ParamsForRequests extends MainParamsForRequest {
         }
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method executes SendAuthCode action to send sms code and continue purchase
+     * @param playerPhone
+     */
     @Step
     public void sendAuthCode(String playerPhone){
         JSONObject requestParams = new JSONObject();

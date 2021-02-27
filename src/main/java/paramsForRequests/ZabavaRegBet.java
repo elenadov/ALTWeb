@@ -5,8 +5,19 @@ import mainParamsForRequest.MainParamsForRequest;
 
 import java.util.Locale;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 public class ZabavaRegBet extends MainParamsForRequest {
 
+    /**
+     * Created by Elena Dovhaliuk
+     * @param ticketCount
+     * @param parochkaCount
+     * @param bTV
+     * @return
+     */
     @Step
     public String getLZTicketForSale(int ticketCount, int parochkaCount, String bTV){
         String ticketPart1 = "{\"tickets\":[{\"t\":";
@@ -29,6 +40,13 @@ public class ZabavaRegBet extends MainParamsForRequest {
                 + ticketPart3 + richAndPopular + ticketPart4;
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * @param ticketCount
+     * @param parochkaCount
+     * @param bTV
+     * @return
+     */
     @Step
     public String calculateOneBetSumHrn(int ticketCount, int parochkaCount, String bTV){
         int richAndPopular;
@@ -49,6 +67,13 @@ public class ZabavaRegBet extends MainParamsForRequest {
         return String.format(Locale.ROOT,"%.2f", sumOfOneTicket);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * @param ticketCount
+     * @param parochkaCount
+     * @param bTV
+     * @return
+     */
     @Step
     public String calculateLZCheckSumHrn(int ticketCount, int parochkaCount, String bTV){
         int richAndPopular = 0;
@@ -66,6 +91,13 @@ public class ZabavaRegBet extends MainParamsForRequest {
         return String.format(Locale.ROOT,"%.2f", betSum);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * @param ticketCount
+     * @param parochkaCount
+     * @param bTV
+     * @return
+     */
     @Step
     public String calculateLZCheckSumMonets(int ticketCount, int parochkaCount, String bTV){
         int richAndPopular = 0;

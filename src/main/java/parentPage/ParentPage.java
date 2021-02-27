@@ -33,6 +33,7 @@ public class ParentPage { protected WebDriver webDriver;
         actionWithWebElements = new ActionWithWebElements(webDriver);
         expectedUrl = baseUrl + partUrl;
     }
+
     @Step
     public void openPage() {
         try {
