@@ -10,6 +10,10 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 @Epic("LotoZabava")
 @Feature("PurchaseTicket")
 @RunWith(Parameterized.class)
@@ -45,8 +49,8 @@ public class LotoZabavaTicketBuyTest extends AbstractParentTest {
         );
     }
 
-    @Description("LotoZabava")
-    @Story("LotoZabava")
+    @Description("LotoZabavaPurchase")
+    @Story("LotoZabavaPurchase")
     @Link("")
     @Link(name = "allure", type = "mylink")
     @Severity(SeverityLevel.CRITICAL)

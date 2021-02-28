@@ -9,7 +9,6 @@ import parentPage.ParentPage;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextBlock;
 import ru.yandex.qatools.htmlelements.element.TextInput;
-import java.sql.SQLException;
 
 /**
  * Created by Elena Dovhaliuk

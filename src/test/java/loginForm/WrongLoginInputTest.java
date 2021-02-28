@@ -9,6 +9,10 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 @Epic("Login")
 @Feature("Authorization")
 @RunWith(Parameterized.class)
@@ -34,7 +38,7 @@ public class WrongLoginInputTest extends AbstractParentTest {
         );
     }
 
-    @Description("Authorization")
+    @Description("Wrong authorization")
     @Story("Authorization")
     @Link("")
     @Link(name = "allure", type = "mylink")

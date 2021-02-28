@@ -16,8 +16,6 @@ import java.util.Collection;
 import static endpoints.EndPoints.TEST_BRS_MOB;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 /**

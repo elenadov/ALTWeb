@@ -13,6 +13,10 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNull.notNullValue;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 public class SendAuthCode extends ApiParentTest {
     private String playerPhone = "098456454";
 

@@ -6,8 +6,6 @@ import io.restassured.response.ResponseBody;
 import mainParamsForRequest.MainParamsForRequest;
 import org.json.JSONObject;
 
-import java.util.Locale;
-
 import static endpoints.EndPoints.TEST_AS_ALT_WEB;
 import static endpoints.EndPoints.TEST_BRS_MOB;
 import static endpoints.EndPoints.TEST_GS_ALT_WEB;

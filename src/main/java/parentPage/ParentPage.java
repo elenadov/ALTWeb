@@ -11,8 +11,6 @@ import org.openqa.selenium.support.PageFactory;
 import pages.pageElements.WebDriverAwareDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
-import java.util.Locale;
-
 /**
  * Created by Elena Dovhaliuk
  */
@@ -34,6 +32,9 @@ public class ParentPage { protected WebDriver webDriver;
         expectedUrl = baseUrl + partUrl;
     }
 
+    /**
+     * Such method opens page by selected url
+     */
     @Step
     public void openPage() {
         try {
@@ -43,10 +44,13 @@ public class ParentPage { protected WebDriver webDriver;
         }
     }
 
+    /**
+     * Such method checks if current url is correct according to expected one
+     */
     @Step
     public void checkCurrentUrl(){
         try{
-            Assert.assertEquals("Url is not expected", expectedUrl, webDriver.getCurrentUrl());
+            Assert.assertEquals("Url is not correct", expectedUrl, webDriver.getCurrentUrl());
         }catch (Exception e){
             logger.error("Can't get url " + e);
             Assert.fail("Can't get url " + e);

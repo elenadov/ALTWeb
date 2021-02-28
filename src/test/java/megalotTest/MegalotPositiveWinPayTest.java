@@ -6,6 +6,10 @@ import org.junit.Test;
 
 import java.sql.SQLException;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 @Epic("MegalotWinPay")
 @Feature("MegalotWinPayment")
 

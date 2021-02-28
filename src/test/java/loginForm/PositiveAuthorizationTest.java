@@ -6,11 +6,15 @@ import org.junit.Test;
 
 import java.sql.SQLException;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 @Epic("Login")
 @Feature("Authorization")
 public class PositiveAuthorizationTest extends AbstractParentTest {
 
-    @Description("Authorization")
+    @Description("Valid authorization")
     @Story("Authorization")
     @Link("")
     @Link(name = "allure", type = "mylink")

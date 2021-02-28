@@ -10,6 +10,10 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 @Epic("AutoLoto")
 @Feature("PurchaseTicket")
 @RunWith(Parameterized.class)

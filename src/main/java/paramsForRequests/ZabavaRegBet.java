@@ -13,6 +13,8 @@ public class ZabavaRegBet extends MainParamsForRequest {
 
     /**
      * Created by Elena Dovhaliuk
+     * Such method forms necessary parameters for Loto Zabava purchase based on how much tickets, parochka
+     * and rich and famous contest is needed to be bought
      * @param ticketCount
      * @param parochkaCount
      * @param bTV
@@ -42,6 +44,7 @@ public class ZabavaRegBet extends MainParamsForRequest {
 
     /**
      * Created by Elena Dovhaliuk
+     * Such method returns sum of one bet in hryvnas
      * @param ticketCount
      * @param parochkaCount
      * @param bTV
@@ -69,6 +72,7 @@ public class ZabavaRegBet extends MainParamsForRequest {
 
     /**
      * Created by Elena Dovhaliuk
+     * Such method returns sum of the check in hryvnas
      * @param ticketCount
      * @param parochkaCount
      * @param bTV
@@ -93,6 +97,7 @@ public class ZabavaRegBet extends MainParamsForRequest {
 
     /**
      * Created by Elena Dovhaliuk
+     * Such method returns sum of the check in kopecks
      * @param ticketCount
      * @param parochkaCount
      * @param bTV

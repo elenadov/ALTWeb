@@ -11,6 +11,10 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNull.notNullValue;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 public class ResendAuth2Test extends ApiParentTest {
 
     @Test

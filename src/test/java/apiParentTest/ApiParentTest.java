@@ -7,14 +7,16 @@ import libs.MySQL_Database;
 import libs.Oracle_SQL_Database;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
-import org.junit.Assert;
 import org.junit.Before;
 import paramsForRequests.ParamsForRequests;
 import paramsForRequests.ZabavaRegBet;
 
 import java.sql.SQLException;
 import java.time.Instant;
-import java.util.ArrayList;
+
+/**
+ * Created by Elena Dovhaliuk
+ */
 
 public class ApiParentTest {
     protected Database database;
