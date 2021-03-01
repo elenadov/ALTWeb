@@ -3,6 +3,7 @@ package api.boGetSidTest;
 import apiParentTest.ApiParentTest;
 import io.restassured.http.ContentType;
 import io.restassured.response.ResponseBody;
+import libs.Utils;
 import org.json.JSONObject;
 import org.junit.Test;
 
@@ -23,7 +24,7 @@ public class BOGetSIDAsTermPositiveTest extends ApiParentTest {
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetSID");
         requestParams.put("CHANNEL_TYPE", "web_alt");
-        requestParams.put("CLIENT_TRANS_ID", paramsForRequests.time);
+        requestParams.put("CLIENT_TRANS_ID", Utils.getDateAndTimeFormated());
         requestParams.put("LANG", "ua");
         requestParams.put("LOGIN", "7600005");
         requestParams.put("PASSWD", "7600005");

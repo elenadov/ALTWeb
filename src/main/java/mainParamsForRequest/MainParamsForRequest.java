@@ -17,9 +17,6 @@ public class MainParamsForRequest{
     protected static ConfigProperties configProperties =
             ConfigFactory.create(ConfigProperties.class);
 
-    public long curTime = Instant.now().getEpochSecond();
-    public String time = curTime + "12345";
-
     public String sid;
     public String client_id;
     public String client_trans_id;

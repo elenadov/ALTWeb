@@ -4,6 +4,7 @@ import apiParentTest.ApiParentTest;
 import io.qameta.allure.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.ResponseBody;
+import libs.Utils;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,7 +78,7 @@ public class ZabavaRegBetTest extends ApiParentTest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "ZabavaRegBet");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", timestamp);
+            requestParams.put("CLIENT_TRANS_ID", Utils.getDateAndTimeFormated());
             requestParams.put("LANG", "ua");
             requestParams.put("TERM_CODE", paramsForRequests.getTerm_code());
             requestParams.put("BETS_COUNT", "1");

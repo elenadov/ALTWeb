@@ -3,6 +3,7 @@ package paramsForRequests;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.ResponseBody;
+import libs.Utils;
 import mainParamsForRequest.MainParamsForRequest;
 import org.json.JSONObject;
 
@@ -32,7 +33,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOGetSID");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", time + "0001");
+            requestParams.put("CLIENT_TRANS_ID", Utils.getDateAndTimeFormated());
             requestParams.put("LANG", "ua");
             requestParams.put("LOGIN", "7600005");
             requestParams.put("PASSWD", "7600005");
@@ -94,7 +95,7 @@ public class ParamsForRequests extends MainParamsForRequest {
         requestParams.put("PROTO_VER", "3");
         requestParams.put("ACTION", "BOGetClientList");
         requestParams.put("CHANNEL_TYPE", "web_alt");
-        requestParams.put("CLIENT_TRANS_ID", time + "0002");
+        requestParams.put("CLIENT_TRANS_ID", Utils.getDateAndTimeFormated());
         requestParams.put("LANG", "ua");
         requestParams.put("SID", getSid());
         requestParams.put("USER_ID", getUser_id());
@@ -169,7 +170,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "ResendAuth2");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", time + "0003");
+            requestParams.put("CLIENT_TRANS_ID", Utils.getDateAndTimeFormated());
             requestParams.put("LANG", "ua");
             requestParams.put("SID", getSid());
             requestParams.put("USER_ID", getUser_id());
@@ -226,7 +227,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOAuth2");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", time + "0004");
+            requestParams.put("CLIENT_TRANS_ID", Utils.getDateAndTimeFormated());
             requestParams.put("LANG", "ua");
             requestParams.put("SID", getSid());
             requestParams.put("USER_ID", getUser_id());
@@ -307,7 +308,7 @@ public class ParamsForRequests extends MainParamsForRequest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "SendAuthCode");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", time + "0005");
+            requestParams.put("CLIENT_TRANS_ID", Utils.getDateAndTimeFormated());
             requestParams.put("LANG", "ua");
             requestParams.put("SID", getSid());
             requestParams.put("USER_ID", getUser_id());

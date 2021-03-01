@@ -27,9 +27,6 @@ public class ApiParentTest {
     protected static ConfigProperties configProperties =
             ConfigFactory.create(ConfigProperties.class);
 
-    public long currentTime = Instant.now().getEpochSecond();
-    public String timestamp = currentTime + "12345";
-
     @Before
     public void mySQLDBConnect() throws SQLException, ClassNotFoundException {
         database = MySQL_Database.getDataBase();
