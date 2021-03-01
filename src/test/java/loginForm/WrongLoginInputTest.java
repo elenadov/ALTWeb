@@ -9,6 +9,10 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 @Epic("Login")
 @Feature("Authorization")
 @RunWith(Parameterized.class)
@@ -34,7 +38,7 @@ public class WrongLoginInputTest extends AbstractParentTest {
         );
     }
 
-    @Description("Authorization")
+    @Description("Wrong authorization")
     @Story("Authorization")
     @Link("")
     @Link(name = "allure", type = "mylink")
@@ -47,7 +51,7 @@ public class WrongLoginInputTest extends AbstractParentTest {
         loginForm.enterValidPassword();
         loginForm.clickVhidToSignIn();
 
-        checkExpectedResult("!!! Login is suitable for such negative case",
+        checkExpectedResult("!!! Login isn't suitable for such negative case",
                 loginForm.isLoginOrPasswordIsInvalidPopUpVisible());
 
         loginForm.clickContinueButton();

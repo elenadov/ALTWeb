@@ -28,4 +28,6 @@ public interface ConfigProperties extends Config {
 	String GET_SMS_CODE_FOR_AUTH();
 	String GET_SMS_CODE_FOR_SELL();
 	String GET_CURRENT_LZ_DRAW();
+	String GET_MACCODE_FOR_MEGALOT_WIN_PAYMENT();
+	String GET_TICKET_WIN_SUM();
 }

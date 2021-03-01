@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 
-/*
+/**
  *  Database class provides methods for working with database.
  */
 public class Database {
@@ -17,7 +17,7 @@ public class Database {
    private String url;
    static Logger log = Logger.getLogger(Database.class);
 
-   /*
+   /**
      *  Constructor opens connection to database using connection string from config.properties file.
      *  Note in config.properties, please, that username and password for access to the database should be named as
      *  relevant connection string including "_USER"  and "_PASSWORD"
@@ -32,7 +32,7 @@ public class Database {
         
     }
 
-    /*
+    /**
      *  That method gets SQL [Select COLUMN_NAME from TABLE_NAME where ...] query as parameter and returns result as String
      */
     public String selectValue(String query) throws SQLException {
@@ -61,7 +61,7 @@ public class Database {
     }
 
 
-    /*
+    /**
      *  That method gets SQL [Select COLUMN_NAME from TABLE_NAME where ...] query as parameter and returns result set as List of Strings
      */
     public List selectResultSet(String query) throws SQLException {
@@ -96,7 +96,7 @@ public class Database {
     }
 
 
-    /*
+    /**
      *  That method gets SQL [Select COLUMN_NAME_1,COLUMN_NAME_2 from TABLE_NAME where ...] query as parameter and returns result set as List of Strings
      */
     public ArrayList<ArrayList<String>> selectTable(String query) throws SQLException {
@@ -151,7 +151,7 @@ public class Database {
         return resultTable;
     }
 
-    /*
+    /**
      *  That method gets SQL [Select COLUMN_NAME_1,COLUMN_NAME_2 from TABLE_NAME where ...] query as parameter and returns result set as List<Map>
      */
     public ArrayList<Map<String, String>> selectTableAsMap(String query) throws SQLException {
@@ -206,7 +206,7 @@ public class Database {
     }
 
 
-    /*
+    /**
      *  Close connection to the database
      */
     public void quit() throws SQLException {

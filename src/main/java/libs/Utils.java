@@ -49,12 +49,12 @@ public class Utils {
 
 
     /**
-     * Method returned SystemDateAndTime In Format yyyy-MM-dd_HH-mm-ss
+     * Method returned SystemDateAndTime In Format yyyy-MM-dd_HH-mm-ss-SSS
      * @return
      */
     public static String getDateAndTimeFormated(){
 
-        return getDateAndTime("HHssmmss");
+        return getDateAndTime("yyyyMMddHHmmssSSS");
     }
 
     /**

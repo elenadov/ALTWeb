@@ -3,6 +3,7 @@ package api.boGetSidTest;
 import apiParentTest.ApiParentTest;
 import io.restassured.http.ContentType;
 import io.restassured.response.ResponseBody;
+import libs.Utils;
 import org.json.JSONObject;
 import org.junit.Test;
 
@@ -10,6 +11,10 @@ import static endpoints.EndPoints.TEST_GS_ALT_WEB;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNull.notNullValue;
+
+/**
+ * Created by Elena Dovhaliuk
+ */
 
 public class BOGetSIDGsAltWebPositiveTest extends ApiParentTest {
     @Test
@@ -20,7 +25,7 @@ public class BOGetSIDGsAltWebPositiveTest extends ApiParentTest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOGetSID");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", timestamp);
+            requestParams.put("CLIENT_TRANS_ID", Utils.getDateAndTimeFormated());
             requestParams.put("LANG", "ua");
             requestParams.put("LOGIN", "7600005");
             requestParams.put("PASSWD", "7600005");

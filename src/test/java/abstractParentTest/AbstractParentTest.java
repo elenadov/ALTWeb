@@ -24,10 +24,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import pages.EMLPurchaseMenuPage;
-import pages.EMLPurchaseRegistrationPage;
-import pages.LoginFormPage;
-import pages.LotteriesPage;
+import pages.*;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -39,7 +36,10 @@ public class AbstractParentTest {
     protected LoginFormPage loginForm;
     protected LotteriesPage lotteries;
     protected EMLPurchaseMenuPage emlPurchaseMenuPage;
-    protected EMLPurchaseRegistrationPage emlPurchaseRegistrationPage;
+    protected PurchaseRegistrationPage purchaseRegistrationPage;
+    protected LotoZabavaPurchaseMenuPage lotoZabavaPurchaseMenuPage;
+    protected WinCheckPage winCheckPage;
+    protected WinPayPage winPayPage;
 
     protected static ConfigProperties configProperties =
             ConfigFactory.create(ConfigProperties.class);
@@ -64,11 +64,15 @@ public class AbstractParentTest {
         loginForm = new LoginFormPage(webDriver);
         lotteries = new LotteriesPage(webDriver);
         emlPurchaseMenuPage = new EMLPurchaseMenuPage(webDriver);
-        emlPurchaseRegistrationPage = new EMLPurchaseRegistrationPage(webDriver);}
+        purchaseRegistrationPage = new PurchaseRegistrationPage(webDriver);
+        lotoZabavaPurchaseMenuPage = new LotoZabavaPurchaseMenuPage(webDriver);
+        winCheckPage = new WinCheckPage(webDriver);
+        winPayPage = new WinPayPage(webDriver);
+    }
 
     @Parameterized.Parameters
     private WebDriver driverInit() throws Exception {
-        String hub = "https://d.popelnukh:E2H9elZQaQ2xrWoIsvTCl6RSUMHpw5aSCnmnskeQNGzneyd1qZ@hub.lambdatest.com/wd/hub";
+        String hub = System.getProperty("tunnelHub");
         String browser = System.getProperty("browser");
         if ((browser == null) || ("chrome".equalsIgnoreCase(browser))) {
             WebDriverManager.chromedriver().setup();
@@ -81,12 +85,12 @@ public class AbstractParentTest {
             return new InternetExplorerDriver();
         } else if ("remote".equals(browser)){
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("build", "5.15");
-            capabilities.setCapability("name", "beda");
+            capabilities.setCapability("build", "NewTunnel");
+            capabilities.setCapability("name", "05/01/2021");
             capabilities.setCapability("platform", "Windows 10");
-            capabilities.setCapability("browserName", "Chrome");
-            capabilities.setCapability("version","83.0");
-            capabilities.setCapability("resolution","1280x1024");
+            capabilities.setCapability("browserName", "Firefox");
+            capabilities.setCapability("version","84.0");
+            capabilities.setCapability("resolution","2560x1440");
             capabilities.setCapability("tunnel",true);
             return webDriver = new RemoteWebDriver(new URL(hub), capabilities);
         }else {

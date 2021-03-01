@@ -11,14 +11,16 @@ import org.openqa.selenium.support.PageFactory;
 import pages.pageElements.WebDriverAwareDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 public class ParentPage { protected WebDriver webDriver;
     protected Logger logger = Logger.getLogger(getClass());
-//    public WebDriverWait webDriverWait_10, webDriverWait_20, webDriverWait_30;
     protected ActionWithWebElements actionWithWebElements;
     public ConfigProperties configProperties = ConfigFactory.create(ConfigProperties.class);
     protected String baseUrl;
     String expectedUrl;
-//    protected Database database;
 
     public ParentPage(WebDriver webDriver, String partUrl){
         baseUrl = configProperties.base_url();
@@ -29,6 +31,10 @@ public class ParentPage { protected WebDriver webDriver;
         actionWithWebElements = new ActionWithWebElements(webDriver);
         expectedUrl = baseUrl + partUrl;
     }
+
+    /**
+     * Such method opens page by selected url
+     */
     @Step
     public void openPage() {
         try {
@@ -38,28 +44,16 @@ public class ParentPage { protected WebDriver webDriver;
         }
     }
 
+    /**
+     * Such method checks if current url is correct according to expected one
+     */
     @Step
     public void checkCurrentUrl(){
         try{
-            Assert.assertEquals("Url is not expected", expectedUrl, webDriver.getCurrentUrl());
+            Assert.assertEquals("Url is not correct", expectedUrl, webDriver.getCurrentUrl());
         }catch (Exception e){
             logger.error("Can't get url " + e);
             Assert.fail("Can't get url " + e);
         }
-    }
-
-    @Step
-    protected void checkExpectedResult(String message, boolean actualResult) {
-        Assert.assertEquals(message, true, actualResult);
-    }
-
-    @Step
-    protected void checkExpectedText(String message, String expectedResult, String actualResult) {
-        Assert.assertEquals(message, expectedResult, actualResult);
-    }
-
-    @Step
-    protected void checkExpectedCheckSum(String message, double expectedCheckSum){
-
     }
 }

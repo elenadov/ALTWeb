@@ -3,6 +3,7 @@ package api.boAuth2;
 import apiParentTest.ApiParentTest;
 import io.restassured.http.ContentType;
 import io.restassured.response.ResponseBody;
+import libs.Utils;
 import org.json.JSONObject;
 import org.junit.Test;
 
@@ -12,6 +13,10 @@ import static endpoints.EndPoints.TEST_GS_ALT_WEB;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNull.notNullValue;
+
+/**
+ * Created by Elena Dovhaliuk
+ */
 
 public class BOAuth2GsAltWebPositiveTest extends ApiParentTest {
 
@@ -29,7 +34,7 @@ public class BOAuth2GsAltWebPositiveTest extends ApiParentTest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOAuth2");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", timestamp);
+            requestParams.put("CLIENT_TRANS_ID", Utils.getDateAndTimeFormated());
             requestParams.put("SID", paramsForRequests.getSid());
             requestParams.put("USER_ID", paramsForRequests.getUser_id());
             requestParams.put("CLIENT_ID", paramsForRequests.getClient_id());
@@ -104,7 +109,7 @@ public class BOAuth2GsAltWebPositiveTest extends ApiParentTest {
             requestParams.put("PROTO_VER", "3");
             requestParams.put("ACTION", "BOAuth2");
             requestParams.put("CHANNEL_TYPE", "web_alt");
-            requestParams.put("CLIENT_TRANS_ID", timestamp);
+            requestParams.put("CLIENT_TRANS_ID", Utils.getDateAndTimeFormated());
             requestParams.put("LANG", "ua");
             requestParams.put("SID", paramsForRequests.getSid());
             requestParams.put("USER_ID", paramsForRequests.getUser_id());

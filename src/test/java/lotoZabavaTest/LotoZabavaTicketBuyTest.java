@@ -1,4 +1,4 @@
-package autoLoto;
+package lotoZabavaTest;
 
 import abstractParentTest.AbstractParentTest;
 import io.qameta.allure.*;
@@ -14,52 +14,56 @@ import java.util.Collection;
  * Created by Elena Dovhaliuk
  */
 
-@Epic("AutoLoto")
+@Epic("LotoZabava")
 @Feature("PurchaseTicket")
 @RunWith(Parameterized.class)
 
-public class AutoLotoTicketBuyTest extends AbstractParentTest {
+public class LotoZabavaTicketBuyTest extends AbstractParentTest {
     private int ticketCount;
-    private int drawNumCount;
+    private int parochkaCount;
+    private String richAndFamousContest;
     private String playerPhone = "684353443";
-    private String betSum;
+    int draw = 1;
+    String betSum;
 
-    public AutoLotoTicketBuyTest (int ticketCountToBuy, int drawNumCount) {
+    public LotoZabavaTicketBuyTest (int ticketCountToBuy, int parochkaCount, String richAndFamousContest) {
         this.ticketCount = ticketCountToBuy;
-        this.drawNumCount = drawNumCount;
+        this.parochkaCount = parochkaCount;
+        this.richAndFamousContest = richAndFamousContest;
     }
 
-    @Parameterized.Parameters(name = "Parameters are {0}, {1}")
+    @Parameterized.Parameters(name = "Parameters are {0}, {1}, {2}")
     public static Collection testData(){
         return Arrays.asList(new Object[][] {
-                        {1, 1}
-                        , {2, 2}
-                        , {3, 1}
-                        , {4, 2}
-                        , {5, 1}
-                        , {6, 2}
-                        , {7, 1}
-                        , {8, 2}
-                        , {9, 1}
-                        , {10, 2}
+                {1, 1, "check"}
+                , {2, 2, "uncheck"}
+                , {3, 3, "check"}
+                , {4, 4, "uncheck"}
+                , {5, 5, "check"}
+                , {6, 0, "uncheck"}
+                , {7, 1, "check"}
+                , {8, 2, "uncheck"}
+                , {9, 3, "check"}
+                , {10, 4, "uncheck"}
                 }
         );
     }
 
-    @Description("Authorization")
-    @Story("Authorization")
+    @Description("LotoZabavaPurchase")
+    @Story("LotoZabavaPurchase")
     @Link("")
     @Link(name = "allure", type = "mylink")
     @Severity(SeverityLevel.CRITICAL)
 
     @Test()
-    public void autoLotoTicketPurchase() throws SQLException, ClassNotFoundException {
-
+    public void lotoZabavaBuyOneTicket() throws SQLException, ClassNotFoundException {
         loginForm.openPage();
         loginForm.signIn();
         loginForm.isSmsCodeInputFieldDisplayed();
         loginForm.enterSmsCodeIntoField(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
         loginForm.clickSmsCodeInputConfirmation();
+
+        oracleSQLDBConnect();
 
         checkExpectedResult("Page hasn't loaded yet",lotteries.isNewOSAnnouncementDisplayed());
         lotteries.clickContinueNewOSButton();
@@ -69,22 +73,20 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
 
         checkExpectedResult("Page hasn't loaded yet",lotteries.isLotteriesListDisplayed());
 
-        oracleSQLDBConnect();
-        emlPurchaseMenuPage.chooseEMLPurchaseMenu();
-        emlPurchaseMenuPage.chooseAutoLotoPurchaseMenu();
-        emlPurchaseMenuPage.chooseEMLTicketCount(ticketCount);
-        emlPurchaseMenuPage.chooseDrawFromTheList(drawNumCount);
-        betSum = emlPurchaseMenuPage.betSumCount(emlPurchaseMenuPage.getSeriesCost(drawNumCount), ticketCount);
+        lotoZabavaPurchaseMenuPage.chooseLZFromTheListOfLotteries();
+        lotoZabavaPurchaseMenuPage.chooseDrawFromList(draw);
+        lotoZabavaPurchaseMenuPage.chooseLZTicketCount(ticketCount);
+        lotoZabavaPurchaseMenuPage.chooseParochkaCount(parochkaCount);
+        lotoZabavaPurchaseMenuPage.selectRichAndFamousContest(richAndFamousContest);
+        betSum = lotoZabavaPurchaseMenuPage.calculateLZBetSum(ticketCount, parochkaCount, richAndFamousContest);
 
-        checkExpectedText("The sum of Auto Loto check is incorrect!"
-                , betSum
-                , emlPurchaseMenuPage.getBetSum());
+        checkExpectedText("Bet sum is not correct", betSum
+                , lotoZabavaPurchaseMenuPage.getLZCheckSum());
 
-        emlPurchaseMenuPage.confirmPurchase();
+        lotoZabavaPurchaseMenuPage.clickBuyLZButton();
 
-        checkExpectedText("The sum of Auto Loto check is incorrect!"
-                , betSum
-                , purchaseRegistrationPage.getBetSum());
+        checkExpectedText("Bet sum is not correct", betSum
+                , lotoZabavaPurchaseMenuPage.getLZBetSum());
 
         purchaseRegistrationPage.enterPhoneNumberForPurchase(playerPhone);
         purchaseRegistrationPage.clickSendSMSButton();
@@ -99,6 +101,5 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
         checkExpectedText("Total bets sum is not correct"
                 , betSum
                 , lotteries.getTotalBetsSum());
-
     }
 }

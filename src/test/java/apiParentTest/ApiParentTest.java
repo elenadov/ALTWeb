@@ -9,20 +9,23 @@ import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import paramsForRequests.ParamsForRequests;
+import paramsForRequests.ZabavaRegBet;
 
 import java.sql.SQLException;
 import java.time.Instant;
+
+/**
+ * Created by Elena Dovhaliuk
+ */
 
 public class ApiParentTest {
     protected Database database;
     protected Logger logger = Logger.getLogger(getClass());
     protected ParamsForRequests paramsForRequests = new ParamsForRequests();
+    protected ZabavaRegBet zabavaRegBet = new ZabavaRegBet();
 
     protected static ConfigProperties configProperties =
             ConfigFactory.create(ConfigProperties.class);
-
-    public long currentTime = Instant.now().getEpochSecond();
-    public String timestamp = currentTime + "12345";
 
     @Before
     public void mySQLDBConnect() throws SQLException, ClassNotFoundException {

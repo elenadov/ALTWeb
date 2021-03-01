@@ -9,8 +9,12 @@ import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextBlock;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
-public class EMLPurchaseRegistrationPage extends ParentPage {
-    public EMLPurchaseRegistrationPage(WebDriver webDriver) {
+/**
+ * Created by Elena Dovhaliuk
+ */
+
+public class PurchaseRegistrationPage extends ParentPage {
+    public PurchaseRegistrationPage(WebDriver webDriver) {
         super(webDriver, "/lotteries/instant-lotteries/registry");
     }
 
@@ -21,7 +25,6 @@ public class EMLPurchaseRegistrationPage extends ParentPage {
     private Button sendSMSButton;
 
     @FindBy(xpath = "//ng-component/app-check-information//app-msl-input-pin//input")
-    //(xpath = "//input[@class='pin__input ng-pristine ng-valid ng-touched']")
     private TextInput confirmationSmsCodeInput;
 
     @FindBy(xpath = "//div[@class='pin-title ng-star-inserted']")
@@ -30,19 +33,32 @@ public class EMLPurchaseRegistrationPage extends ParentPage {
     @FindBy(xpath = "//button[@class='button button_theme_green ci-button ci-button_reg ng-star-inserted']")
     private Button registrationButton;
 
-    @FindBy(xpath = "//div[@class='ci-data-value ci-data-value_other ci-text-red ng-star-inserted']")
-    private TextBlock checkSum;
+    @FindBy(xpath = "//app-check-information//div[8]")
+    private TextBlock betSum;
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method enters phone number into input
+     * @param number
+     */
     @Step
     public void enterPhoneNumberForPurchase(String number){
         actionWithWebElements.enterTextIntoInput(phoneNumberInput, number);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * Such method clicks send SMS button
+     */
     @Step
     public void clickSendSMSButton(){
         actionWithWebElements.clickOnElement(sendSMSButton);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method waits a bit till sms code is received
+     */
     @Step
     public void waitUntilSmsCodeWillBeSent(){
         Utils.waitABit(3);
@@ -50,28 +66,33 @@ public class EMLPurchaseRegistrationPage extends ParentPage {
         actionWithWebElements.waitVisibilityOfElement(confirmationSmsCodeInput);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method enters received sms code into input
+     * @param smsCode
+     */
     @Step
     public void enterSmsIntoInput(String smsCode){
         actionWithWebElements.enterTextIntoInput(confirmationSmsCodeInput, smsCode);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This method clicks registration button to continue the process of purchase
+     */
     @Step
     public void clickRegistrationButton(){
         actionWithWebElements.clickOnElement(registrationButton);
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * Such method returns sum of the check (at the end of the purchase)
+     * @return
+     */
     @Step
-    public String autoLotocheckSum(int ticketCount){
-        int sum = ticketCount * 100;
-        String checkSum = (String.valueOf(sum)) + ".00 грн";
-        return checkSum;
+    public String getBetSum(){
+        return actionWithWebElements.getTextFromElementSum(betSum);
     }
-
-    @Step
-    public String getCheckSum(){
-        String sum = actionWithWebElements.getTextFromElement(checkSum);
-         return sum;
-    }
-
 
 }
