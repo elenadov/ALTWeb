@@ -9,7 +9,9 @@ import org.openqa.selenium.WebDriver;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -47,7 +49,6 @@ public class Utils {
         }
     }
 
-
     /**
      * Method returned SystemDateAndTime In Format yyyy-MM-dd_HH-mm-ss-SSS
      * @return
@@ -55,6 +56,16 @@ public class Utils {
     public static String getDateAndTimeFormated(){
 
         return getDateAndTime("yyyyMMddHHmmssSSS");
+    }
+
+    public static String getDateAndTimeCurrectChangedMin(int minutes) throws ParseException {
+
+        return changeCurrentTimeMin("dd.MM.yyyy HH:mm:ss", minutes);
+    }
+
+    public static String getDateAndTimeCurrentChangedMinSec(int minutes, int seconds) throws ParseException {
+
+        return changeCurrentTimeMinSec ("dd.MM.yyyy HH:mm:ss", minutes, seconds);
     }
 
     /**
@@ -66,6 +77,31 @@ public class Utils {
         Date date = new Date();
         String dateFormated = dateFormat.format(date);
         System.out.println(dateFormated);
+        return dateFormated;
+    }
+
+    public static String changeCurrentTimeMin(String format, int minutes) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = new Date();
+        String dateFormated = dateFormat.format(date);
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Calendar c = Calendar.getInstance();
+        c.setTime(sdf.parse(dateFormated));
+        c.add(Calendar.MINUTE, minutes);
+        dateFormated = sdf.format(c.getTime());
+        return dateFormated;
+    }
+
+    public static String changeCurrentTimeMinSec(String format, int minutes, int seconds) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = new Date();
+        String dateFormated = dateFormat.format(date);
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Calendar c = Calendar.getInstance();
+        c.setTime(sdf.parse(dateFormated));
+        c.add(Calendar.MINUTE, minutes);
+        c.add(Calendar.SECOND, seconds);
+        dateFormated = sdf.format(c.getTime());
         return dateFormated;
     }
 

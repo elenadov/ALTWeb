@@ -3,6 +3,7 @@ package parentPage;
 import io.qameta.allure.Step;
 import libs.ActionWithWebElements;
 import libs.ConfigProperties;
+import libs.Database;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -15,21 +16,27 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
  * Created by Elena Dovhaliuk
  */
 
-public class ParentPage { protected WebDriver webDriver;
+public class ParentPage {
+    protected WebDriver webDriver;
     protected Logger logger = Logger.getLogger(getClass());
     protected ActionWithWebElements actionWithWebElements;
     public ConfigProperties configProperties = ConfigFactory.create(ConfigProperties.class);
     protected String baseUrl;
     String expectedUrl;
+    protected String addUrl;
+    String expectedAddUrl;
+    protected Database database;
 
     public ParentPage(WebDriver webDriver, String partUrl){
         baseUrl = configProperties.base_url();
+        addUrl = configProperties.addUrl();
         this.webDriver = webDriver;
         PageFactory.initElements(
                 new WebDriverAwareDecorator(
                         new HtmlElementLocatorFactory(webDriver), webDriver), this);
         actionWithWebElements = new ActionWithWebElements(webDriver);
         expectedUrl = baseUrl + partUrl;
+        expectedAddUrl = addUrl + partUrl;
     }
 
     /**
@@ -39,6 +46,15 @@ public class ParentPage { protected WebDriver webDriver;
     public void openPage() {
         try {
             webDriver.get(expectedUrl);
+        } catch (Exception e) {
+            Assert.fail("Can't work with page");
+        }
+    }
+
+    @Step
+    public void openAddPage() {
+        try {
+            webDriver.get(expectedAddUrl);
         } catch (Exception e) {
             Assert.fail("Can't work with page");
         }
