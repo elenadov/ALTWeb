@@ -68,11 +68,16 @@ public class Utils {
         return changeCurrentTimeMinSec ("dd.MM.yyyy HH:mm:ss", minutes, seconds);
     }
 
+    public static String getDateAndTimeCurrentChangedHourMinSec(int hours, int minutes, int seconds) throws ParseException {
+
+        return changeCurrentTimeHourMinSec ("dd.MM.yyyy HH:mm:ss", hours, minutes, seconds);
+    }
+
     /**
      * Method returned SystemDateAndTime
      * @return
      */
-    public static String getDateAndTime(String format){
+    private static String getDateAndTime(String format){
         DateFormat dateFormat = new SimpleDateFormat(format);
         Date date = new Date();
         String dateFormated = dateFormat.format(date);
@@ -80,7 +85,7 @@ public class Utils {
         return dateFormated;
     }
 
-    public static String changeCurrentTimeMin(String format, int minutes) throws ParseException {
+    private static String changeCurrentTimeMin(String format, int minutes) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat(format);
         Date date = new Date();
         String dateFormated = dateFormat.format(date);
@@ -92,13 +97,27 @@ public class Utils {
         return dateFormated;
     }
 
-    public static String changeCurrentTimeMinSec(String format, int minutes, int seconds) throws ParseException {
+    private static String changeCurrentTimeMinSec(String format, int minutes, int seconds) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat(format);
         Date date = new Date();
         String dateFormated = dateFormat.format(date);
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         Calendar c = Calendar.getInstance();
         c.setTime(sdf.parse(dateFormated));
+        c.add(Calendar.MINUTE, minutes);
+        c.add(Calendar.SECOND, seconds);
+        dateFormated = sdf.format(c.getTime());
+        return dateFormated;
+    }
+
+    public static String changeCurrentTimeHourMinSec(String format, int hours, int minutes, int seconds) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = new Date();
+        String dateFormated = dateFormat.format(date);
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Calendar c = Calendar.getInstance();
+        c.setTime(sdf.parse(dateFormated));
+        c.add(Calendar.HOUR, hours);
         c.add(Calendar.MINUTE, minutes);
         c.add(Calendar.SECOND, seconds);
         dateFormated = sdf.format(c.getTime());

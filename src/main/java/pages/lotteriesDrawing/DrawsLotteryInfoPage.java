@@ -9,7 +9,6 @@ import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextBlock;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
-import java.sql.SQLException;
 import java.text.ParseException;
 
 public class DrawsLotteryInfoPage extends ParentPage {
@@ -157,15 +156,30 @@ public class DrawsLotteryInfoPage extends ParentPage {
     }
 
     @Step
-    private String getScriptForChangingDrawStatusInRegistrationBet(String drawId){
+    public String searchForDrawId(String drawInRegistration, String drawIdForRegisatration
+            , String drawInMultyRegistration, String drawIdForMultyRegistration
+            , String drawInCreatedStat, String drawIdForCreated){
+        String drawId = "0";
+        if (searchForDraw(drawInRegistration).equals("1")) {
+            drawId = drawIdForRegisatration;
+        } else if (searchForDraw(drawInMultyRegistration).equals("1")) {
+            drawId = drawIdForMultyRegistration;
+        } else if (searchForDraw(drawInCreatedStat).equals("1")) {
+            drawId = drawIdForCreated;
+        }
+        return drawId;
+    }
+
+    @Step
+    public String getScriptForChangingDrawStatusInRegistrationBet(String drawId){
         String script = configProperties.SCRIPT_FOR_CHANGING_DDRAW_STATUS_INTO_REGISTRATION_1()
                 + drawId + configProperties.SCRIPT_FOR_CHANGING_DDRAW_STATUS_INTO_REGISTRATION_2();
         return script;
     }
 
     @Step
-    private void changeDrawStatusIntoRegistration(String drawId) throws SQLException {
-        database.changeTable(getScriptForChangingDrawStatusInRegistrationBet(drawId));
+    private void changeDrawStatusIntoRegistration(String drawId, int change){
+        logger.info("Draw # " + drawId + " is changed into registration. Status = " + change);
     }
 
     @Step
@@ -197,6 +211,31 @@ public class DrawsLotteryInfoPage extends ParentPage {
     private void enterStartWinPayDateForDrawing() throws ParseException {
         actionWithWebElements.enterTextIntoInput(startWinPayDate, Utils.getDateAndTimeCurrentChangedMinSec(3, 6));
     }
+//
+//    @Step
+//    private void enterEndRegistrationEndDateForCreationNewDraw() throws ParseException {
+//        actionWithWebElements.enterTextIntoInput(endRegistrationBetDate, Utils.getDateAndTimeCurrentChangedHourMinSec(3));
+//    }
+//
+//    @Step
+//    private void enterStartDrawingDrawDateForCreationNewDraw() throws ParseException {
+//        actionWithWebElements.enterTextIntoInput(startDrawingDrawDate, Utils.getDateAndTimeCurrentChangedMinSec(3, 2));
+//    }
+//
+//    @Step
+//    private void enterEndDrawingDrawDateForCreationNewDraw() throws ParseException {
+//        actionWithWebElements.enterTextIntoInput(endDrawingDrawDate, Utils.getDateAndTimeCurrentChangedHourMinSec(3, 4));
+//    }
+//
+//    @Step
+//    private void enterStartWinPayDateForCreationNewDraw() throws ParseException {
+//        actionWithWebElements.enterTextIntoInput(startWinPayDate, Utils.getDateAndTimeCurrentChangedMinSec(3, 6));
+//    }
+//
+//    @Step
+//    private void enterEndWinPayDateForCreationNewDraw() throws ParseException {
+//        actionWithWebElements.enterTextIntoInput(startWinPayDate, Utils.getDateAndTimeCurrentChangedMinSec(3, 6));
+//    }
 
     @Step
     private void clickSaveButton(){
@@ -344,7 +383,40 @@ public class DrawsLotteryInfoPage extends ParentPage {
         actionWithWebElements.waitVisibilityOfElement(successMessage);
     }
 
+    @Step
+    private String createDrawInDB (String drawId){
+        int drawIdForCreation = Integer.valueOf(drawId) + 1;
+        String script = configProperties.SCRIPT_FOR_CREATION_DRAW_IN_CREATED_STATUS_1()
+                + drawIdForCreation
+                + configProperties.SCRIPT_FOR_CREATION_DRAW_IN_CREATED_STATUS_2()
+                + drawIdForCreation
+                + configProperties.SCRIPT_FOR_CREATION_DRAW_IN_CREATED_STATUS_3();
+        return script;
+    }
 
+    @Step
+    private void setDrawForBetRegistration
+        (String jackpotSum, String megaPrizeSum) throws ParseException {
+            selectMegalotValueFromLotteryTypesDropDown();
+            selectRegistrationBetDrawStatusFilter();
+            clickSearchButton();
+            selectDrawAndClickIt();
+            waitUtilDrawDetailsAreVisible();
+            enterJackpotSum(jackpotSum);
+            enterMegaPrizeSum(megaPrizeSum);
+            enterEndRegistrationEndDateForDrawing();
+            enterStartDrawingDrawDateForDrawing();
+            enterEndDrawingDrawDateForDrawing();
+            enterStartWinPayDateForDrawing();
+            clickSaveButton();
+            clickParametersExportButton();
+    }
+
+    @Step
+    public void createNewDraw(String drawId, String jackpotSum, String megaPrizeSum) throws ParseException {
+        createDrawInDB(drawId);
+        setDrawForBetRegistration(jackpotSum, megaPrizeSum);
+    }
 
     @Step
     private void drawingRegistrationBetDraw(String jackpotSum, String megaPrizeSum
@@ -400,7 +472,7 @@ public class DrawsLotteryInfoPage extends ParentPage {
             , String jackpotSum, String megaPrizeSum
             , String ball1, String ball2, String ball3
             , String ball4, String ball5, String ball6
-            , String ball7) throws SQLException, ParseException {
+            , String ball7, int changeStatus) throws ParseException {
         if (searchForDraw(drawInRegistration).equals("1")) {
             logger.info("Draw # " + drawIdForRegisatration + " is selected for drawing");
             drawingRegistrationBetDraw(jackpotSum, megaPrizeSum
@@ -408,20 +480,25 @@ public class DrawsLotteryInfoPage extends ParentPage {
                     , ball4, ball5, ball6
                     , ball7);
         } else if (searchForDraw(drawInMultyRegistration).equals("1")) {
-            changeDrawStatusIntoRegistration(drawIdForMultyRegistration);
-            logger.info("Draw # " + drawIdForRegisatration + " is selected for drawing");
+            logger.info("Draw # " + drawIdForMultyRegistration + " is selected for drawing");
+            changeDrawStatusIntoRegistration(drawIdForMultyRegistration, changeStatus);
             drawingRegistrationBetDraw(jackpotSum, megaPrizeSum
                     , ball1, ball2, ball3
                     , ball4, ball5, ball6
                     , ball7);
         } else if (searchForDraw(drawInCreatedStat).equals("1")) {
-            changeDrawStatusIntoRegistration(drawIdForCreated);
+            logger.info("Draw # " + drawIdForCreated + " is selected for drawing");
+            changeDrawStatusIntoRegistration(drawIdForCreated, changeStatus);
             drawingRegistrationBetDraw(jackpotSum, megaPrizeSum
                     , ball1, ball2, ball3
                     , ball4, ball5, ball6
                     , ball7);
         } else {
             logger.info("There is no draw. It is necessary to create new one");
+            createDrawInDB(searchForDrawId(drawInRegistration
+                    , drawIdForRegisatration, drawInMultyRegistration, drawIdForMultyRegistration
+                    , drawInCreatedStat, drawIdForCreated));
+            setDrawForBetRegistration(jackpotSum, megaPrizeSum);
         }
     }
 }
