@@ -178,6 +178,13 @@ public class DrawsLotteryInfoPage extends ParentPage {
     }
 
     @Step
+    public String getScriptForChangingDrawStatusInMultyRegistrationBet(String drawId){
+        String script = configProperties.SCRIPT_FOR_CHANGING_DDRAW_STATUS_INTO_REGISTRATION_1()
+                + drawId + configProperties.SCRIPT_FOR_CHANGING_DDRAW_STATUS_INTO_REGISTRATION_2();
+        return script;
+    }
+
+    @Step
     private void changeDrawStatusIntoRegistration(String drawId, int change){
         logger.info("Draw # " + drawId + " is changed into registration. Status = " + change);
     }
@@ -211,31 +218,36 @@ public class DrawsLotteryInfoPage extends ParentPage {
     private void enterStartWinPayDateForDrawing() throws ParseException {
         actionWithWebElements.enterTextIntoInput(startWinPayDate, Utils.getDateAndTimeCurrentChangedMinSec(3, 6));
     }
-//
-//    @Step
-//    private void enterEndRegistrationEndDateForCreationNewDraw() throws ParseException {
-//        actionWithWebElements.enterTextIntoInput(endRegistrationBetDate, Utils.getDateAndTimeCurrentChangedHourMinSec(3));
-//    }
-//
-//    @Step
-//    private void enterStartDrawingDrawDateForCreationNewDraw() throws ParseException {
-//        actionWithWebElements.enterTextIntoInput(startDrawingDrawDate, Utils.getDateAndTimeCurrentChangedMinSec(3, 2));
-//    }
-//
-//    @Step
-//    private void enterEndDrawingDrawDateForCreationNewDraw() throws ParseException {
-//        actionWithWebElements.enterTextIntoInput(endDrawingDrawDate, Utils.getDateAndTimeCurrentChangedHourMinSec(3, 4));
-//    }
-//
-//    @Step
-//    private void enterStartWinPayDateForCreationNewDraw() throws ParseException {
-//        actionWithWebElements.enterTextIntoInput(startWinPayDate, Utils.getDateAndTimeCurrentChangedMinSec(3, 6));
-//    }
-//
-//    @Step
-//    private void enterEndWinPayDateForCreationNewDraw() throws ParseException {
-//        actionWithWebElements.enterTextIntoInput(startWinPayDate, Utils.getDateAndTimeCurrentChangedMinSec(3, 6));
-//    }
+
+    @Step
+    private void enterEndRegistrationEndDateForNewDraw() throws ParseException {
+        actionWithWebElements.enterTextIntoInput(endRegistrationBetDate
+                , Utils.getDateAndTimeCurrentChangedDayHourMinSec(5, 5, 10, 20));
+    }
+
+    @Step
+    private void enterStartDrawingDrawDateForNewDraw() throws ParseException {
+        actionWithWebElements.enterTextIntoInput(startDrawingDrawDate
+                , Utils.getDateAndTimeCurrentChangedDayHourMinSec(5, 5, 20, 20));
+    }
+
+    @Step
+    private void enterEndDrawingDrawDateForNewDraw() throws ParseException {
+        actionWithWebElements.enterTextIntoInput(endDrawingDrawDate
+                , Utils.getDateAndTimeCurrentChangedDayHourMinSec(5, 5, 30, 20));
+    }
+
+    @Step
+    private void enterStartWinPayDateForNewDraw() throws ParseException {
+        actionWithWebElements.enterTextIntoInput(startWinPayDate
+                , Utils.getDateAndTimeCurrentChangedDayHourMinSec(5, 5, 40, 20));
+    }
+
+    @Step
+    private void enterEndWinPayDateForCreationNewDraw() throws ParseException {
+        actionWithWebElements.enterTextIntoInput(endWinPayDate
+                , Utils.getDateAndTimeCurrentChangedYear(1));
+    }
 
     @Step
     private void clickSaveButton(){
@@ -384,39 +396,194 @@ public class DrawsLotteryInfoPage extends ParentPage {
     }
 
     @Step
-    private String createDrawInDB (String drawId){
-        int drawIdForCreation = Integer.valueOf(drawId) + 1;
-        String script = configProperties.SCRIPT_FOR_CREATION_DRAW_IN_CREATED_STATUS_1()
-                + drawIdForCreation
-                + configProperties.SCRIPT_FOR_CREATION_DRAW_IN_CREATED_STATUS_2()
-                + drawIdForCreation
-                + configProperties.SCRIPT_FOR_CREATION_DRAW_IN_CREATED_STATUS_3();
+    private void selectCreatedDrawStatusFilter(){
+        actionWithWebElements.clickOnElement(selectCreatedStatusButton);
+    }
+
+
+
+//    @Step
+//    private void setParamsForNewDrawInReg
+//        (String jackpotSum, String megaPrizeSum) throws ParseException {
+//            selectMegalotValueFromLotteryTypesDropDown();
+//            selectRegistrationBetDrawStatusFilter();
+//            clickSearchButton();
+//            selectDrawAndClickIt();
+//            waitUtilDrawDetailsAreVisible();
+//            enterJackpotSum(jackpotSum);
+//            enterMegaPrizeSum(megaPrizeSum);
+//            enterEndRegistrationEndDateForDrawing();
+//            enterStartDrawingDrawDateForDrawing();
+//            enterEndDrawingDrawDateForDrawing();
+//            enterStartWinPayDateForDrawing();
+//            clickSaveButton();
+//            clickParametersExportButton();
+//    }
+//
+//    @Step
+//    private void setParamsForNewDrawInMultyReg
+//            (String jackpotSum, String megaPrizeSum) throws ParseException {
+//        selectMegalotValueFromLotteryTypesDropDown();
+//
+//        clickSearchButton();
+//        selectDrawAndClickIt();
+//        waitUtilDrawDetailsAreVisible();
+//        enterJackpotSum(jackpotSum);
+//        enterMegaPrizeSum(megaPrizeSum);
+//        enterEndRegistrationEndDateForDrawing();
+//        enterStartDrawingDrawDateForDrawing();
+//        enterEndDrawingDrawDateForDrawing();
+//        enterStartWinPayDateForDrawing();
+//        clickSaveButton();
+//        clickParametersExportButton();
+//    }
+
+    @Step
+    private void setParamsForCreatedDrawExist(
+            String jackpotSum, String megaPrizeSum) throws ParseException {
+        selectMegalotValueFromLotteryTypesDropDown();
+        selectRegistrationBetDrawStatusFilter();
+        clickSearchButton();
+        selectDrawAndClickIt();
+        waitUtilDrawDetailsAreVisible();
+        enterJackpotSum(jackpotSum);
+        enterMegaPrizeSum(megaPrizeSum);
+        enterEndRegistrationEndDateForNewDraw();
+        enterStartDrawingDrawDateForNewDraw();
+        enterEndDrawingDrawDateForNewDraw();
+        enterStartWinPayDateForNewDraw();
+        enterEndWinPayDateForCreationNewDraw();
+        clickSaveButton();
+        clickParametersExportButton();
+    }
+
+    @Step
+    private void changeDrawStatusIntoMultyRegistration(String drawId, int change){
+        logger.info("Draw # " + drawId + " is changed into multy registration. Status = " + change);
+    }
+
+
+//    @Step
+//    public void newDrawTurnIntoRightStatus(String drawInRegistration, String drawId, String jackpotSum
+//            , String megaPrizeSum, int changeInReg, int changeInMultyReg) throws ParseException {
+//        if (searchForDraw(drawInRegistration).equals("0")) {
+//            setParamsForCreatedDrawExist(jackpotSum, megaPrizeSum);
+//            changeDrawStatusIntoRegistration(drawId, changeInReg);
+//        }
+//        else{
+//            setParamsForCreatedDrawExist(jackpotSum, megaPrizeSum);
+//            changeDrawStatusIntoMultyRegistration(drawId, changeInMultyReg);
+//        }
+//
+//    }
+
+
+
+
+
+
+    @Step
+    public final String getDrawCodeForNewDrawForCreation(String drawCode){
+        int drawIdForCreation = Integer.valueOf(drawCode) + 1;
+        return String.valueOf(drawIdForCreation);
+    }
+
+    @Step
+    public String getDrawIdOfCreatedDraw(String drawCode){
+        String script = configProperties.DRAW_ID_OF_CREATED_DRAW() + drawCode + "'";
         return script;
     }
 
     @Step
-    private void setDrawForBetRegistration
-        (String jackpotSum, String megaPrizeSum) throws ParseException {
-            selectMegalotValueFromLotteryTypesDropDown();
-            selectRegistrationBetDrawStatusFilter();
-            clickSearchButton();
-            selectDrawAndClickIt();
-            waitUtilDrawDetailsAreVisible();
-            enterJackpotSum(jackpotSum);
-            enterMegaPrizeSum(megaPrizeSum);
-            enterEndRegistrationEndDateForDrawing();
-            enterStartDrawingDrawDateForDrawing();
-            enterEndDrawingDrawDateForDrawing();
-            enterStartWinPayDateForDrawing();
-            clickSaveButton();
-            clickParametersExportButton();
+    public String createDrawInDBScript (String drawCode){
+        String script = configProperties.SCRIPT_FOR_CREATION_DRAW_IN_CREATED_STATUS_1()
+                + drawCode
+                + configProperties.SCRIPT_FOR_CREATION_DRAW_IN_CREATED_STATUS_2()
+                + drawCode
+                + configProperties.SCRIPT_FOR_CREATION_DRAW_IN_CREATED_STATUS_3();
+        logger.info("Draw # " + drawCode + " is created successfully");
+        return script;
     }
 
     @Step
-    public void createNewDraw(String drawId, String jackpotSum, String megaPrizeSum) throws ParseException {
-        createDrawInDB(drawId);
-        setDrawForBetRegistration(jackpotSum, megaPrizeSum);
+    public String changeParamsForNewDraw(String drawId, String drawCode, String jackpotSum, String megaPrizeSum) throws ParseException {
+        String script = configProperties.CHANGE_DRAW_PARAMS_SCRIPT_1()
+                + drawId
+                + configProperties.CHANGE_DRAW_PARAMS_SCRIPT_2()
+                + drawCode
+                + configProperties.CHANGE_DRAW_PARAMS_SCRIPT_3()
+                + drawCode
+                + configProperties.CHANGE_DRAW_PARAMS_SCRIPT_4()
+                + Utils.getDateAndTimeCurrentChangedDayHourMinSec(135, 4, 3, 1)
+                + configProperties.CHANGE_DRAW_PARAMS_SCRIPT_5()
+                + Utils.getDateAndTimeCurrentChangedDayHourMinSec(135, 4, 4, 10)
+                + configProperties.CHANGE_DRAW_PARAMS_SCRIPT_6()
+                + Utils.getDateAndTimeCurrentChangedDayHourMinSec(135, 4, 5, 15)
+                + configProperties.CHANGE_DRAW_PARAMS_SCRIPT_7()
+                + Utils.getDateAndTimeCurrentChangedDayHourMinSec(135, 4, 6, 20)
+                + configProperties.CHANGE_DRAW_PARAMS_SCRIPT_8()
+                + Utils.getDateAndTimeCurrentChangedDayHourMinSec(135, 4, 7, 25)
+                + configProperties.CHANGE_DRAW_PARAMS_SCRIPT_9()
+                + Utils.getDateAndTimeCurrentChangedYear(1)
+                + configProperties.CHANGE_DRAW_PARAMS_SCRIPT_10()
+                + jackpotSum
+                + configProperties.CHANGE_DRAW_PARAMS_SCRIPT_11()
+                + megaPrizeSum
+                + configProperties.CHANGE_DRAW_PARAMS_SCRIPT_12();
+        return script;
     }
+
+    @Step
+    public String changeDrawIntoRegistration(String drawId){
+        String script = configProperties.SCRIPT_FOR_CHANGING_DDRAW_STATUS_INTO_REGISTRATION_1()
+                + drawId
+                + configProperties.SCRIPT_FOR_CHANGING_DDRAW_STATUS_INTO_REGISTRATION_2();
+        return script;
+    }
+
+    @Step
+    public String changeDrawIntoMultyRegistration(String drawId){
+        String script = configProperties.SCRIPT_FOR_CHANGING_DRAW_STATUS_INTO_MULTY_REGISTRATION_1()
+                + drawId
+                + configProperties.SCRIPT_FOR_CHANGING_DRAW_STATUS_INTO_MULTY_REGISTRATION_2();
+        return script;
+    }
+
+    @Step
+    public String changeCreatedDrawStatus(String drawInRegistration, String drawInMultyReg
+            , String drawInCreated, String drawIdInCreated, String drawId){
+        String res = "0";
+        if (searchForDraw(drawInRegistration).equals("0")) {
+            if (searchForDraw(drawInMultyReg).equals("0")) {
+                if (searchForDraw(drawInCreated).equals("0") &&
+                        !drawIdInCreated.equals(drawId)) {
+                    res = changeDrawIntoRegistration(drawId);
+                    logger.info("Draw # " + drawId + " is changed into registration status");
+                }
+            }
+        }
+        else{
+            res = changeDrawIntoMultyRegistration(drawId);
+            logger.info("Draw # " + drawId + " is changed into multy registration status");
+        }
+        return res;
+    }
+
+    @Step
+    public String reformBlob(String drawId){
+        String script = configProperties.REFORM_BLOB_SCRIPT_1()
+                + drawId
+                + configProperties.REFORM_BLOB_SCRIPT_2();
+        return script;
+    }
+
+
+
+
+
+
+
+
 
     @Step
     private void drawingRegistrationBetDraw(String jackpotSum, String megaPrizeSum
@@ -487,18 +654,10 @@ public class DrawsLotteryInfoPage extends ParentPage {
                     , ball4, ball5, ball6
                     , ball7);
         } else if (searchForDraw(drawInCreatedStat).equals("1")) {
-            logger.info("Draw # " + drawIdForCreated + " is selected for drawing");
             changeDrawStatusIntoRegistration(drawIdForCreated, changeStatus);
-            drawingRegistrationBetDraw(jackpotSum, megaPrizeSum
-                    , ball1, ball2, ball3
-                    , ball4, ball5, ball6
-                    , ball7);
+            setParamsForCreatedDrawExist(jackpotSum, megaPrizeSum);
         } else {
             logger.info("There is no draw. It is necessary to create new one");
-            createDrawInDB(searchForDrawId(drawInRegistration
-                    , drawIdForRegisatration, drawInMultyRegistration, drawIdForMultyRegistration
-                    , drawInCreatedStat, drawIdForCreated));
-            setDrawForBetRegistration(jackpotSum, megaPrizeSum);
         }
     }
 }

@@ -54,23 +54,23 @@ public class Utils {
      * @return
      */
     public static String getDateAndTimeFormated(){
-
         return getDateAndTime("yyyyMMddHHmmssSSS");
     }
 
     public static String getDateAndTimeCurrectChangedMin(int minutes) throws ParseException {
-
         return changeCurrentTimeMin("dd.MM.yyyy HH:mm:ss", minutes);
     }
 
     public static String getDateAndTimeCurrentChangedMinSec(int minutes, int seconds) throws ParseException {
-
         return changeCurrentTimeMinSec ("dd.MM.yyyy HH:mm:ss", minutes, seconds);
     }
 
-    public static String getDateAndTimeCurrentChangedHourMinSec(int hours, int minutes, int seconds) throws ParseException {
+    public static String getDateAndTimeCurrentChangedYear(int year) throws ParseException {
+        return changeCurrentTimeYear ("dd.MM.yyyy HH:mm:ss", year);
+    }
 
-        return changeCurrentTimeHourMinSec ("dd.MM.yyyy HH:mm:ss", hours, minutes, seconds);
+    public static String getDateAndTimeCurrentChangedDayHourMinSec(int days, int hours, int minutes, int seconds) throws ParseException {
+        return changeCurrentTimeDayHourMinSec ("dd.MM.yyyy HH:mm:ss", days, hours, minutes, seconds);
     }
 
     /**
@@ -110,7 +110,19 @@ public class Utils {
         return dateFormated;
     }
 
-    public static String changeCurrentTimeHourMinSec(String format, int hours, int minutes, int seconds) throws ParseException {
+    private static String changeCurrentTimeYear(String format, int year) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = new Date();
+        String dateFormated = dateFormat.format(date);
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Calendar c = Calendar.getInstance();
+        c.setTime(sdf.parse(dateFormated));
+        c.add(Calendar.YEAR, year);
+        dateFormated = sdf.format(c.getTime());
+        return dateFormated;
+    }
+
+    private static String changeCurrentTimeDayHourMinSec(String format, int days, int hours, int minutes, int seconds) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat(format);
         Date date = new Date();
         String dateFormated = dateFormat.format(date);
@@ -120,6 +132,7 @@ public class Utils {
         c.add(Calendar.HOUR, hours);
         c.add(Calendar.MINUTE, minutes);
         c.add(Calendar.SECOND, seconds);
+        c.add(Calendar.DAY_OF_MONTH, days);
         dateFormated = sdf.format(c.getTime());
         return dateFormated;
     }
