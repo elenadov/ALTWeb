@@ -8,9 +8,6 @@ import libs.Oracle_SQL_Database;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import pages.lotteriesDrawing.DrawsLoginPage;
-import pages.lotteriesDrawing.DrawsLotteryInfoPage;
-import pages.lotteriesDrawing.DrawsMainMenuPage;
 import paramsForRequests.ParamsForRequests;
 import paramsForRequests.ZabavaRegBet;
 

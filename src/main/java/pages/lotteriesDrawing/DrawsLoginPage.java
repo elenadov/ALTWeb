@@ -7,6 +7,10 @@ import parentPage.ParentPage;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
+/**
+ * Created by Elena Dovhaliuk
+ */
+
 public class DrawsLoginPage extends ParentPage {
     public DrawsLoginPage(WebDriver webDriver) {
         super(webDriver, "/index.jsp");
@@ -21,26 +25,41 @@ public class DrawsLoginPage extends ParentPage {
     @FindBy (name = "submit")
     private Button okBotton;
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method enters login into login input
+     */
     @Step
-    private void enterLoginIntoInput(){
+    private void enterLoginIntoLoginInput(){
         actionWithWebElements.enterTextIntoInput(loginInput, configProperties.CS_OPERATOR_LOGIN());
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method enters password into password input
+     */
     @Step
-    private void enterPasswordIntoInput(){
+    private void enterPasswordIntoLoginInput(){
         actionWithWebElements.enterTextIntoInput(passwordInput, configProperties.CS_OPERATOR_PASSWORD());
     }
 
+    /**
+     * Created by Elena Dovhaliuk
+     * This private method clicks OK button
+     */
     @Step
     private void clickOKButton(){
         actionWithWebElements.clickOnElement(okBotton);
     }
 
-
+    /**
+     * Created by Elena Dovhaliuk
+     * This method enters login, password and clicks OK button
+     */
     @Step
     public void drawsAuth(){
-        enterLoginIntoInput();
-        enterPasswordIntoInput();
+        enterLoginIntoLoginInput();
+        enterPasswordIntoLoginInput();
         clickOKButton();
     }
 }

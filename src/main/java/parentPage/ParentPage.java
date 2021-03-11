@@ -3,7 +3,6 @@ package parentPage;
 import io.qameta.allure.Step;
 import libs.ActionWithWebElements;
 import libs.ConfigProperties;
-import libs.Database;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -25,7 +24,6 @@ public class ParentPage {
     String expectedUrl;
     protected String addUrl;
     String expectedAddUrl;
-    protected Database database;
 
     public ParentPage(WebDriver webDriver, String partUrl){
         baseUrl = configProperties.base_url();

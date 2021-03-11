@@ -3,14 +3,17 @@ package drawingDraws;
 import abstractParentTest.AbstractParentTest;
 import io.qameta.allure.*;
 import org.junit.Test;
-
 import java.sql.SQLException;
 import java.text.ParseException;
 
-public class MegalotDrawInRegistrationCreation extends AbstractParentTest {
+/**
+ * Created by Elena Dovhaliuk
+ */
 
-    @Description("MegalotDrawing")
-    @Story("MegalotDrawing")
+public class MegalotDrawInRegistrationCreationTest extends AbstractParentTest {
+
+    @Description("MegalotDrawingTest")
+    @Story("MegalotDrawingTest")
     @Link("")
     @Link(name = "allure", type = "mylink")
     @Severity(SeverityLevel.CRITICAL)
