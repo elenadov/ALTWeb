@@ -367,7 +367,7 @@ public class DrawsLotteryInfoPage extends ParentPage {
      */
     @Step
     private void enterMegaPrizeSum(String summa){
-        actionWithWebElements.enterTextIntoInput(jackpot, summa);
+        actionWithWebElements.enterTextIntoInput(megaPrize, summa);
     }
 
     /**

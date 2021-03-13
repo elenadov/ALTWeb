@@ -37,7 +37,7 @@ public class MegalotDrawingTest extends AbstractParentTest {
         String ball4Value = "4";
         String ball5Value = "5";
         String ball6Value = "6";
-        String ball7Value = "7";
+        String ball7Value = "0";
 
         drawsLoginPage.openAddPage();
         drawsLoginPage.drawsAuth();
