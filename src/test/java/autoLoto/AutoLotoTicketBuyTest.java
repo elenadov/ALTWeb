@@ -32,15 +32,15 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
     @Parameterized.Parameters(name = "Parameters are {0}, {1}")
     public static Collection testData(){
         return Arrays.asList(new Object[][] {
-                        {1, 1}
+                        {1, 2}
                         , {2, 2}
-                        , {3, 1}
+                        , {3, 2}
                         , {4, 2}
-                        , {5, 1}
+                        , {5, 2}
                         , {6, 2}
-                        , {7, 1}
+                        , {7, 2}
                         , {8, 2}
-                        , {9, 1}
+                        , {9, 2}
                         , {10, 2}
                 }
         );

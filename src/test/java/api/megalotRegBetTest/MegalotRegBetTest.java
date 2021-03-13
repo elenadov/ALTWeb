@@ -23,8 +23,8 @@ import static org.hamcrest.core.IsNull.notNullValue;
  * Created by Elena Dovhaliuk
  */
 
-@Epic("Loto Zabava")
-@Feature("ZabavaRegBet")
+@Epic("Megalot")
+@Feature("MegalotRegBet")
 @RunWith(Parameterized.class)
 
 public class MegalotRegBetTest extends ApiParentTest {
@@ -38,11 +38,18 @@ public class MegalotRegBetTest extends ApiParentTest {
     private int ball6;
     private int megaBall;
 
-    public MegalotRegBetTest (int drawCountToBeSelected){
+    public MegalotRegBetTest (int drawCountToBeSelected, int ball1, int ball2, int ball3, int ball4, int ball5, int ball6, int megaBall){
         this.drawCount = drawCountToBeSelected;
+        this.ball1 = ball1;
+        this.ball2 = ball2;
+        this.ball3 = ball3;
+        this.ball4 = ball4;
+        this.ball5 = ball5;
+        this.ball6 = ball6;
+        this.megaBall = megaBall;
     }
 
-    @Parameterized.Parameters(name = "Parameters are {0}")
+    @Parameterized.Parameters(name = "Parameters are {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}")
     public static Collection testData(){
         return Arrays.asList(new Object[][] {
                         {1, 1, 2, 3, 4, 5, 9, 0},
@@ -53,8 +60,8 @@ public class MegalotRegBetTest extends ApiParentTest {
         );
     }
 
-    @Description("ZabavaRegBet API test")
-    @Story("ZabavaRegBet API test")
+    @Description("Megalot API test")
+    @Story("MegalotRegBet API test")
     @Link("")
     @Link(name = "allure", type = "mylink")
     @Issue("")
@@ -104,16 +111,16 @@ public class MegalotRegBetTest extends ApiParentTest {
 
                         .then()
                         .statusCode(200)
-                        .body(containsString("user_id"))
                         .body("user_id", notNullValue())
-                        .body(containsString("\"err_code\":0"))
+                        .body(containsString("\"user_id\":\"" + paramsForRequests.getUser_id() + "\""))
                         .body("err_code", notNullValue())
+                        .body(containsString("\"err_code\":0"))
                         .body(containsString("err_descr"))
                         .body("err_descr", notNullValue())
-                        .body(containsString("client_id"))
                         .body("client_id", notNullValue())
-                        .body(containsString("sid"))
+                        .body(containsString("client_id"))
                         .body("sid", notNullValue())
+                        .body(containsString("\"sid\":\"" + paramsForRequests.getSid() + "\""))
                         .body(containsString("client_trans_id"))
                         .body("client_trans_id", notNullValue())
                         .body(containsString("ticket"))
@@ -122,27 +129,31 @@ public class MegalotRegBetTest extends ApiParentTest {
                         .body("id", notNullValue())
                         .body(containsString("description"))
                         .body("description", notNullValue())
-                        .body(containsString("bet_sum"))
                         .body("bet_sum", notNullValue())
-//                        .body(containsString("\"bet_sum\":" + "\""
-//                                + zabavaRegBet.calculateOneBetSumHrn(ticketCount, parochkaCount, bTv) + "\""))
-//                        .body(containsString("ticket_num"))
-//                        .body("ticket_num", notNullValue())
-//                        .body(containsString("ticket_snum"))
-//                        .body("ticket_snum", notNullValue())
-//                        .body(containsString("draw_num"))
-//                        .body("draw_num", notNullValue())
-//                        .body(containsString("\"draw_num\":" + drawNum))
-//                        .body(containsString("regdate"))
-                        .body("regdate", notNullValue())
+                        .body(containsString("\"bet_sum\":\"" + megalotRegBet.simpleTicketSum + ".00\""))
+                        .body(containsString("ticket_num"))
+                        .body("ticket_num", notNullValue())
+                        .body("ticket_sum", notNullValue())
+                        .body(containsString("\"ticket_sum\":" +  + megalotRegBet.simpleTicketSum + "00"))
                         .body(containsString("mac_code"))
                         .body("mac_code", notNullValue())
-                        .body(containsString("url"))
-                        .body("url", notNullValue())
-                        .body(containsString("game_comb"))
-                        .body("game_comb", notNullValue())
-                        .body(containsString("game_field"))
-                        .body("game_field", notNullValue())
+                        .body(containsString("game_name"))
+                        .body("game_name", notNullValue())
+                        .body(containsString("draw_date"))
+                        .body("draw_date", notNullValue())
+                        .body(containsString("draw_num"))
+                        .body("draw_num", notNullValue())
+                        .body(containsString("regdate"))
+                        .body("regdate", notNullValue())
+                        .body(containsString("ticket_templ_url"))
+                        .body("ticket_templ_url", notNullValue())
+                        .body(containsString("slogan"))
+                        .body("slogan", notNullValue())
+                        .body(containsString("\"bet\":[{\"balls\":\"" + ball1 + "," + ball2 + "," + ball3 + "," + ball4 + ","
+                                + ball5 + "," + ball6 + "\",\"input_mode\":2,\"megaballs\":\"" + megaBall + "\"}]"))
+                        .body("bet", notNullValue())
+                        .body("bet_count", notNullValue())
+                        .body(containsString("\"bet_count\":1"))
 
                         .log().all()
                         .extract()
