@@ -9,6 +9,8 @@ import mainParamsForRequest.MainParamsForRequest;
 
 public class MegalotRegBet extends MainParamsForRequest {
 
+    public int simpleTicketSum = 10;
+
     @Step
     public String getMegalotTicketForSale(int ball1, int ball2, int ball3, int ball4
             , int ball5, int ball6, int megaBall){
@@ -17,7 +19,7 @@ public class MegalotRegBet extends MainParamsForRequest {
         String ticketPart1 = "[{\"balls\":[";
         String ticketPart2 = ",";
         String ticketPart3 = "],\"megaballs\":[";
-        String ticketPart4 = "],\"input_mode\":3}";
+        String ticketPart4 = "],\"input_mode\":2}]";
 
         return  ticketPart1 + ball1 + ticketPart2 + ball2 + ticketPart2 + ball3
                 + ticketPart2 + ball4 + ticketPart2 + ball5 + ticketPart2 + ball6
@@ -26,7 +28,11 @@ public class MegalotRegBet extends MainParamsForRequest {
 
     @Step
     public String calculateMegalotCheckSumMonets(int drawCount){
-        int simpleTicketSum = 10;
         return String.valueOf(drawCount * simpleTicketSum) + "00";
+    }
+
+    @Step
+    public String calculateMegalotCheckSumHrn(int drawCount){
+        return String.valueOf(drawCount * simpleTicketSum) + ".00";
     }
 }

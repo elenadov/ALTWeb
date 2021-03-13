@@ -41,8 +41,8 @@ public class DrawsLotteryInfoPage extends ParentPage {
     @FindBy(xpath = "//table[@class='form'][2]//td[6]")
     private Button continueWorkWithDraw;
 
-    @FindBy(xpath = "//h1")
-    private TextBlock drawDetailInformationHeader;
+    @FindBy(xpath = "//table[2]//tr[2]/td[2]")
+    private TextBlock drawType;
 
     @FindBy(name = "info.endGameDateString")
     private TextInput endRegistrationBetDate;
@@ -188,8 +188,8 @@ public class DrawsLotteryInfoPage extends ParentPage {
      * This private method waits until draw details are visible
      */
     @Step
-    private void waitUtilDrawDetailsAreVisible(){
-        actionWithWebElements.waitForText(drawDetailInformationHeader, "Детальная информация о тираже");
+    private void waitUtilDrawTypeIsVisible(){
+        actionWithWebElements.waitForText(drawType, "Обычный");
     }
 
     /**
@@ -572,7 +572,7 @@ public class DrawsLotteryInfoPage extends ParentPage {
         selectRegistrationBetDrawStatusFilter();
         clickSearchButton();
         selectDrawAndClickIt();
-        waitUtilDrawDetailsAreVisible();
+        waitUtilDrawTypeIsVisible();
         enterJackpotSum(jackpotSum);
         enterMegaPrizeSum(megaPrizeSum);
         enterEndRegistrationEndDateForNewDraw();
@@ -646,7 +646,7 @@ public class DrawsLotteryInfoPage extends ParentPage {
         selectRegistrationBetDrawStatusFilter();
         clickSearchButton();
         selectDrawAndClickIt();
-        waitUtilDrawDetailsAreVisible();
+        waitUtilDrawTypeIsVisible();
         enterJackpotSum(jackpotSum);
         enterMegaPrizeSum(megaPrizeSum);
         enterEndRegistrationEndDateForDrawing();
@@ -669,7 +669,7 @@ public class DrawsLotteryInfoPage extends ParentPage {
         enterSixthBallResult(ball6);
         enterAddBallResult(ball7);
         clickSaveResultsButton();
-        waitUntilResultsAreSaved();
+//        waitUntilResultsAreSaved();
         clickParametersMenuButton();
         waitUtilDrawStatusIsPostDrawing();
         clickWinTableCreationButton();
