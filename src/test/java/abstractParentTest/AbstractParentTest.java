@@ -25,6 +25,9 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.*;
+import pages.lotteriesDrawing.DrawsLoginPage;
+import pages.lotteriesDrawing.DrawsLotteryInfoPage;
+import pages.lotteriesDrawing.DrawsMainMenuPage;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -40,6 +43,10 @@ public class AbstractParentTest {
     protected LotoZabavaPurchaseMenuPage lotoZabavaPurchaseMenuPage;
     protected WinCheckPage winCheckPage;
     protected WinPayPage winPayPage;
+    protected DrawsLoginPage drawsLoginPage;
+    protected DrawsLotteryInfoPage drawsLotteryInfoPage;
+    protected DrawsMainMenuPage drawsMainMenuPage;
+
 
     protected static ConfigProperties configProperties =
             ConfigFactory.create(ConfigProperties.class);
@@ -68,6 +75,9 @@ public class AbstractParentTest {
         lotoZabavaPurchaseMenuPage = new LotoZabavaPurchaseMenuPage(webDriver);
         winCheckPage = new WinCheckPage(webDriver);
         winPayPage = new WinPayPage(webDriver);
+        drawsLoginPage = new DrawsLoginPage(webDriver);
+        drawsLotteryInfoPage = new DrawsLotteryInfoPage(webDriver);
+        drawsMainMenuPage = new DrawsMainMenuPage(webDriver);
     }
 
     @Parameterized.Parameters
@@ -148,5 +158,4 @@ public class AbstractParentTest {
     protected void checkExpectedText(String message, ArrayList<String> expectedResult, ArrayList<String> actualResult){
         Assert.assertEquals(message,expectedResult,actualResult);
     }
-
 }

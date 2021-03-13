@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 public class ActionWithWebElements {
     WebDriver webDriver;
     Logger logger = Logger.getLogger(getClass());
-    WebDriverWait webDriverWait_05, webDriverWait_10, webDriverWait_20, webDriverWait_30;
+    WebDriverWait webDriverWait_05, webDriverWait_10, webDriverWait_20, webDriverWait_30, webDriverWait_180;
     Actions actions;
     private int triesCount = 1;
 
@@ -26,6 +26,7 @@ public class ActionWithWebElements {
         webDriverWait_10 = new WebDriverWait(webDriver, 10);
         webDriverWait_20 = new WebDriverWait(webDriver, 20);
         webDriverWait_30 = new WebDriverWait(webDriver, 30);
+        webDriverWait_180 = new WebDriverWait(webDriver, 180);
         actions = new Actions(webDriver);
     }
 
@@ -137,6 +138,10 @@ public class ActionWithWebElements {
         ExpectedConditions.visibilityOf(webElement);
     }
 
+    public void waitForTextLonger(WebElement webElement, String text) {
+        webDriverWait_180.until(ExpectedConditions.textToBePresentInElement(webElement, text));
+    }
+
     /**
      * This method waits until selected element is visible
      * @param locator
@@ -233,6 +238,16 @@ public class ActionWithWebElements {
             Select select = new Select(dropDown);
             select.selectByVisibleText(text);
             logger.info(text + " was selected in Drop Down");
+        }catch (Exception e){
+            stopTestAndPrintMessage();
+        }
+    }
+
+    public void selectValueInDropDown(WebElement dropDown, String value) {
+        try {
+            Select select = new Select(dropDown);
+            select.selectByValue(value);
+            logger.info(value + " was selected in Drop Down");
         }catch (Exception e){
             stopTestAndPrintMessage();
         }

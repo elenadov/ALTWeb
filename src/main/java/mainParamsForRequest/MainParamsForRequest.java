@@ -4,7 +4,6 @@ import libs.ConfigProperties;
 import libs.Database;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
-import java.time.Instant;
 
 /**
  * Created by Elena Dovhaliuk

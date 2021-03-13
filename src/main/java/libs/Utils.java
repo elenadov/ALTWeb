@@ -9,7 +9,9 @@ import org.openqa.selenium.WebDriver;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -47,25 +49,91 @@ public class Utils {
         }
     }
 
-
     /**
      * Method returned SystemDateAndTime In Format yyyy-MM-dd_HH-mm-ss-SSS
      * @return
      */
     public static String getDateAndTimeFormated(){
-
         return getDateAndTime("yyyyMMddHHmmssSSS");
+    }
+
+    public static String getDateAndTimeCurrectChangedMin(int minutes) throws ParseException {
+        return changeCurrentTimeMin("dd.MM.yyyy HH:mm:ss", minutes);
+    }
+
+    public static String getDateAndTimeCurrentChangedMinSec(int minutes, int seconds) throws ParseException {
+        return changeCurrentTimeMinSec ("dd.MM.yyyy HH:mm:ss", minutes, seconds);
+    }
+
+    public static String getDateAndTimeCurrentChangedYear(int year) throws ParseException {
+        return changeCurrentTimeYear ("dd.MM.yyyy HH:mm:ss", year);
+    }
+
+    public static String getDateAndTimeCurrentChangedDayHourMinSec(int days, int hours, int minutes, int seconds) throws ParseException {
+        return changeCurrentTimeDayHourMinSec ("dd.MM.yyyy HH:mm:ss", days, hours, minutes, seconds);
     }
 
     /**
      * Method returned SystemDateAndTime
      * @return
      */
-    public static String getDateAndTime(String format){
+    private static String getDateAndTime(String format){
         DateFormat dateFormat = new SimpleDateFormat(format);
         Date date = new Date();
         String dateFormated = dateFormat.format(date);
         System.out.println(dateFormated);
+        return dateFormated;
+    }
+
+    private static String changeCurrentTimeMin(String format, int minutes) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = new Date();
+        String dateFormated = dateFormat.format(date);
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Calendar c = Calendar.getInstance();
+        c.setTime(sdf.parse(dateFormated));
+        c.add(Calendar.MINUTE, minutes);
+        dateFormated = sdf.format(c.getTime());
+        return dateFormated;
+    }
+
+    private static String changeCurrentTimeMinSec(String format, int minutes, int seconds) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = new Date();
+        String dateFormated = dateFormat.format(date);
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Calendar c = Calendar.getInstance();
+        c.setTime(sdf.parse(dateFormated));
+        c.add(Calendar.MINUTE, minutes);
+        c.add(Calendar.SECOND, seconds);
+        dateFormated = sdf.format(c.getTime());
+        return dateFormated;
+    }
+
+    private static String changeCurrentTimeYear(String format, int year) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = new Date();
+        String dateFormated = dateFormat.format(date);
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Calendar c = Calendar.getInstance();
+        c.setTime(sdf.parse(dateFormated));
+        c.add(Calendar.YEAR, year);
+        dateFormated = sdf.format(c.getTime());
+        return dateFormated;
+    }
+
+    private static String changeCurrentTimeDayHourMinSec(String format, int days, int hours, int minutes, int seconds) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = new Date();
+        String dateFormated = dateFormat.format(date);
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Calendar c = Calendar.getInstance();
+        c.setTime(sdf.parse(dateFormated));
+        c.add(Calendar.HOUR, hours);
+        c.add(Calendar.MINUTE, minutes);
+        c.add(Calendar.SECOND, seconds);
+        c.add(Calendar.DAY_OF_MONTH, days);
+        dateFormated = sdf.format(c.getTime());
         return dateFormated;
     }
 
