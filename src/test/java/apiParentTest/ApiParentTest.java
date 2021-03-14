@@ -7,6 +7,7 @@ import libs.MySQL_Database;
 import libs.Oracle_SQL_Database;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.Before;
 import paramsForRequests.MegalotRegBet;
 import paramsForRequests.ParamsForRequests;
@@ -37,4 +38,8 @@ public class ApiParentTest {
         database = Oracle_SQL_Database.getOracleDataBase();
     }
 
+    @After
+    public void tearDown() throws SQLException {
+        database.quit();
+    }
 }

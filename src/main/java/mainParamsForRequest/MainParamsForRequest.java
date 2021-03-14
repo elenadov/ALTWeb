@@ -18,6 +18,7 @@ public class MainParamsForRequest{
 
     public String sid;
     public String client_id;
+    public String client;
     public String client_trans_id;
     public String user_id;
     public String term_code;
@@ -58,6 +59,10 @@ public class MainParamsForRequest{
         this.term_code = term_code;
     }
 
+    public void setClient(String client){
+        this.client = client;
+    }
+
     /**
      * Created by Elena Dovhaliuk
      * This method gets SID param value
@@ -92,5 +97,9 @@ public class MainParamsForRequest{
      */
     public String getTerm_code() {
         return term_code;
+    }
+
+    public String getClient(){
+        return client;
     }
 }

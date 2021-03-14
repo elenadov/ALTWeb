@@ -42,6 +42,7 @@ public class MegalotDrawingTest extends AbstractParentTest {
         drawsLoginPage.openAddPage();
         drawsLoginPage.drawsAuth();
         drawsMainMenuPage.clickDrawInfoButton();
+
         drawsLotteryInfoPage.determineDrawForDrawing(drawInRegistration
                 , drawIdForRegisatration
                 ,drawInMultyRegistration
@@ -57,5 +58,22 @@ public class MegalotDrawingTest extends AbstractParentTest {
                                 ,drawIdForMultyRegistration
                                 ,drawInCreatedStat
                                 ,drawIdForCreated))));
+
+        String drawInRegistration1 = database.selectValue(configProperties.DRAW_COUNT_IN_REGISTRATION_BET_STATUS());
+        String drawIdForRegisatration1 = database.selectValue(configProperties.DRAW_ID_IN_REGISTRATION_BET_STATUS());
+        String drawInMultyRegistration1 = database.selectValue(configProperties.DRAW_COUNT_IN_MULTY_REGISTRATION_BET_STATUS());
+        String drawIdForMultyRegistration1 = database.selectValue(configProperties.DRAW_ID_IN_MULTY_REGISTRATION_BET_STATUS());
+        String drawInCreatedStat1 = database.selectValue(configProperties.DRAW_COUNT_IN_CREATED_STATUS());
+        String drawIdForCreated1 = database.selectValue(configProperties.DRAW_ID_IN_CREATED_STATUS());
+
+        drawsLotteryInfoPage.selectDrawForRegChange(drawInRegistration1, drawInMultyRegistration1
+                ,drawIdForMultyRegistration1, drawInCreatedStat1, drawIdForCreated1
+                ,database.changeTable(drawsLotteryInfoPage.getScriptForChangingDrawStatusInRegistrationBet(
+                        drawsLotteryInfoPage.searchForDrawId(drawInRegistration1
+                                ,drawIdForRegisatration1
+                                ,drawInMultyRegistration1
+                                ,drawIdForMultyRegistration1
+                                ,drawInCreatedStat1
+                                ,drawIdForCreated1))));
     }
 }

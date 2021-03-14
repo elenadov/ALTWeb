@@ -73,7 +73,7 @@ public class ParamsForRequests extends MainParamsForRequest {
 
             setSid(response.jsonPath().get("respond.sid").toString());
             setUser_id(response.jsonPath().get("respond.user_id").toString());
-            setClient_id(response.jsonPath().get("respond.pos_list.pos.client_id").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
+            setClient(response.jsonPath().get("respond.pos_list.pos.client_id").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
 
             logger.info(response.asString());
         }catch(Exception e){
@@ -100,7 +100,7 @@ public class ParamsForRequests extends MainParamsForRequest {
         requestParams.put("SID", getSid());
         requestParams.put("USER_ID", getUser_id());
         requestParams.put("PROTO_TYPE", "keyvalue-json");
-        requestParams.put("CLIENT_ID", getClient_id());
+        requestParams.put("CLIENT_ID", getClient());
 
         logger.info(requestParams.toString());
 

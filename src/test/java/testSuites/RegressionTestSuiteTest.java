@@ -34,7 +34,6 @@ import org.junit.runners.Suite;
                 WrongLoginInputTest.class,
                 LotoZabavaTicketBuyTest.class,
                 MegalotPositiveWinPayTest.class
-
         }
 )
 

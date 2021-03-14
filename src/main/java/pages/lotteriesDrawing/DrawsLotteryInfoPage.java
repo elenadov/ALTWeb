@@ -582,6 +582,7 @@ public class DrawsLotteryInfoPage extends ParentPage {
         enterEndWinPayDateForCreationNewDraw();
         clickSaveButton();
         clickParametersExportButton();
+        logger.info("Params are changed successfully");
     }
 
     /**
@@ -889,8 +890,25 @@ public class DrawsLotteryInfoPage extends ParentPage {
                     , ball4, ball5, ball6
                     , ball7);
         } else if (searchForDraw(drawInCreatedStat).equals("1")) {
+            logger.info("Draw # " + drawIdForCreated + " is selected for drawing");
             changeDrawStatusIntoRegistration(drawIdForCreated, changeStatus);
             setParamsForCreatedDrawExist(jackpotSum, megaPrizeSum);
+        } else {
+            logger.info("There is no draw. It is necessary to create new one");
+        }
+    }
+
+    @Step
+    public void selectDrawForRegChange(String drawInRegistration, String drawInMultyRegistration
+            , String drawIdForMultyRegistration, String drawInCreatedStat
+            , String drawIdForCreated, int changeStatus) {
+        if (searchForDraw(drawInRegistration).equals("1")) {
+        } else if (searchForDraw(drawInMultyRegistration).equals("1")) {
+            logger.info("Draw # " + drawIdForMultyRegistration + " is selected for registration change");
+            changeDrawStatusIntoRegistration(drawIdForMultyRegistration, changeStatus);
+        } else if (searchForDraw(drawInCreatedStat).equals("1")) {
+            logger.info("Draw # " + drawIdForCreated + " is selected for registration change");
+            changeDrawStatusIntoRegistration(drawIdForCreated, changeStatus);
         } else {
             logger.info("There is no draw. It is necessary to create new one");
         }
