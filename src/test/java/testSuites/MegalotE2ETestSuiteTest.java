@@ -8,6 +8,12 @@ import megalotTest.MegalotPositiveWinPayTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+/**
+ * Created by Elena Dovhaliuk
+ * This suite has overall Megalot review:
+ * creation new draw, purchase, drawing draw, win payment
+ */
+
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
         {

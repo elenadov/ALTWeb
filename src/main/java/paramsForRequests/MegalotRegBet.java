@@ -14,7 +14,6 @@ public class MegalotRegBet extends MainParamsForRequest {
     @Step
     public String getMegalotTicketForSale(int ball1, int ball2, int ball3, int ball4
             , int ball5, int ball6, int megaBall){
-        //[{"balls":[17,7,41,27,4,3],"megaballs":[0],"input_mode":3}]
 
         String ticketPart1 = "[{\"balls\":[";
         String ticketPart2 = ",";
