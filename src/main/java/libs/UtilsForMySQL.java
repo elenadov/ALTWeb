@@ -20,6 +20,5 @@ public class UtilsForMySQL {
 
         dBMySQL.quit();
         return tempCode;
-
     }
 }

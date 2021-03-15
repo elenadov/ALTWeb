@@ -3,13 +3,10 @@ package abstractParentTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
-import libs.ConfigProperties;
-import libs.MySQL_Database;
-import libs.Oracle_SQL_Database;
+import libs.*;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.After;
-import libs.Database;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -51,17 +48,19 @@ public class AbstractParentTest {
     protected static ConfigProperties configProperties =
             ConfigFactory.create(ConfigProperties.class);
     protected Logger logger = Logger.getLogger(getClass());
-    protected Database database;
+    protected UtilsForMySQL utilsForMySQL = new UtilsForMySQL();
+    protected UtilsForOracleSQL utilsForOracleSQL = new UtilsForOracleSQL();
+//    protected Database database;
 
-    @Before
-    public void mySQLDBConnect() throws SQLException, ClassNotFoundException {
-        database = MySQL_Database.getDataBase();
-    }
-
-    @Step
-    public void oracleSQLDBConnect() throws SQLException, ClassNotFoundException {
-        database = Oracle_SQL_Database.getOracleDataBase();
-    }
+//    @Before
+//    public void mySQLDBConnect() throws SQLException, ClassNotFoundException {
+//        database = MySQL_Database.getDataBase();
+//    }
+//
+//    @Step
+//    public void oracleSQLDBConnect() throws SQLException, ClassNotFoundException {
+//        database = Oracle_SQL_Database.getOracleDataBase();
+//    }
 
     @Before
     public void SetUp() throws Exception {
@@ -108,10 +107,10 @@ public class AbstractParentTest {
         }
     }
 
-    @After
-    public void tearDown() throws SQLException {
-        database.quit();
-    }
+//    @After
+//    public void tearDown() throws SQLException {
+//        database.quit();
+//    }
 
     @Rule
     public TestWatcher watchman = new TestWatcher() {

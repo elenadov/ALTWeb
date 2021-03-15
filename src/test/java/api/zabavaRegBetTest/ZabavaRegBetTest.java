@@ -67,12 +67,12 @@ public class ZabavaRegBetTest extends ApiParentTest {
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
-        paramsForRequests.boAuth2(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
+        paramsForRequests.boAuth2(utilsForMySQL.getSMSCode());
         paramsForRequests.sendAuthCode(playerPhone);
 
-        oracleSQLDBConnect();
+//        oracleSQLDBConnect();
 
-        String drawNum = database.selectValue(configProperties.GET_CURRENT_LZ_DRAW());
+        String drawNum = utilsForOracleSQL.getCurrentLZDraw();
 
         JSONObject requestParams = new JSONObject();
             requestParams.put("PROTO_VER", "3");
@@ -89,7 +89,7 @@ public class ZabavaRegBetTest extends ApiParentTest {
             requestParams.put("DRAW_COUNT", "1");
             requestParams.put("DRAW_NUM", drawNum);
             requestParams.put("GAME_CODE", "3");
-            requestParams.put("PLAYER_AUTH_CODE", database.selectValue(configProperties.GET_SMS_CODE_FOR_SELL()));
+            requestParams.put("PLAYER_AUTH_CODE", utilsForOracleSQL.getSMSCodeForPurchaseConfirmation());
             requestParams.put("PLAYER_PHONE", playerPhone);
             requestParams.put("SALE_TYPE", "1");
             requestParams.put("SID", paramsForRequests.getSid());

@@ -25,19 +25,20 @@ public class ApiParentTest {
     protected ZabavaRegBet zabavaRegBet = new ZabavaRegBet();
     protected MegalotRegBet megalotRegBet = new MegalotRegBet();
     protected UtilsForMySQL utilsForMySQL = new UtilsForMySQL();
+    protected UtilsForOracleSQL utilsForOracleSQL = new UtilsForOracleSQL();
 
-    @Before
-    public void mySQLDBConnect() throws SQLException, ClassNotFoundException {
-        database = MySQL_Database.getDataBase();
-    }
-
-    @Step
-    public void oracleSQLDBConnect() throws SQLException, ClassNotFoundException {
-        database = Oracle_SQL_Database.getOracleDataBase();
-    }
-
-    @After
-    public void tearDown() throws SQLException {
-        database.quit();
-    }
+//    @Before
+//    public void mySQLDBConnect() throws SQLException, ClassNotFoundException {
+//        database = MySQL_Database.getDataBase();
+//    }
+//
+//    @Step
+//    public void oracleSQLDBConnect() throws SQLException, ClassNotFoundException {
+//        database = Oracle_SQL_Database.getOracleDataBase();
+//    }
+//
+//    @After
+//    public void tearDown() throws SQLException {
+//        database.quit();
+//    }
 }

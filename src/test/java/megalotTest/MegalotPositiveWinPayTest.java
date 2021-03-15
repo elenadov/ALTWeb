@@ -25,12 +25,13 @@ public class MegalotPositiveWinPayTest extends AbstractParentTest {
     public void megalotWinPayTest() throws SQLException, ClassNotFoundException {
         loginForm.openPage();
         loginForm.signIn();
-        loginForm.enterSmsCodeIntoField(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
+        loginForm.enterSmsCodeIntoField(utilsForMySQL.getSMSCode());
         loginForm.clickSmsCodeInputConfirmation();
 
-        oracleSQLDBConnect();
-        final String maccode = database.selectValue(configProperties.GET_MACCODE_FOR_MEGALOT_WIN_PAYMENT());
-        String winSum = database.selectValue(configProperties.GET_TICKET_WIN_SUM());
+//        oracleSQLDBConnect();
+
+        final String maccode = utilsForOracleSQL.getMegalotMaccodeForWinPayment();
+        String winSum = utilsForOracleSQL.getMegalotTicketWinSum();
 
 
         checkExpectedResult("Page hasn't loaded yet", lotteries.isNewOSAnnouncementDisplayed());
