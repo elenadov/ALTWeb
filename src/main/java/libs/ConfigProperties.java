@@ -63,4 +63,10 @@ public interface ConfigProperties extends Config {
 	String SCRIPT_FOR_CHANGING_DRAW_STATUS_INTO_MULTY_REGISTRATION_2();
 	String REFORM_BLOB_SCRIPT_1();
 	String REFORM_BLOB_SCRIPT_2();
+	String PAY_OPER_ID_SCRIPT();
+	String PAY_TERM_ID_SCRIPT();
+	String PAY_DATE_SCRIPT();
+	String WIN_SUM_WITH_TAX_SCRIPT();
+	String CANCELED_TYPE_SCRIPT();
+
 }

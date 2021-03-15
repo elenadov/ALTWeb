@@ -144,4 +144,44 @@ public class WinPayPage extends ParentPage {
     public void waitUntilWinPayPageIsLoaded(){
         actionWithWebElements.waitVisibilityOfElement(scanBarcode);
     }
+
+//    @Step
+//    public boolean isTicketPaid(String winSumWithTax, String payTermDate
+//            , String operatorWinPay, String terminalWinPay, String canceled){
+//        logger.info(winSumWithTax + " ");
+//        if (winSumWithTax != null && !winSumWithTax.trim().isEmpty()
+//// && !payTermDate.isEmpty() && !operatorWinPay.isEmpty()
+////                && !terminalWinPay.isEmpty() && canceled.equals("0")
+// ){
+//            logger.info("Win sum is paid successfully");
+//            return true;
+//        }
+//        else{return false;}
+//    }
+
+//    @Step
+//    public String getPayOperId(String maccode){
+//        return configProperties.PAY_OPER_ID_SCRIPT() + maccode + "'";
+//    }
+//
+//    @Step
+//    public String getPayTermId(String maccode){
+//        return configProperties.PAY_TERM_ID_SCRIPT() + maccode + "'";
+//    }
+//
+//    @Step
+//    public String getPayDate(String maccode){
+//        return configProperties.PAY_DATE_SCRIPT() + maccode + "'";
+//    }
+//
+//    @Step
+//    public String getWinSumWithTax(String maccode){
+//        return configProperties.WIN_SUM_WITH_TAX_SCRIPT() + maccode + "'";
+//    }
+//
+//    @Step
+//    public String getCanceledType(String maccode){
+//        return configProperties.CANCELED_TYPE_SCRIPT() + maccode + "'";
+//    }
+
 }

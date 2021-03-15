@@ -4,6 +4,7 @@ import api.boAuth2.BOAuth2GsAltWebPositiveTest;
 import api.boGetClientListTest.BOGetClientListAsAltWebPositiveTest;
 import api.boGetSidTest.BOGetSIDAsTermPositiveTest;
 import api.boGetSidTest.BOGetSIDGsAltWebPositiveTest;
+import api.megalotRegBetTest.MegalotRegBetTest;
 import api.resendAuth2Test.ResendAuth2Test;
 import api.sendAuthCode.SendAuthCode;
 import api.zabavaRegBetTest.ZabavaRegBetTest;
@@ -33,8 +34,8 @@ import org.junit.runners.Suite;
                 PositiveAuthorizationTest.class,
                 WrongLoginInputTest.class,
                 LotoZabavaTicketBuyTest.class,
-                MegalotPositiveWinPayTest.class
-
+                MegalotPositiveWinPayTest.class,
+                MegalotRegBetTest.class
         }
 )
 

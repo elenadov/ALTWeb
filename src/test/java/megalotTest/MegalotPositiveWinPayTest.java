@@ -14,7 +14,6 @@ import java.sql.SQLException;
 @Feature("MegalotWinPayment")
 
 public class MegalotPositiveWinPayTest extends AbstractParentTest {
-    private String winSum;
 
     @Description("MegalotWinPay")
     @Story("MegalotWinPay")
@@ -30,31 +29,34 @@ public class MegalotPositiveWinPayTest extends AbstractParentTest {
         loginForm.clickSmsCodeInputConfirmation();
 
         oracleSQLDBConnect();
+        final String maccode = database.selectValue(configProperties.GET_MACCODE_FOR_MEGALOT_WIN_PAYMENT());
+        String winSum = database.selectValue(configProperties.GET_TICKET_WIN_SUM());
 
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isNewOSAnnouncementDisplayed());
+
+        checkExpectedResult("Page hasn't loaded yet", lotteries.isNewOSAnnouncementDisplayed());
         lotteries.clickContinueNewOSButton();
 
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isJackpotAnnouncementDisplayed());
+        checkExpectedResult("Page hasn't loaded yet", lotteries.isJackpotAnnouncementDisplayed());
         lotteries.clickContinueJackpotButton();
 
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isLotteriesListDisplayed());
+        checkExpectedResult("Page hasn't loaded yet", lotteries.isLotteriesListDisplayed());
 
         lotteries.clickWinPaymentMenuButton();
         winPayPage.waitUntilWinPayPageIsLoaded();
         winCheckPage.clickTicketBarcodeInput();
-        winCheckPage.enterTicketMaccodeIntoInput(database.selectValue(configProperties.GET_MACCODE_FOR_MEGALOT_WIN_PAYMENT()));
+        winCheckPage.enterTicketMaccodeIntoInput(maccode);
         winCheckPage.clickCheckTicketWinButton();
 
         checkExpectedText("Ticket status is not correct", "Білет виграшний", winPayPage.getTicketWinStatus());
 
-        winSum = winPayPage.correctDBSum(database.selectValue(configProperties.GET_TICKET_WIN_SUM()));
+        winSum = winPayPage.correctDBSum(winSum);
 
         checkExpectedText("Ticket win sum is not correct"
                 , winSum
                 , winPayPage.getTicketWinSum());
 
         checkExpectedText("Win payment allowance message is not correct", "Виплата дозволена"
-                ,winPayPage.getWinPaymentAllowanceMessage());
+                , winPayPage.getWinPaymentAllowanceMessage());
 
         winPayPage.clickWinPaymentConfirmationButton();
         winPayPage.isWinPaymentSuccessMessageIsVisible();

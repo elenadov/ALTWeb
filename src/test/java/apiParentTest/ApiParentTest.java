@@ -1,12 +1,10 @@
 package apiParentTest;
 
 import io.qameta.allure.Step;
-import libs.ConfigProperties;
-import libs.Database;
-import libs.MySQL_Database;
-import libs.Oracle_SQL_Database;
+import libs.*;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.Before;
 import paramsForRequests.MegalotRegBet;
 import paramsForRequests.ParamsForRequests;
@@ -26,6 +24,7 @@ public class ApiParentTest {
             ConfigFactory.create(ConfigProperties.class);
     protected ZabavaRegBet zabavaRegBet = new ZabavaRegBet();
     protected MegalotRegBet megalotRegBet = new MegalotRegBet();
+    protected UtilsForMySQL utilsForMySQL = new UtilsForMySQL();
 
     @Before
     public void mySQLDBConnect() throws SQLException, ClassNotFoundException {
@@ -37,4 +36,8 @@ public class ApiParentTest {
         database = Oracle_SQL_Database.getOracleDataBase();
     }
 
+    @After
+    public void tearDown() throws SQLException {
+        database.quit();
+    }
 }

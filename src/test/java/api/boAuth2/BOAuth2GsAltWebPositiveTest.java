@@ -6,7 +6,6 @@ import io.restassured.response.ResponseBody;
 import libs.Utils;
 import org.json.JSONObject;
 import org.junit.Test;
-
 import java.sql.SQLException;
 
 import static endpoints.EndPoints.TEST_GS_ALT_WEB;
@@ -20,12 +19,14 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 public class BOAuth2GsAltWebPositiveTest extends ApiParentTest {
 
+
     @Test
-    public void boAuth2MinRequiredParams() throws SQLException {
+    public void boAuth2MinRequiredParams() throws SQLException, ClassNotFoundException {
         String code;
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
+//        code = utilsForMySQL.getSMSCode();
         code = database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH());
 
         JSONObject requestParams = new JSONObject();
@@ -96,11 +97,12 @@ public class BOAuth2GsAltWebPositiveTest extends ApiParentTest {
     }
 
     @Test
-    public void boAuth2() throws SQLException {
+    public void boAuth2() throws SQLException, ClassNotFoundException {
         String code;
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
+//        code = utilsForMySQL.getSMSCode();
         code = database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH());
 
         JSONObject requestParams = new JSONObject();

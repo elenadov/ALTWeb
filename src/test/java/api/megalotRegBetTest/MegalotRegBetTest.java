@@ -118,7 +118,7 @@ public class MegalotRegBetTest extends ApiParentTest {
                         .body(containsString("err_descr"))
                         .body("err_descr", notNullValue())
                         .body("client_id", notNullValue())
-                        .body(containsString("client_id"))
+                        .body(containsString("\"client_id\":" + paramsForRequests.getClient()))
                         .body("sid", notNullValue())
                         .body(containsString("\"sid\":\"" + paramsForRequests.getSid() + "\""))
                         .body(containsString("client_trans_id"))
