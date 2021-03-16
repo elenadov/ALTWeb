@@ -21,14 +21,14 @@ public class MegalotDrawingTest extends AbstractParentTest {
 
     @Test()
     public void megalotDrawingDraw() throws SQLException, ClassNotFoundException, ParseException {
-        oracleSQLDBConnect();
+//        oracleSQLDBConnect();
 
-        String drawInRegistration = database.selectValue(configProperties.DRAW_COUNT_IN_REGISTRATION_BET_STATUS());
-        String drawIdForRegisatration = database.selectValue(configProperties.DRAW_ID_IN_REGISTRATION_BET_STATUS());
-        String drawInMultyRegistration = database.selectValue(configProperties.DRAW_COUNT_IN_MULTY_REGISTRATION_BET_STATUS());
-        String drawIdForMultyRegistration = database.selectValue(configProperties.DRAW_ID_IN_MULTY_REGISTRATION_BET_STATUS());
-        String drawInCreatedStat = database.selectValue(configProperties.DRAW_COUNT_IN_CREATED_STATUS());
-        String drawIdForCreated = database.selectValue(configProperties.DRAW_ID_IN_CREATED_STATUS());
+        String drawInRegistration = utilsForOracleSQL.getDrawCountInRegistration();
+        String drawIdForRegisatration = utilsForOracleSQL.getDrawIdInRegistration();
+        String drawInMultyRegistration = utilsForOracleSQL.getDrawCountInMultyRegistration();
+        String drawIdForMultyRegistration = utilsForOracleSQL.getDrawIdInMultyRegistration();
+        String drawInCreatedStat = utilsForOracleSQL.getDrawCountInCreatedStatus();
+        String drawIdForCreated = utilsForOracleSQL.getDrawIdInCreatedStatus();
         String jackpotValue = "100000";
         String megaBallValue = "50000";
         String ball1Value = "1";
@@ -51,7 +51,8 @@ public class MegalotDrawingTest extends AbstractParentTest {
                 ,drawIdForCreated
                 ,jackpotValue, megaBallValue, ball1Value, ball2Value, ball3Value, ball4Value
                 , ball5Value, ball6Value, ball7Value
-                , database.changeTable(drawsLotteryInfoPage.getScriptForChangingDrawStatusInRegistrationBet(
+                , utilsForOracleSQL.changeDrawStatusInRegistration(
+                        drawsLotteryInfoPage.getScriptForChangingDrawStatusInRegistrationBet(
                         drawsLotteryInfoPage.searchForDrawId(drawInRegistration
                                 ,drawIdForRegisatration
                                 ,drawInMultyRegistration
@@ -59,21 +60,21 @@ public class MegalotDrawingTest extends AbstractParentTest {
                                 ,drawInCreatedStat
                                 ,drawIdForCreated))));
 
-        String drawInRegistration1 = database.selectValue(configProperties.DRAW_COUNT_IN_REGISTRATION_BET_STATUS());
-        String drawIdForRegisatration1 = database.selectValue(configProperties.DRAW_ID_IN_REGISTRATION_BET_STATUS());
-        String drawInMultyRegistration1 = database.selectValue(configProperties.DRAW_COUNT_IN_MULTY_REGISTRATION_BET_STATUS());
-        String drawIdForMultyRegistration1 = database.selectValue(configProperties.DRAW_ID_IN_MULTY_REGISTRATION_BET_STATUS());
-        String drawInCreatedStat1 = database.selectValue(configProperties.DRAW_COUNT_IN_CREATED_STATUS());
-        String drawIdForCreated1 = database.selectValue(configProperties.DRAW_ID_IN_CREATED_STATUS());
+        String drawInRegistrationContinue = utilsForOracleSQL.getDrawCountInRegistration();
+        String drawIdForRegisatrationContinue = utilsForOracleSQL.getDrawIdInRegistration();
+        String drawInMultyRegistrationContinue = utilsForOracleSQL.getDrawCountInMultyRegistration();
+        String drawIdForMultyRegistrationContinue = utilsForOracleSQL.getDrawIdInMultyRegistration();
+        String drawInCreatedStatContinue = utilsForOracleSQL.getDrawCountInCreatedStatus();
+        String drawIdForCreatedContinue = utilsForOracleSQL.getDrawIdInCreatedStatus();
 
-        drawsLotteryInfoPage.selectDrawForRegChange(drawInRegistration1, drawInMultyRegistration1
-                ,drawIdForMultyRegistration1, drawInCreatedStat1, drawIdForCreated1
-                ,database.changeTable(drawsLotteryInfoPage.getScriptForChangingDrawStatusInRegistrationBet(
-                        drawsLotteryInfoPage.searchForDrawId(drawInRegistration1
-                                ,drawIdForRegisatration1
-                                ,drawInMultyRegistration1
-                                ,drawIdForMultyRegistration1
-                                ,drawInCreatedStat1
-                                ,drawIdForCreated1))));
+        drawsLotteryInfoPage.selectDrawForRegChange(drawInRegistrationContinue, drawInMultyRegistrationContinue
+                , drawIdForMultyRegistrationContinue, drawInCreatedStatContinue, drawIdForCreatedContinue
+                ,utilsForOracleSQL.changeDrawStatusInRegistration(drawsLotteryInfoPage.getScriptForChangingDrawStatusInRegistrationBet(
+                        drawsLotteryInfoPage.searchForDrawId(drawInRegistrationContinue
+                                ,drawIdForRegisatrationContinue
+                                ,drawInMultyRegistrationContinue
+                                ,drawIdForMultyRegistrationContinue
+                                ,drawInCreatedStatContinue
+                                ,drawIdForCreatedContinue))));
     }
 }

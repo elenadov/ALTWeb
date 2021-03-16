@@ -21,13 +21,13 @@ public class PositiveAuthorizationTest extends AbstractParentTest {
     @Severity(SeverityLevel.CRITICAL)
 
     @Test()
-    public void authorization() throws SQLException {
+    public void authorization() throws SQLException, ClassNotFoundException {
         loginForm.openPage();
         loginForm.enterValidLoginPass();
         loginForm.clickVhidToSignIn();
         loginForm.clickOnPhoneNumber();
         loginForm.waitUntilSmsCodeIsReceived();
-        loginForm.enterSmsCodeIntoField(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
+        loginForm.enterSmsCodeIntoField(utilsForMySQL.getSMSCode());
         loginForm.clickSmsCodeInputConfirmation();
 
         checkExpectedResult("Page hasn't loaded yet",lotteries.isNewOSAnnouncementDisplayed());

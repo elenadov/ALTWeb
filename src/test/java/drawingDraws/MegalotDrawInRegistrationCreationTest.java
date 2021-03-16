@@ -20,23 +20,23 @@ public class MegalotDrawInRegistrationCreationTest extends AbstractParentTest {
 
     @Test()
     public void megalotDrawCreation() throws SQLException, ClassNotFoundException, ParseException {
-        oracleSQLDBConnect();
+//        oracleSQLDBConnect();
 
-        String drawCode = drawsLotteryInfoPage.getDrawCodeForNewDrawForCreation(database.selectValue(configProperties.SCRIPT_DRAW_CODE()));
+        String drawCode = drawsLotteryInfoPage.getDrawCodeForNewDrawForCreation(utilsForOracleSQL.getMegalotLastDrawCodeCreated());
         String jackpotSum = "1000000";
         String megaPrizeSum = "500000";
-        String drawInRegistration = database.selectValue(configProperties.DRAW_COUNT_IN_REGISTRATION_BET_STATUS());
-        String drawInMultyRegistration = database.selectValue(configProperties.DRAW_COUNT_IN_MULTY_REGISTRATION_BET_STATUS());
-        String drawInCreatedStat = database.selectValue(configProperties.DRAW_COUNT_IN_CREATED_STATUS());
-        String drawIdForCreated = database.selectValue(configProperties.DRAW_ID_IN_CREATED_STATUS());
+        String drawInRegistration = utilsForOracleSQL.getDrawCountInRegistration();
+        String drawInMultyRegistration = utilsForOracleSQL.getDrawCountInMultyRegistration();
+        String drawInCreatedStat = utilsForOracleSQL.getDrawCountInCreatedStatus();
+        String drawIdForCreated = utilsForOracleSQL.getDrawIdInCreatedStatus();
 
-        database.changeTable(drawsLotteryInfoPage.createDrawInDBScript(drawCode));
+        utilsForOracleSQL.createDrawInDB(drawsLotteryInfoPage.createDrawInDBScript(drawCode));
 
-        String drawId = database.selectValue(drawsLotteryInfoPage.getDrawIdOfCreatedDraw(drawCode));
+        String drawId = utilsForOracleSQL.getDrawIdOfCreatedDraw(drawsLotteryInfoPage.getDrawIdOfCreatedDraw(drawCode));
 
-        database.changeTable(drawsLotteryInfoPage.changeParamsForNewDraw(database.selectValue(drawsLotteryInfoPage.getDrawIdOfCreatedDraw(drawCode)), drawCode, jackpotSum, megaPrizeSum));
-        database.changeTable(drawsLotteryInfoPage.changeCreatedDrawStatus(drawInRegistration, drawInMultyRegistration
+        utilsForOracleSQL.changeParamsForNewDraw(drawsLotteryInfoPage.changeParamsForNewDraw(utilsForOracleSQL.getDrawIdOfCreatedDraw(drawsLotteryInfoPage.getDrawIdOfCreatedDraw(drawCode)), drawCode, jackpotSum, megaPrizeSum));
+        utilsForOracleSQL.changeCreatedDrawStatus(drawsLotteryInfoPage.changeCreatedDrawStatus(drawInRegistration, drawInMultyRegistration
                 , drawInCreatedStat, drawIdForCreated, drawId));
-        database.changeTable(drawsLotteryInfoPage.reformBlob(drawId));
+        utilsForOracleSQL.reformBlob(drawsLotteryInfoPage.reformBlob(drawId));
     }
 }

@@ -26,8 +26,7 @@ public class BOAuth2GsAltWebPositiveTest extends ApiParentTest {
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
-//        code = utilsForMySQL.getSMSCode();
-        code = database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH());
+        code = utilsForMySQL.getSMSCode();
 
         JSONObject requestParams = new JSONObject();
 
@@ -102,8 +101,7 @@ public class BOAuth2GsAltWebPositiveTest extends ApiParentTest {
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
-//        code = utilsForMySQL.getSMSCode();
-        code = database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH());
+        code = utilsForMySQL.getSMSCode();
 
         JSONObject requestParams = new JSONObject();
 

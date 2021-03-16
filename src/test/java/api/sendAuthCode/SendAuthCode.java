@@ -26,7 +26,7 @@ public class SendAuthCode extends ApiParentTest {
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
-        paramsForRequests.boAuth2(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
+        paramsForRequests.boAuth2(utilsForMySQL.getSMSCode());
 
         JSONObject requestParams = new JSONObject();
 
@@ -74,12 +74,12 @@ public class SendAuthCode extends ApiParentTest {
 
     @Test
     public void sendAuthCode() throws SQLException, ClassNotFoundException {
-        mySQLDBConnect();
+//        mySQLDBConnect();
 
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
-        paramsForRequests.boAuth2(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
+        paramsForRequests.boAuth2(utilsForMySQL.getSMSCode());
 
         JSONObject requestParams = new JSONObject();
 

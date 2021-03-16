@@ -60,10 +60,10 @@ public class LotoZabavaTicketBuyTest extends AbstractParentTest {
         loginForm.openPage();
         loginForm.signIn();
         loginForm.isSmsCodeInputFieldDisplayed();
-        loginForm.enterSmsCodeIntoField(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
+        loginForm.enterSmsCodeIntoField(utilsForMySQL.getSMSCode());
         loginForm.clickSmsCodeInputConfirmation();
 
-        oracleSQLDBConnect();
+//        oracleSQLDBConnect();
 
         checkExpectedResult("Page hasn't loaded yet",lotteries.isNewOSAnnouncementDisplayed());
         lotteries.clickContinueNewOSButton();
@@ -91,7 +91,7 @@ public class LotoZabavaTicketBuyTest extends AbstractParentTest {
         purchaseRegistrationPage.enterPhoneNumberForPurchase(playerPhone);
         purchaseRegistrationPage.clickSendSMSButton();
         purchaseRegistrationPage.waitUntilSmsCodeWillBeSent();
-        purchaseRegistrationPage.enterSmsIntoInput(database.selectValue((configProperties.GET_SMS_CODE_FOR_SELL())));
+        purchaseRegistrationPage.enterSmsIntoInput(utilsForOracleSQL.getSMSCodeForPurchaseConfirmation());
         purchaseRegistrationPage.clickRegistrationButton();
         lotteries.isRegistrationSuccesfulPopUpVisible();
         lotteries.clickContinueWorkAfterRegistrationSuccess();

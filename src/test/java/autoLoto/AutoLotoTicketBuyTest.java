@@ -58,7 +58,7 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
         loginForm.openPage();
         loginForm.signIn();
         loginForm.isSmsCodeInputFieldDisplayed();
-        loginForm.enterSmsCodeIntoField(database.selectValue(configProperties.GET_SMS_CODE_FOR_AUTH()));
+        loginForm.enterSmsCodeIntoField(utilsForMySQL.getSMSCode());
         loginForm.clickSmsCodeInputConfirmation();
 
         checkExpectedResult("Page hasn't loaded yet",lotteries.isNewOSAnnouncementDisplayed());
@@ -69,7 +69,7 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
 
         checkExpectedResult("Page hasn't loaded yet",lotteries.isLotteriesListDisplayed());
 
-        oracleSQLDBConnect();
+//        oracleSQLDBConnect();
         emlPurchaseMenuPage.chooseEMLPurchaseMenu();
         emlPurchaseMenuPage.chooseAutoLotoPurchaseMenu();
         emlPurchaseMenuPage.chooseEMLTicketCount(ticketCount);
@@ -89,7 +89,7 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
         purchaseRegistrationPage.enterPhoneNumberForPurchase(playerPhone);
         purchaseRegistrationPage.clickSendSMSButton();
         purchaseRegistrationPage.waitUntilSmsCodeWillBeSent();
-        purchaseRegistrationPage.enterSmsIntoInput(database.selectValue((configProperties.GET_SMS_CODE_FOR_SELL())));
+        purchaseRegistrationPage.enterSmsIntoInput(utilsForOracleSQL.getSMSCodeForPurchaseConfirmation());
         purchaseRegistrationPage.clickRegistrationButton();
         lotteries.isRegistrationSuccesfulPopUpVisible();
         lotteries.clickContinueWorkAfterRegistrationSuccess();
