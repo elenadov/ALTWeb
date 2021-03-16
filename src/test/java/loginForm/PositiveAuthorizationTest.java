@@ -22,20 +22,20 @@ public class PositiveAuthorizationTest extends AbstractParentTest {
 
     @Test()
     public void authorization() throws SQLException, ClassNotFoundException {
-        loginForm.openPage();
-        loginForm.enterValidLoginPass();
-        loginForm.clickVhidToSignIn();
-        loginForm.clickOnPhoneNumber();
-        loginForm.waitUntilSmsCodeIsReceived();
-        loginForm.enterSmsCodeIntoField(utilsForMySQL.getSMSCode());
-        loginForm.clickSmsCodeInputConfirmation();
+        loginPage.openPage();
+        loginPage.enterValidLoginPass();
+        loginPage.clickVhidToSignIn();
+        loginPage.clickOnPhoneNumber();
+        loginPage.waitUntilSmsCodeIsReceived();
+        loginPage.enterSmsCodeIntoField(utilsForMySQL.getSMSCodeForAuth());
+        loginPage.clickSmsCodeInputConfirmation();
 
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isNewOSAnnouncementDisplayed());
-        lotteries.clickContinueNewOSButton();
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isNewOSAnnouncementDisplayed());
+        lotteriesPage.clickContinueNewOSButton();
 
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isJackpotAnnouncementDisplayed());
-        lotteries.clickContinueJackpotButton();
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isJackpotAnnouncementDisplayed());
+        lotteriesPage.clickContinueJackpotButton();
 
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isLotteriesListDisplayed());
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isLotteriesListDisplayed());
             }
 }

@@ -36,15 +36,15 @@ public class LotoZabavaTicketBuyTest extends AbstractParentTest {
     public static Collection testData(){
         return Arrays.asList(new Object[][] {
                 {1, 1, "check"}
-                , {2, 2, "uncheck"}
-                , {3, 3, "check"}
-                , {4, 4, "uncheck"}
-                , {5, 5, "check"}
-                , {6, 0, "uncheck"}
-                , {7, 1, "check"}
-                , {8, 2, "uncheck"}
-                , {9, 3, "check"}
-                , {10, 4, "uncheck"}
+//                , {2, 2, "uncheck"}
+//                , {3, 3, "check"}
+//                , {4, 4, "uncheck"}
+//                , {5, 5, "check"}
+//                , {6, 0, "uncheck"}
+//                , {7, 1, "check"}
+//                , {8, 2, "uncheck"}
+//                , {9, 3, "check"}
+//                , {10, 4, "uncheck"}
                 }
         );
     }
@@ -57,49 +57,37 @@ public class LotoZabavaTicketBuyTest extends AbstractParentTest {
 
     @Test()
     public void lotoZabavaBuyOneTicket() throws SQLException, ClassNotFoundException {
-        loginForm.openPage();
-        loginForm.signIn();
-        loginForm.isSmsCodeInputFieldDisplayed();
-        loginForm.enterSmsCodeIntoField(utilsForMySQL.getSMSCode());
-        loginForm.clickSmsCodeInputConfirmation();
-
-//        oracleSQLDBConnect();
-
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isNewOSAnnouncementDisplayed());
-        lotteries.clickContinueNewOSButton();
-
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isJackpotAnnouncementDisplayed());
-        lotteries.clickContinueJackpotButton();
-
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isLotteriesListDisplayed());
-
+        loginPage.openPage();
+        loginPage.signIn();
+        checkExpectedResult("Page is not loaded", loginPage.isSmsCodeInputFieldDisplayed());
+        loginPage.enterSmsCodeIntoField(utilsForMySQL.getSMSCodeForAuth());
+        loginPage.clickSmsCodeInputConfirmation();
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isNewOSAnnouncementDisplayed());
+        lotteriesPage.clickContinueNewOSButton();
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isJackpotAnnouncementDisplayed());
+        lotteriesPage.clickContinueJackpotButton();
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isLotteriesListDisplayed());
         lotoZabavaPurchaseMenuPage.chooseLZFromTheListOfLotteries();
         lotoZabavaPurchaseMenuPage.chooseDrawFromList(draw);
         lotoZabavaPurchaseMenuPage.chooseLZTicketCount(ticketCount);
         lotoZabavaPurchaseMenuPage.chooseParochkaCount(parochkaCount);
         lotoZabavaPurchaseMenuPage.selectRichAndFamousContest(richAndFamousContest);
         betSum = lotoZabavaPurchaseMenuPage.calculateLZBetSum(ticketCount, parochkaCount, richAndFamousContest);
-
         checkExpectedText("Bet sum is not correct", betSum
                 , lotoZabavaPurchaseMenuPage.getLZCheckSum());
-
         lotoZabavaPurchaseMenuPage.clickBuyLZButton();
-
         checkExpectedText("Bet sum is not correct", betSum
                 , lotoZabavaPurchaseMenuPage.getLZBetSum());
-
         purchaseRegistrationPage.enterPhoneNumberForPurchase(playerPhone);
         purchaseRegistrationPage.clickSendSMSButton();
         purchaseRegistrationPage.waitUntilSmsCodeWillBeSent();
         purchaseRegistrationPage.enterSmsIntoInput(utilsForOracleSQL.getSMSCodeForPurchaseConfirmation());
         purchaseRegistrationPage.clickRegistrationButton();
-        lotteries.isRegistrationSuccesfulPopUpVisible();
-        lotteries.clickContinueWorkAfterRegistrationSuccess();
-
-        checkExpectedResult("Page has not loaded after the registration", lotteries.isLotteriesListDisplayed());
-
+        checkExpectedResult("Registration pop up is not visible", lotteriesPage.isRegistrationSuccesfulPopUpVisible());
+        lotteriesPage.clickContinueWorkAfterRegistrationSuccess();
+        checkExpectedResult("Page has not loaded after the registration", lotteriesPage.isLotteriesListDisplayed());
         checkExpectedText("Total bets sum is not correct"
                 , betSum
-                , lotteries.getTotalBetsSum());
+                , lotteriesPage.getTotalBetsSum());
     }
 }

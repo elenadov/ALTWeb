@@ -26,7 +26,7 @@ public class SendAuthCode extends ApiParentTest {
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
-        paramsForRequests.boAuth2(utilsForMySQL.getSMSCode());
+        paramsForRequests.boAuth2(utilsForMySQL.getSMSCodeForAuth());
 
         JSONObject requestParams = new JSONObject();
 
@@ -79,7 +79,7 @@ public class SendAuthCode extends ApiParentTest {
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
-        paramsForRequests.boAuth2(utilsForMySQL.getSMSCode());
+        paramsForRequests.boAuth2(utilsForMySQL.getSMSCodeForAuth());
 
         JSONObject requestParams = new JSONObject();
 

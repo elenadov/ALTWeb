@@ -33,15 +33,15 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
     public static Collection testData(){
         return Arrays.asList(new Object[][] {
                         {1, 2}
-                        , {2, 2}
-                        , {3, 2}
-                        , {4, 2}
-                        , {5, 2}
-                        , {6, 2}
-                        , {7, 2}
-                        , {8, 2}
-                        , {9, 2}
-                        , {10, 2}
+//                        , {2, 2}
+//                        , {3, 2}
+//                        , {4, 2}
+//                        , {5, 2}
+//                        , {6, 2}
+//                        , {7, 2}
+//                        , {8, 2}
+//                        , {9, 2}
+//                        , {10, 2}
                 }
         );
     }
@@ -55,50 +55,39 @@ public class AutoLotoTicketBuyTest extends AbstractParentTest {
     @Test()
     public void autoLotoTicketPurchase() throws SQLException, ClassNotFoundException {
 
-        loginForm.openPage();
-        loginForm.signIn();
-        loginForm.isSmsCodeInputFieldDisplayed();
-        loginForm.enterSmsCodeIntoField(utilsForMySQL.getSMSCode());
-        loginForm.clickSmsCodeInputConfirmation();
-
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isNewOSAnnouncementDisplayed());
-        lotteries.clickContinueNewOSButton();
-
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isJackpotAnnouncementDisplayed());
-        lotteries.clickContinueJackpotButton();
-
-        checkExpectedResult("Page hasn't loaded yet",lotteries.isLotteriesListDisplayed());
-
-//        oracleSQLDBConnect();
+        loginPage.openPage();
+        loginPage.signIn();
+        checkExpectedResult("Page is not loaded",  loginPage.isSmsCodeInputFieldDisplayed());
+        loginPage.enterSmsCodeIntoField(utilsForMySQL.getSMSCodeForAuth());
+        loginPage.clickSmsCodeInputConfirmation();
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isNewOSAnnouncementDisplayed());
+        lotteriesPage.clickContinueNewOSButton();
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isJackpotAnnouncementDisplayed());
+        lotteriesPage.clickContinueJackpotButton();
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isLotteriesListDisplayed());
         emlPurchaseMenuPage.chooseEMLPurchaseMenu();
         emlPurchaseMenuPage.chooseAutoLotoPurchaseMenu();
         emlPurchaseMenuPage.chooseEMLTicketCount(ticketCount);
         emlPurchaseMenuPage.chooseDrawFromTheList(drawNumCount);
         betSum = emlPurchaseMenuPage.betSumCount(emlPurchaseMenuPage.getSeriesCost(drawNumCount), ticketCount);
-
         checkExpectedText("The sum of Auto Loto check is incorrect!"
                 , betSum
                 , emlPurchaseMenuPage.getBetSum());
-
         emlPurchaseMenuPage.confirmPurchase();
-
         checkExpectedText("The sum of Auto Loto check is incorrect!"
                 , betSum
                 , purchaseRegistrationPage.getBetSum());
-
         purchaseRegistrationPage.enterPhoneNumberForPurchase(playerPhone);
         purchaseRegistrationPage.clickSendSMSButton();
         purchaseRegistrationPage.waitUntilSmsCodeWillBeSent();
         purchaseRegistrationPage.enterSmsIntoInput(utilsForOracleSQL.getSMSCodeForPurchaseConfirmation());
         purchaseRegistrationPage.clickRegistrationButton();
-        lotteries.isRegistrationSuccesfulPopUpVisible();
-        lotteries.clickContinueWorkAfterRegistrationSuccess();
-
-        checkExpectedResult("Page has not loaded after the registration", lotteries.isLotteriesListDisplayed());
-
+        checkExpectedResult("Pop up is  not visible", lotteriesPage.isRegistrationSuccesfulPopUpVisible());
+        lotteriesPage.clickContinueWorkAfterRegistrationSuccess();
+        checkExpectedResult("Page has not loaded after the registration", lotteriesPage.isLotteriesListDisplayed());
         checkExpectedText("Total bets sum is not correct"
                 , betSum
-                , lotteries.getTotalBetsSum());
+                , lotteriesPage.getTotalBetsSum());
 
     }
 }

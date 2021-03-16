@@ -41,16 +41,16 @@ public class ZabavaRegBetTest extends ApiParentTest {
     @Parameterized.Parameters(name = "Parameters are {0}, {1}, {2}")
     public static Collection testData(){
         return Arrays.asList(new Object[][] {
-                        {1, 0, "check"},
-                        {2, 1, "uncheck"},
-                        {3, 2, "check"},
-                        {4, 3, "uncheck"},
-                        {5, 4, "check"},
-                        {6, 5, "uncheck"},
-                        {7, 0, "check"},
-                        {8, 1, "uncheck"},
-                        {9, 2, "check"},
-                        {10, 3, "uncheck"}
+                        {1, 1, "check"},
+//                        {2, 1, "uncheck"},
+//                        {3, 2, "check"},
+//                        {4, 3, "uncheck"},
+//                        {5, 4, "check"},
+//                        {6, 5, "uncheck"},
+//                        {7, 0, "check"},
+//                        {8, 1, "uncheck"},
+//                        {9, 2, "check"},
+//                        {10, 3, "uncheck"}
                 }
         );
     }
@@ -67,7 +67,7 @@ public class ZabavaRegBetTest extends ApiParentTest {
         paramsForRequests.boGetSID();
         paramsForRequests.boGetClientList();
         paramsForRequests.resendAuth2();
-        paramsForRequests.boAuth2(utilsForMySQL.getSMSCode());
+        paramsForRequests.boAuth2(utilsForMySQL.getSMSCodeForAuth());
         paramsForRequests.sendAuthCode(playerPhone);
 
 //        oracleSQLDBConnect();

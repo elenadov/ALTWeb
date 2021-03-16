@@ -11,7 +11,7 @@ public class UtilsForMySQL {
     private Logger log = Logger.getLogger(getClass());
     private Database dBMySQL;
 
-    public String getSMSCode() throws SQLException, ClassNotFoundException {
+    public String getSMSCodeForAuth() throws SQLException, ClassNotFoundException {
         log.info("--- Conect MySQL DB --------");
         dBMySQL = MySQL_Database.getDataBase();
         log.info("--- Conected to MySQL --------");

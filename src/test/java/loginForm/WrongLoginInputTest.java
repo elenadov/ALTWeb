@@ -46,15 +46,15 @@ public class WrongLoginInputTest extends AbstractParentTest {
 
     @Test
     public void loginOfOneOperAndPassOfAnotherOper(){
-        loginForm.openPage();
-        loginForm.fillInLoginInput(loginValue);
-        loginForm.enterValidPassword();
-        loginForm.clickVhidToSignIn();
+        loginPage.openPage();
+        loginPage.fillInLoginInput(loginValue);
+        loginPage.enterValidPassword();
+        loginPage.clickVhidToSignIn();
 
         checkExpectedResult("!!! Login isn't suitable for such negative case",
-                loginForm.isLoginOrPasswordIsInvalidPopUpVisible());
+                loginPage.isLoginOrPasswordIsInvalidPopUpVisible());
 
-        loginForm.clickContinueButton();
-        loginForm.checkCurrentUrl();
+        loginPage.clickContinueButton();
+        loginPage.checkCurrentUrl();
     }
 }

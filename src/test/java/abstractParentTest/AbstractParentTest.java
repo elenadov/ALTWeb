@@ -6,7 +6,6 @@ import io.qameta.allure.Step;
 import libs.*;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -27,14 +26,13 @@ import pages.lotteriesDrawing.DrawsLotteryInfoPage;
 import pages.lotteriesDrawing.DrawsMainMenuPage;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class AbstractParentTest {
     WebDriver webDriver;
-    protected LoginFormPage loginForm;
-    protected LotteriesPage lotteries;
+    protected LoginFormPage loginPage;
+    protected LotteriesPage lotteriesPage;
     protected EMLPurchaseMenuPage emlPurchaseMenuPage;
     protected PurchaseRegistrationPage purchaseRegistrationPage;
     protected LotoZabavaPurchaseMenuPage lotoZabavaPurchaseMenuPage;
@@ -67,8 +65,8 @@ public class AbstractParentTest {
         webDriver = driverInit();
         webDriver.manage().window().maximize();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        loginForm = new LoginFormPage(webDriver);
-        lotteries = new LotteriesPage(webDriver);
+        loginPage = new LoginFormPage(webDriver);
+        lotteriesPage = new LotteriesPage(webDriver);
         emlPurchaseMenuPage = new EMLPurchaseMenuPage(webDriver);
         purchaseRegistrationPage = new PurchaseRegistrationPage(webDriver);
         lotoZabavaPurchaseMenuPage = new LotoZabavaPurchaseMenuPage(webDriver);

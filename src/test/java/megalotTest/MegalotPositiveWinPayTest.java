@@ -23,10 +23,10 @@ public class MegalotPositiveWinPayTest extends AbstractParentTest {
 
     @Test()
     public void megalotWinPayTest() throws SQLException, ClassNotFoundException {
-        loginForm.openPage();
-        loginForm.signIn();
-        loginForm.enterSmsCodeIntoField(utilsForMySQL.getSMSCode());
-        loginForm.clickSmsCodeInputConfirmation();
+        loginPage.openPage();
+        loginPage.signIn();
+        loginPage.enterSmsCodeIntoField(utilsForMySQL.getSMSCodeForAuth());
+        loginPage.clickSmsCodeInputConfirmation();
 
 //        oracleSQLDBConnect();
 
@@ -34,15 +34,15 @@ public class MegalotPositiveWinPayTest extends AbstractParentTest {
         String winSum = utilsForOracleSQL.getMegalotTicketWinSum();
 
 
-        checkExpectedResult("Page hasn't loaded yet", lotteries.isNewOSAnnouncementDisplayed());
-        lotteries.clickContinueNewOSButton();
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isNewOSAnnouncementDisplayed());
+        lotteriesPage.clickContinueNewOSButton();
 
-        checkExpectedResult("Page hasn't loaded yet", lotteries.isJackpotAnnouncementDisplayed());
-        lotteries.clickContinueJackpotButton();
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isJackpotAnnouncementDisplayed());
+        lotteriesPage.clickContinueJackpotButton();
 
-        checkExpectedResult("Page hasn't loaded yet", lotteries.isLotteriesListDisplayed());
+        checkExpectedResult("Page hasn't loaded yet", lotteriesPage.isLotteriesListDisplayed());
 
-        lotteries.clickWinPaymentMenuButton();
+        lotteriesPage.clickWinPaymentMenuButton();
         winPayPage.waitUntilWinPayPageIsLoaded();
         winCheckPage.clickTicketBarcodeInput();
         winCheckPage.enterTicketMaccodeIntoInput(maccode);
@@ -68,12 +68,12 @@ public class MegalotPositiveWinPayTest extends AbstractParentTest {
 
         winSum = winPayPage.getTicketWinSumAfterTaxRemoval();
         winPayPage.clickContinueButton();
-        lotteries.clickLotteryRegistrationMenuButton();
+        lotteriesPage.clickLotteryRegistrationMenuButton();
 
-        checkExpectedResult("Page has not loaded after the registration", lotteries.isLotteriesListDisplayed());
+        checkExpectedResult("Page has not loaded after the registration", lotteriesPage.isLotteriesListDisplayed());
 
         checkExpectedText("Operator's balance is not correct"
                 , winSum
-                , lotteries.getTotalBetsSum());
+                , lotteriesPage.getTotalBetsSum());
     }
 }
